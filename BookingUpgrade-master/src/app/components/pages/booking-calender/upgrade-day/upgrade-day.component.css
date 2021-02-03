@@ -1,0 +1,48 @@
+.day{
+    /* flex: 1 0 51%;  */
+    margin: 5px;
+    height: 200px;
+    width: 250px;
+    background-color: #e2e2e2;
+    border-width: 2px; 
+    border-style: solid;
+    border-color: #08081b;  
+    
+}
+
+#deleteButton{
+    position: relative;
+    float: right;
+    top:4px;
+
+}
+
+.slot{
+    flex-grow:1;
+    width: 90%;
+    height: 35px;
+    background-color:gray;
+    border-style: solid;
+    border-color: black;   
+    border-width: 2px; 
+    margin : 4px;
+    transition-duration: 0.4s;
+    border-radius: 10px;
+}
+
+
+
+.slot:hover{
+    background-color: #4f9751;
+    cursor: pointer;
+
+    position: relative;
+    right: 2px;
+    top:2px;
+}
+
+h3{
+    margin-left: 5px;
+    margin-top: 5px;
+    font-weight: 300;
+}

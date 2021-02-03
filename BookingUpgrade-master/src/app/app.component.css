@@ -1,0 +1,6 @@
+.container{
+    margin : 8px;
+    /* background: radial-gradient( rgb(125, 125, 128), rgb(56, 61, 71)); */
+    /* background: radial-gradient( rgb(125, 125, 128), rgb(31, 50, 66) ); */
+    background: radial-gradient( rgb(180, 180, 180), rgb(72, 107, 139) );
+}

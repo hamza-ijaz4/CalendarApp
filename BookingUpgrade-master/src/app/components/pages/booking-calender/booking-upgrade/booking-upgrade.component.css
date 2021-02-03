@@ -1,0 +1,68 @@
+.header{
+    height: 140px;
+}
+
+
+#upgradeSelector{
+    position: relative;
+    top:40px;
+    left:14px;
+    font-size: 20px;
+    color: white;
+}
+
+#header-title{
+    text-align: center;
+    margin: 6px;
+    padding: 5px;
+    color: white;
+
+    border-bottom: solid white;
+
+   
+}
+
+#releaseNoteDown{
+    position: absolute;
+    top: 45px;
+    right: 18px;
+    width: 200px;
+    height: 30px;
+    border: 1px solid #000000;
+    background-color: whitesmoke;
+}
+
+/*
+  Hide radio button (the round disc)
+  we will use just the label to create pushbutton effect
+*/
+input[type=radio] {
+    display:none; 
+    margin:10px;
+}
+
+/*
+  Change the look'n'feel of labels (which are adjacent to radiobuttons).
+  Add some margin, padding to label
+*/
+input[type=radio] + label {
+    display:inline-block;
+    margin:-2px;
+    padding: 4px 12px;
+    background-color: #e7e7e7;
+    border-color: #ddd;
+}
+/*
+ Change background color for label next to checked radio button
+ to make it look like highlighted button
+*/
+input[type=radio]:checked + label { 
+   background-image: none;
+    background-color:#8d8d8d;
+}
+
+p{
+    color:whitesmoke;
+}
+
+
