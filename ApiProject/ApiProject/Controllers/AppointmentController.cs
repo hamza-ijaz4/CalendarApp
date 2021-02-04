@@ -35,16 +35,19 @@ namespace ApiProject.Controllers
             try
             {
                 var upgrades = _context.Upgrades.AsQueryable();
+                var bookings = _context.Bookings.AsQueryable();
                 if (upgradeId.HasValue)
                 {
                     upgrades = upgrades.Where(a => a.Id == upgradeId);
                 }
-                var _list = await upgrades.Include(a => a.Appointments)
+
+                var _list = await upgrades.Include(a => a.Appointments).OrderByDescending(a => a.Id)
                                    .Select(a => new AppointmentListDto
                                    {
+                                       UpgradeId = a.Id,
                                        Date = a.StartDate,
                                        Duration = a.Duration,
-                                       Appointments = a.Appointments.Select(x=> new AppointmentDto { StartTime = x.StartTime, EndTime = x.EndTime, Slots = x.Slots, Id = x.Id }).ToList()
+                                       Appointments = a.Appointments.Where(x=> !bookings.Any(c=>c.AppointmentId == x.Id )).Select(x=> new AppointmentDto { StartTime = x.StartTime, EndTime = x.EndTime, Slots = x.Slots, Id = x.Id }).ToList()
                                    }).ToListAsync();
                 return _list;
             }
@@ -59,17 +62,17 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var file = Request.Form.Files[0];
+                var file = Request.Form.Files;
                 var path = _hostingEnvironment.WebRootPath;
                 var uploads = Path.Combine(path, "files");
                 var filePath = string.Empty;
 
-                if (file.Length > 0)
+                if (file.Count() > 0)
                 {
-                    filePath = Path.Combine(uploads, file.FileName);
+                    filePath = Path.Combine(uploads, file[0].FileName);
                     using (var fileStream = new FileStream(filePath, FileMode.Create))
                     {
-                        file.CopyTo(fileStream);
+                        file[0].CopyTo(fileStream);
                     }
                 }
 
@@ -97,11 +100,11 @@ namespace ApiProject.Controllers
 
                 var appointmnets = JsonConvert.DeserializeObject<List<Appointment>>(appointmnetsJson);
 
-                appointmnets.ForEach(async a =>
+                appointmnets.ForEach(a =>
                 {
                     a.UpgradeId = upgrade.Id;
                     _context.Appointments.Add(a);
-                    await _context.SaveChangesAsync();
+                     _context.SaveChanges();
                 });
                 return Ok();
             }

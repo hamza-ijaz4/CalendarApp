@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\source\\repos\\ApiProject\\ApiProject\\ApiProject.csproj": {}
+    "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\source\\repos\\ApiProject\\ApiProject\\ApiProject.csproj": {
+    "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\source\\repos\\ApiProject\\ApiProject\\ApiProject.csproj",
+        "projectUniqueName": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
         "projectName": "ApiProject",
-        "projectPath": "C:\\Users\\HP\\source\\repos\\ApiProject\\ApiProject\\ApiProject.csproj",
+        "projectPath": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
         "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\source\\repos\\ApiProject\\ApiProject\\obj\\",
+        "outputPath": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",

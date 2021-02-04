@@ -11,6 +11,8 @@ export class UpgradeDayComponent implements OnInit, OnChanges {
   @Input() appointment: any;
   hours: any;
   selected: boolean = false;
+  showAppointments = false;
+  selectedAppointmentId = undefined;
 
   constructor() { }
 
@@ -31,6 +33,12 @@ export class UpgradeDayComponent implements OnInit, OnChanges {
     }
     return classes;
   }
+
+  change(event: any) {
+    this.selectedAppointmentId = event.target.value;
+  }
+
+
 
 
 

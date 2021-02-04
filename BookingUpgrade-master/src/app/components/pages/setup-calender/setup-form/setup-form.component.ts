@@ -67,16 +67,16 @@ export class SetupFormComponent implements OnInit {
       appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart1), "slots": this.slotsTime1 });
     }
     if (this.upgradeHoursPerDay > 1) {
-      appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart2), "slots": this.slotsTime1 });
+      appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart2), "slots": this.slotsTime2 });
     }
     if (this.upgradeHoursPerDay > 2) {
-      appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart3), "slots": this.slotsTime1 });
+      appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart3), "slots": this.slotsTime3 });
     }
     if (this.upgradeHoursPerDay > 3) {
-      appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart4), "slots": this.slotsTime1 });
+      appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart4), "slots": this.slotsTime4 });
     }
     if (this.upgradeHoursPerDay > 4) {
-      appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart4), "slots": this.slotsTime1 });
+      appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart4), "slots": this.slotsTime5 });
     }
 
     let appointmentJson = JSON.stringify(appointments);
