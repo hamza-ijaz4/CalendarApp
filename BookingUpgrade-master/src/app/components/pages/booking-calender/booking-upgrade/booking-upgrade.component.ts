@@ -14,7 +14,7 @@ export class BookingUpgradeComponent implements OnInit {
   constructor(private httpClient: HttpClient) { }
 
   ngOnInit(): void {
-    this.getUpgrades();
+    //this.getUpgrades();
     this.getAppointments();
   }
 
@@ -22,8 +22,8 @@ export class BookingUpgradeComponent implements OnInit {
     let _headers = new HttpHeaders();
     _headers.append('Access-Control-Allow-Credentials', 'true')
 
-    let url = 'https://localhost:44332';
-    url = url + "/api/appointment";
+    let url = 'https://localhost:44322';
+    url = url + "/api/UpgradeAppointments";
     if (this.upgradeId) {
       url = url + "?upgradeid=" + this.upgradeId;
     }
@@ -41,6 +41,7 @@ export class BookingUpgradeComponent implements OnInit {
     url = url + "/api/upgrade";
     this.httpClient.get(url, { headers: _headers }).subscribe((resut: any) => {
       this.upgrades = resut;
+      console.log(resut)
     })
   }
 
