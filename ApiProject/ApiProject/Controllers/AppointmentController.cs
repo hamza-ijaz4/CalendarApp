@@ -14,7 +14,7 @@ using Newtonsoft.Json;
 
 namespace ApiProject.Controllers
 {
-    [EnableCors("Default")]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class AppointmentController : ControllerBase

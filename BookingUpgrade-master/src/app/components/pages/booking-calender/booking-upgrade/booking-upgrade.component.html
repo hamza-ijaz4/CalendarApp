@@ -4,7 +4,7 @@
       <label id="upgradeText" for="upgrade-Version">Select Upgrade:</label>
       <select name="upgrade-Version" id="upgrade-Version" (change)="getAppointments()" [(ngModel)]="upgradeId">
         <option [value]="undefined" selected> Select version</option>
-        <option *ngFor="let item of upgrades" [value]="item.Key">{{item.Value}}</option>
+        <option *ngFor="let item of upgrades" [value]="item.id">{{item.version}}</option>
       </select>
       <button routerLink="setupcalender"> Add upgrade </button>
     </div>

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { UpgradeService } from 'src/app/services/upgrade.service';
 
 @Component({
   selector: 'app-booking-upgrade',
@@ -8,14 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookingUpgradeComponent implements OnInit {
 
-  items: any[] = [];
+  items: any;
   upgrades: any[] = [];
   upgradeId = undefined;
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private upgradeService: UpgradeService) { }
 
   ngOnInit(): void {
-    //this.getUpgrades();
-    this.getAppointments();
+    
+    // this.upgradeService.getUpgrades().subscribe((result:any) =>{
+    // console.log(result)  
+    // this.upgrades = result;
+
+    // })
+
+    this.getUpgrades();
+   // this.getAppointments();
   }
 
   getAppointments() {
@@ -27,21 +35,21 @@ export class BookingUpgradeComponent implements OnInit {
     if (this.upgradeId) {
       url = url + "?upgradeid=" + this.upgradeId;
     }
-
-    this.httpClient.get(url, { headers: _headers }).subscribe((resut: any) => {
-      this.items = resut
-    })
+    console.log(this.upgradeId)
+    // this.httpClient.get(url, { headers: _headers }).subscribe((resut: any) => {
+    //   this.items = resut
+    // })
   }
 
   getUpgrades() {
     let _headers = new HttpHeaders();
     _headers.append('Access-Control-Allow-Credentials', 'true')
 
-    let url = 'https://localhost:44332';
-    url = url + "/api/upgrade";
+    let url = 'https://localhost:44322';
+    url = url + "/api/upgrades";
     this.httpClient.get(url, { headers: _headers }).subscribe((resut: any) => {
       this.upgrades = resut;
-      console.log(resut)
+      console.log("result",resut)
     })
   }
 
