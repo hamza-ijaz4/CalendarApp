@@ -89,7 +89,7 @@ export class SetupFormComponent implements OnInit {
 
 
     let url = 'https://localhost:44332';
-    url = url + "/api/appointment";
+    url = url + "/api/upgrades";
 
     this.httpClient.post(url, formData, { headers: _headers }).subscribe(result => {
       window.location.href = 'http://localhost:4200/'

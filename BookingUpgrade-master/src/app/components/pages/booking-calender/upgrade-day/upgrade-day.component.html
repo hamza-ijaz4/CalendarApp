@@ -15,7 +15,7 @@
       <label for="radio1">{{item.startTime}} - {{item.endTime}}</label>
       <input type="radio" (change)="change($event)" [id]="'appointment'" [name]="'appointment'" [value]="item.id">
     </div>
-    <button class="slot booked"><span class="book-span">Book</span></button>
+    <button (click)="saveBooking()" class="slot booked"><span class="book-span">Book</span></button>
   </ng-template>
 
 </div>
