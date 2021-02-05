@@ -15,7 +15,7 @@ export interface BookingDto {
   styleUrls: ['./upgrade-day.component.css']
 })
 
-export class UpgradeDayComponent implements OnInit  { //OnChanges
+export class UpgradeDayComponent implements OnInit, OnChanges  { //
 
   // @Input() appointment: any;
   @Input() day : any;
@@ -44,7 +44,14 @@ export class UpgradeDayComponent implements OnInit  { //OnChanges
     return classes;
   }
 
-  change(event: any) {
+  ngOnChanges(changes: SimpleChanges) {
+
+    if (changes.day.currentValue)
+    this.day = changes.daysArray.currentValue;
+    console.log("on change call from days",this.day)
+
+
+    console.log("on change call from day",this.day)
     //this.selectedAppointmentId = event.target.value;
   }
 

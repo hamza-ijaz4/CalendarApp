@@ -24,6 +24,7 @@ export class BookingUpgradeComponent implements OnInit {
 
     this.upgradeService.getUpgrades().subscribe((result:any) =>{
     this.upgrades = result;
+    this.getAllAppointments();
 
     //get appontments for latest upgrade
 
