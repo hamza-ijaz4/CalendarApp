@@ -18,8 +18,14 @@ export class UpgradeService {
   }
 
   getUpgrades(){
-    return this.http.get(this.upgradesUrl,{ headers: new HttpHeaders({
-      'Content-Type': 'application/json' 
-    } )})  // get<Upgrades[]>(this.upgradesUrl);
+    return this.http.get(this.upgradesUrl) 
   }
+
+
 }
+
+// getUpgrades(){
+//   return this.http.get(this.upgradesUrl,{ headers: new HttpHeaders({  // get<Upgrades[]>(this.upgradesUrl);
+//     'Content-Type': 'application/json' 
+//   } )}) 
+// }

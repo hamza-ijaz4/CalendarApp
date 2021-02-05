@@ -1,19 +1,19 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Appointment } from 'src/app/models/Appointment';
-import { FetchAppointmentsService } from 'src/app/services/fetch-appointments.service';
+
 
 @Component({
   selector: 'app-upgrade-calender',
   templateUrl: './upgrade-calender.component.html',
   styleUrls: ['./upgrade-calender.component.css']
 })
-export class UpgradeCalenderComponent implements OnInit, OnChanges {
+export class UpgradeCalenderComponent implements OnInit, OnChanges { //
 
   //appointments!: Appointment[];
-  @Input() appointments: any[] = [];
+  @Input() daysArray: any[] = [];
 
 
-  constructor(private appointmentService: FetchAppointmentsService) { }
+  constructor() { }
 
   ngOnInit(): void {
 
@@ -22,8 +22,10 @@ export class UpgradeCalenderComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.appointments.currentValue)
-      this.appointments = changes.appointments.currentValue;
+
+    
+    if (changes.daysArray.currentValue)
+      this.daysArray = changes.daysArray.currentValue;
   }
 
   buildMonth() { }
