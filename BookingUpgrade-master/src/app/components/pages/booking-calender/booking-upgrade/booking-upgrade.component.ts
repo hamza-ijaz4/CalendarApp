@@ -55,11 +55,11 @@ export class BookingUpgradeComponent implements OnInit {
   //   })
   // }
 
-  //Move to ServicecClass
+  //All major classes with call to service will be called ..Operation
   getUpgradesOperation( ) {
 
 
-
+  //Move to ServicecClass
     let _headers = new HttpHeaders();
     _headers.append('Access-Control-Allow-Credentials', 'true')
 

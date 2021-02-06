@@ -34,7 +34,7 @@ export class UpgradeCalenderComponent implements OnInit, OnChanges { //
   }
 
   //will be called by by change in dropdown in 
-  getAppointmentDaysByUpgradeVersion(version : string){
+  getAppointmentDaysByUpgradeVersioOperation(version : string){
     this.appointmentService.getAppointments().subscribe((result:any) =>{
       this.appointments = result;
       console.log("up", this.upgradeVersion)
