@@ -8,8 +8,8 @@ namespace ApiProject.Dto
     public class BookingDto
     {
         public int Id { get; set; }
-        public int AppointmentId { get; set; }
-        public int HerId { get; set; }
+        public Guid AppointmentId { get; set; }
+        public string HerId { get; set; }
 
     }
 }

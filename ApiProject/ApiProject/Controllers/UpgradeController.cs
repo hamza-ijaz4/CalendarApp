@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiProject.Dto;
 using ApiProject.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -26,13 +27,67 @@ namespace ApiProject.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
+
+        // GET: api/Upgrades
         [HttpGet]
-        public async Task<ActionResult<List<KeyValuePair<int, string>>>> GetUpgradeLookups()
+        public async Task<ActionResult<IEnumerable<Upgrade>>> GetUpgrades()
         {
-            var list = await _context.Upgrades.Select(a => new KeyValuePair<int, string>(a.Id, a.Title)).ToListAsync();
-            return list;
+            return await _context.Upgrades.ToListAsync();
         }
 
+        // GET: api/Upgrades/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Upgrade>> GetUpgrade(Guid id)
+        {
+            var upgrade = await _context.Upgrades.FindAsync(id);
+
+            if (upgrade == null)
+            {
+                return NotFound();
+            }
+
+            return upgrade;
+        }
+
+        // PUT: api/Upgrades/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutUpgrade(Guid id, Upgrade upgrade)
+        {
+            if (id != upgrade.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(upgrade).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UpgradeExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        [HttpGet]
+        [Route("api/upgrades/getUpgradeLookups")]
+        public async Task<ActionResult<List<KeyValuePair<Guid, string>>>> GetUpgradeLookups()
+        {
+            var list = await _context.Upgrades.Select(a => new KeyValuePair<Guid, string>(a.Id, a.Version)).ToListAsync();
+            return list;
+        }
 
 
         [HttpPost]
@@ -54,20 +109,21 @@ namespace ApiProject.Controllers
                     }
                 }
 
-                var appointmnetsJson = HttpContext.Request.Form["appointmnetsJson"];
-                var Title = HttpContext.Request.Form["title"];
+                var timeGroupsJson = HttpContext.Request.Form["timeGroupsJson"];
+                var Version = HttpContext.Request.Form["version"];
                 var Description = HttpContext.Request.Form["description"];
-                var Duration = Convert.ToInt32(HttpContext.Request.Form["duration"]);
+                var DurationMin = Convert.ToInt32(HttpContext.Request.Form["durationMin"]);
                 var EndDate = Convert.ToDateTime(HttpContext.Request.Form["endDate"]);
                 var StartDate = Convert.ToDateTime(HttpContext.Request.Form["startDate"]);
-                var FilePath = filePath;
+
+                var timegroups = JsonConvert.DeserializeObject<List<Timegroup>>(timeGroupsJson);
 
                 var upgrade = new Upgrade()
                 {
-                    Title = Title,
+                    Version = Version,
                     Description = Description,
-                    FilePath = filePath,
-                    Duration = Duration,
+                    // FilePath = filePath,
+                    DurationMin = DurationMin,
                     StartDate = StartDate,
                     EndDate = EndDate
                 };
@@ -76,14 +132,26 @@ namespace ApiProject.Controllers
                 _context.Upgrades.Add(upgrade);
                 await _context.SaveChangesAsync();
 
-                var appointmnets = JsonConvert.DeserializeObject<List<Appointment>>(appointmnetsJson);
 
-                appointmnets.ForEach(a =>
+                for (var dt = StartDate; dt <= EndDate; dt = dt.AddDays(1))
                 {
-                    a.UpgradeId = upgrade.Id;
-                    _context.Appointments.Add(a);
-                    _context.SaveChanges();
-                });
+                    timegroups.ForEach(t =>
+                    {
+                        for (int s = 0; s < t.Slots; s++)
+                        {
+                            _context.Add(new Appointment
+                            {
+                                Date = dt,
+                                StartTime = t.StartTime,
+                                Available = true,
+                                UpgradeId = upgrade.Id,
+                            });
+                        }
+
+                    });
+                }
+
+                _context.SaveChanges();
                 return Ok();
             }
             catch (Exception ex)
@@ -93,5 +161,26 @@ namespace ApiProject.Controllers
 
         }
 
+
+        // DELETE: api/Upgrades/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Upgrade>> DeleteUpgrade(Guid id)
+        {
+            var upgrade = await _context.Upgrades.FindAsync(id);
+            if (upgrade == null)
+            {
+                return NotFound();
+            }
+
+            _context.Upgrades.Remove(upgrade);
+            await _context.SaveChangesAsync();
+
+            return upgrade;
+        }
+
+        private bool UpgradeExists(Guid id)
+        {
+            return _context.Upgrades.Any(e => e.Id == id);
+        }
     }
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ApiProject.Dto;
 using ApiProject.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiProject.Controllers
@@ -20,7 +16,7 @@ namespace ApiProject.Controllers
         }
 
         [HttpPost]
-        public async Task SaveBooking([FromBody]BookingDto input)
+        public async Task SaveBooking([FromBody] BookingDto input)
         {
             var booking = new Booking()
             {
