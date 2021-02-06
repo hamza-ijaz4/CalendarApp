@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Appointment } from 'src/app/models/Appointment';
+import { AppointmentService } from 'src/app/services/appointment.service';
 
 
 @Component({
@@ -9,11 +11,13 @@ import { Appointment } from 'src/app/models/Appointment';
 })
 export class UpgradeCalenderComponent implements OnInit, OnChanges { //
 
+  upgradeCalenderDaysArray: any;
+  appointments: any[] =[];
   //appointments!: Appointment[];
-  @Input() daysArray: any[] = [];
+  @Input() upgradeVersion: string = "";
 
 
-  constructor() { }
+  constructor(private appointmentService:AppointmentService ) { }
 
   ngOnInit(): void {
 
@@ -23,12 +27,32 @@ export class UpgradeCalenderComponent implements OnInit, OnChanges { //
 
   ngOnChanges(changes: SimpleChanges) {
 
-    
-    if (changes.daysArray.currentValue)
-      this.daysArray = changes.daysArray.currentValue;
+    if (changes.upgradeCalenderDaysArray.currentValue){
+      this.upgradeCalenderDaysArray = changes.upgradeCalenderDaysArray.currentValue;
+    }
+
   }
 
-  buildMonth() { }
+  //will be called by by change in dropdown in 
+  getAppointmentDaysByUpgradeVersion(version : string){
+    this.appointmentService.getAppointments().subscribe((result:any) =>{
+      this.appointments = result;
+      console.log("up", this.upgradeVersion)
+      this.upgradeCalenderDaysArray = this.getAppointmentsDayArray();
+      console.log(this.upgradeCalenderDaysArray)
+    
+    })
+  }
+
+  getAppointmentsDayArray(){
+      return this.appointments.reduce(function (dayArray, el) {
+        dayArray[el.date] = dayArray[el.date] || [];
+        dayArray[el.date].push(el);
+        return dayArray;
+    }, []);
+
+
+
 }
 
 // kalender henter dagens dato

@@ -10,47 +10,25 @@ import { UpgradeService } from 'src/app/services/upgrade.service';
 })
 export class BookingUpgradeComponent implements OnInit {
 
-  upgradeCalenderDaysArray: any;
   upgrades: any[] = [];
-  appointments: any[] =[];
   upgradeId = undefined;
-  constructor(
-    private httpClient: HttpClient, 
-    private upgradeService: UpgradeService, 
-    private appointmentService:AppointmentService) { }
+  constructor(private upgradeService: UpgradeService) { }
 
 
   ngOnInit(): void {
 
     this.upgradeService.getUpgrades().subscribe((result:any) =>{
     this.upgrades = result;
-    this.getAllAppointments();
+
 
     //get appontments for latest upgrade
 
     })
+  }
 
    // this.getUpgrades();
    // this.getAppointments();
-  }
 
-
-  getAllAppointments(){
-    this.appointmentService.getAppointments().subscribe((result:any) =>{
-      this.appointments = result;
-      console.log("up", this.upgrades)
-      this.upgradeCalenderDaysArray = this.getAppointmentsDayArray();
-      console.log(this.upgradeCalenderDaysArray)
-   
-  })
-}
-  getAppointmentsDayArray(){
-      return this.appointments.reduce(function (dayArray, el) {
-        dayArray[el.date] = dayArray[el.date] || [];
-        dayArray[el.date].push(el);
-        return dayArray;
-    }, []);
-  }
  
 
 
@@ -77,7 +55,11 @@ export class BookingUpgradeComponent implements OnInit {
   //   })
   // }
 
-  getUpgrades() {
+  //Move to ServicecClass
+  getUpgradesOperation( ) {
+
+
+
     let _headers = new HttpHeaders();
     _headers.append('Access-Control-Allow-Credentials', 'true')
 
