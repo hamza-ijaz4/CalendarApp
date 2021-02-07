@@ -1,12 +1,11 @@
+import { Time } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { Appointment } from 'src/app/models/Appointment';
 
 export interface BookingDto {
-  appointmentId: number | undefined;
-  day: any;
-  herId: number | undefined;
-  id: number | undefined;
+  day: any,
+  time: any
 }
 
 @Component({
@@ -23,6 +22,7 @@ export class UpgradeDayComponent implements OnInit, OnChanges { //
   selected: boolean = false;
   showAppointments = false;
   selectedAppointmentId = undefined;
+  selectedAppointmentTime: any;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -45,35 +45,52 @@ export class UpgradeDayComponent implements OnInit, OnChanges { //
   }
 
   ngOnChanges(changes: SimpleChanges) {
-
     if (changes.day.currentValue)
       this.day = changes.day.currentValue;
     console.log("on change call from days", this.day)
     //this.selectedAppointmentId = event.target.value;
   }
 
-  // saveBooking() {
+  get12HourTime(data: any) {
+    if (data > 12)
+      return ' PM';
+    return ' AM';
+  }
 
-  //   if (!this.selectedAppointmentId)
-  //     return;
+  selectedTime(data: any) {
+    this.selectedAppointmentTime = data;
+  }
 
-  //   let _headers = new HttpHeaders();
-  //   _headers.append('Access-Control-Allow-Credentials', 'true')
-  //   _headers.append('Content-Type', 'application/json')
+  saveBooking(day: any) {
 
-  //   let url = 'https://localhost:44332';
-  //   url = url + "/api/booking";
+    if (!this.selectedAppointmentTime)
+      return;
 
-  //   const booking: BookingDto = {
-  //     appointmentId: Number(this.selectedAppointmentId),
-  //     herId: 0,
-  //     id: 1
-  //   }
+    let _headers = new HttpHeaders();
+    _headers.append('Content-Type', 'application/json')
 
-  //   this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
-  //     window.location.reload();
-  //   })
-  // }
+    let url = 'https://localhost:44332';
+    url = url + "/api/booking";
+    const booking: BookingDto = {
+      day: day,
+      time: this.selectedAppointmentTime.hours
+    };
+    this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
+      window.location.href = 'http://localhost:4200/';
+    })
+  }
+
+  DeleteAppointmentDays() {
+    let _headers = new HttpHeaders();
+    _headers.append('Content-Type', 'application/json')
+
+    let url = 'https://localhost:44332';
+    url = url + "/api/appointment/delete-appointment-days?input=" + this.day.date;
+
+    this.httpClient.delete(url, { headers: _headers }).subscribe(result => {
+      window.location.href = 'http://localhost:4200/';
+    })
+  }
 
 
 

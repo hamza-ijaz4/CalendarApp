@@ -7,22 +7,21 @@ import { Injectable } from '@angular/core';
 })
 export class AppointmentService {
 
-  upgradesUrl : string =  'https://localhost:44332/api/getAppointment/';
-  headers : HttpHeaders;
+  upgradesUrl: string = 'https://localhost:44332/api/Appointment/GetAppointments';
+  headers: HttpHeaders;
 
-  constructor(private http:HttpClient) { 
+  constructor(private http: HttpClient) {
 
     this.headers = new HttpHeaders();
     this.headers.append('Access-Control-Allow-Credentials', 'true') //necessary? Json?
-
   }
 
-  getAppointmentDays(){
-    return this.http.get(this.upgradesUrl) 
+  getAppointmentDays() {
+    return this.http.get(this.upgradesUrl)
   }
 
-  getAppointmentDaysByUpgradeId(UpgradeId: string){
-    return this.http.get(`this.appointmentUrl+ ${UpgradeId}`) 
+  getAppointmentDaysByUpgradeId(UpgradeId: string) {
+    return this.http.get(`${this.upgradesUrl}?upgradeId=${UpgradeId}`)
   }
 
 }

@@ -2,6 +2,7 @@
 using ApiProject.Dto;
 using ApiProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiProject.Controllers
 {
@@ -16,15 +17,24 @@ namespace ApiProject.Controllers
         }
 
         [HttpPost]
-        public async Task SaveBooking([FromBody] BookingDto input)
+        public async Task<ActionResult> SaveBooking([FromBody] BookingDto input)
         {
+            var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Date == input.Day && a.StartTime.Hours == input.Time && a.Available);
+            if (appointment == null)
+                return BadRequest("No appointment found");
+
             var booking = new Booking()
             {
-                AppointmentId = input.AppointmentId,
+                AppointmentId = appointment.Id,
                 HerId = input.HerId
             };
             _context.Bookings.Add(booking);
             await _context.SaveChangesAsync();
+
+            appointment.Available = false;
+            _context.Appointments.Update(appointment);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }

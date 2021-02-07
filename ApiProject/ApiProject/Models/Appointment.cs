@@ -16,6 +16,8 @@ namespace ApiProject.Models
         public string BookedBy { get; set; }
         public string Exercuted { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public Guid UpgradeId { get; set; }
         [ForeignKey("UpgradeId")]
         public Upgrade UpgradeFk { get; set; }

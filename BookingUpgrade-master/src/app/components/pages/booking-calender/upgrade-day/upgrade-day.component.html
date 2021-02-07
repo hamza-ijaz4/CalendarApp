@@ -1,18 +1,19 @@
-<div [ngClass]="setClasses()" [class.disableBox]="!day.appointments" class="box"
-  (click)="showAppointments = !showAppointments">
-  <div>
-    <button id="deleteButton">X</button>
-    <h3 class="date">{{day.startDate | date: 'dd/MM/yyyy'}}</h3>
+<div [ngClass]="setClasses()" [class.disableBox]="!day.appointments">
+  <div (click)="showAppointments = !showAppointments" class="box">
+    <button class="box" (click)="DeleteAppointmentDays()" id="deleteButton">X</button>
+    <h3 class="date">{{day.date | date: 'dd/MM/yyyy'}}</h3>
   </div>
   <div class="appointments">
     <ng-template [ngIf]="showAppointments && day.appointments">
-      <div *ngFor="let item of day.appointments" class="appointment-box">
-        <label for="radio1">{{item.startTime}} - {{item.endTime}}</label>
-        <input type="radio" [id]="'appointment'" [name]="'appointment'" [value]="item.id">
+      <div *ngFor="let item of day.appointments; let i = index" class="appointment-box">
+        <label for="radio1">{{item.startTime.hours+ ':'+ item.startTime.minutes + get12HourTime(item.startTime.hours)}}
+          - {{item.endTime.hours + ':'+
+          item.endTime.minutes + get12HourTime(item.startTime.hours)}}</label>
+        <input type="radio" (change)="selectedTime(item.startTime)" class="select-appointment" [id]="'appointment'"
+          [name]="'appointment'">
       </div>
-      <button class="slot booked"><span class="book-span">Book</span></button>
+      <button (click)="saveBooking(day.date)" class="slot booked"><span class="book-span">Book</span></button>
     </ng-template>
-
   </div>
   <!-- (change)="change($event)"  -->
   <!-- (click)="saveBooking()" -->

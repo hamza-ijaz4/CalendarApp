@@ -35,13 +35,13 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var appointmentsQuery = _context.Appointments.AsQueryable();
-                if (upgradeId.HasValue)
+                var appointmentsQuery = _context.Appointments.Where(a=>!a.IsDeleted && a.Available);
+                if (upgradeId != null)
                 {
                     appointmentsQuery = appointmentsQuery.Where(a => a.UpgradeId == upgradeId);
                 }
 
-                var appointmentList = await appointmentsQuery.Where(a => a.Available).ToListAsync();
+                var appointmentList = await appointmentsQuery.ToListAsync();
                 var appointments = appointmentList.OrderBy(a => a.Date).GroupBy(a => a.Date).ToList();
 
                 var list = new List<AppointmentListDto>();
@@ -53,7 +53,6 @@ namespace ApiProject.Controllers
                     {
                         Date = item.Key,
                         Appointments = z.Select(x => new AppointmentTimesDto { StartTime = x.Key.StartTime, EndTime = x.Key.EndTime }).ToList()
-                        //Appointments = item.Where(x => !bookings.Any(c => c.AppointmentId == x.Id)).Select(x => new AppointmentDto { StartTime = x.StartTime, EndTime = x.EndTime, Id = x.Id }).ToList()
                     });
                 }
                 return list;
@@ -63,6 +62,7 @@ namespace ApiProject.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
 
         [Route("delete-times")]
         [HttpDelete]
@@ -88,6 +88,7 @@ namespace ApiProject.Controllers
             {
                 return NotFound();
             }
+            appointments.ForEach(a => { a.IsDeleted = true; });
             _context.Appointments.RemoveRange(appointments);
             await _context.SaveChangesAsync();
             return Ok();

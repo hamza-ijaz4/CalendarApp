@@ -7,8 +7,8 @@ namespace ApiProject.Dto
 {
     public class BookingDto
     {
-        public int Id { get; set; }
-        public Guid AppointmentId { get; set; }
+        public DateTime Day { get; set; }
+        public int Time { get; set; }
         public string HerId { get; set; }
 
     }

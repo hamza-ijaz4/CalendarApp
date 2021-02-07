@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiProject.Dto;
+using ApiProject.Extensions;
 using ApiProject.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
@@ -129,11 +130,6 @@ namespace ApiProject.Controllers
                     {
                         upgrade.Bytes = stream.ReadAllBytes();
                     }
-                    //filePath = Path.Combine(uploads, file[0].FileName);
-                    //using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    //{
-                    //    file[0].CopyTo(fileStream);
-                    //}
                 }
 
                 _context.Upgrades.Add(upgrade);
@@ -145,11 +141,12 @@ namespace ApiProject.Controllers
                     timegroups.ForEach(t =>
                     {
                         for (int s = 0; s < t.Slots; s++)
-                        {
+                        {   
                             _context.Add(new Appointment
                             {
                                 Date = dt,
                                 StartTime = t.StartTime,
+                                EndTime = new TimeSpan(t.StartTime.Days, t.StartTime.Hours, t.StartTime.Minutes + DurationMin, t.StartTime.Seconds),
                                 Available = true,
                                 UpgradeId = upgrade.Id,
                             });
@@ -176,12 +173,12 @@ namespace ApiProject.Controllers
                 return NotFound("No upgrade allowed");
 
             var index = upgrade.FileName.IndexOf(".");
-            var ext = upgrade.FileName.Substring(index+1);
+            var ext = upgrade.FileName.Substring(index + 1);
             return new FileContentResult(upgrade.Bytes,
                         MimeTypeMap.GetMimeType(ext))
-                        {
-                            FileDownloadName = $"{upgrade.FileName}"
-                        };
+            {
+                FileDownloadName = $"{upgrade.FileName}"
+            };
         }
 
 
@@ -208,21 +205,5 @@ namespace ApiProject.Controllers
 
 
 
-    }
-
-    // code needs to move to another file
-    public static class StreamExtensions
-    {
-        public static byte[] ReadAllBytes(this Stream instream)
-        {
-            if (instream is MemoryStream)
-                return ((MemoryStream)instream).ToArray();
-
-            using (var memoryStream = new MemoryStream())
-            {
-                instream.CopyTo(memoryStream);
-                return memoryStream.ToArray();
-            }
-        }
     }
 }

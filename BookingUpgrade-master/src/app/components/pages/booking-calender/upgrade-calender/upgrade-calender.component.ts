@@ -14,25 +14,25 @@ export class UpgradeCalenderComponent implements OnInit, OnChanges { //
   appointmentDays: any;
   @Input() upgradeId: string = "";
 
-
   constructor(private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
-
-    this.appointmentService.getAppointmentDays().subscribe( result => 
-      {this.appointmentDays = result})
-
+    // this.appointmentService.getAppointmentDays()
+    //   .subscribe(result => {
+    //     this.appointmentDays = result
+    //   });
   }
 
   ngOnChanges(changes: SimpleChanges) {
-
     if (changes.upgradeId.currentValue) {
-
-      this.appointmentService.getAppointmentDaysByUpgradeId(this.upgradeId).subscribe( result => 
-        {this.appointmentDays = result})
+      if (this.upgradeId) {
+        this.appointmentService.getAppointmentDaysByUpgradeId(this.upgradeId)
+          .subscribe(result => {
+            this.appointmentDays = result
+          });
+      }
 
     }
-
   }
 
 }
