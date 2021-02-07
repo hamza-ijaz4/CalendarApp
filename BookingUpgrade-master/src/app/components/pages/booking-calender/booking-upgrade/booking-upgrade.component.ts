@@ -11,9 +11,8 @@ import { UpgradeService } from 'src/app/services/upgrade.service';
 export class BookingUpgradeComponent implements OnInit {
 
   upgrades: any[] = [];
-  upgradeId = undefined;
-  appointments: any[] = [];
-  constructor(private upgradeService: UpgradeService, private _httpClient: HttpClient) { }
+  upgradeId! : string;
+  constructor(private upgradeService: UpgradeService) { }
 
 
   ngOnInit(): void {
@@ -99,19 +98,19 @@ export class BookingUpgradeComponent implements OnInit {
   // }
 
   //All major classes with call to service will be called ..Operation
-  getUpgradesOperation() {
+  // getUpgradesOperation() {
 
 
-    //Move to ServicecClass
-    let _headers = new HttpHeaders();
-    _headers.append('Access-Control-Allow-Credentials', 'true')
+  //   //Move to ServicecClass
+  //   let _headers = new HttpHeaders();
+  //   _headers.append('Access-Control-Allow-Credentials', 'true')
 
-    let url = 'https://localhost:44322';
-    url = url + "/api/upgrades";
-    this._httpClient.get(url, { headers: _headers }).subscribe((resut: any) => {
-      this.upgrades = resut;
-      console.log("result", resut)
-    })
-  }
+  //   let url = 'https://localhost:44322';
+  //   url = url + "/api/upgrades";
+  //   this._httpClient.get(url, { headers: _headers }).subscribe((resut: any) => {
+  //     this.upgrades = resut;
+  //     console.log("result", resut)
+  //   })
+  // }
 
 }
