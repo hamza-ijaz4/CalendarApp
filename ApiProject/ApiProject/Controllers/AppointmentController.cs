@@ -35,33 +35,28 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var upgrades = _context.Upgrades.AsQueryable();
-                var bookings = _context.Bookings.AsQueryable();
-                var appointments = _context.Appointments.AsQueryable();
+                var appointmentsQuery = _context.Appointments.AsQueryable();
                 if (upgradeId.HasValue)
                 {
-                    upgrades = upgrades.Where(a => a.Id == upgradeId);
-
+                    appointmentsQuery = appointmentsQuery.Where(a => a.UpgradeId == upgradeId);
                 }
 
-                //var collection = from a in appointments
-                //         group a by a.Date;
+                var appointmentList = await appointmentsQuery.Where(a => a.Available).ToListAsync();
+                var appointments = appointmentList.OrderBy(a => a.Date).GroupBy(a => a.Date).ToList();
 
-                //var list = appointments.GroupBy(a => new { Year = a.Date.Year, Month = a.Date.Month, Day = a.Date.Day })
-                //                        .Select(a => new { Date = a.Key.Day + "/" + a.Key.Month + "/" + a.Key.Year,Appointment = a.ToList() });
-                //.OrderByDescending(a => a.Date)
-                //.ToList();
-                //into g select new { Date = g.Key, Cars = g.ToList() }).ToListAsync();
+                var list = new List<AppointmentListDto>();
+                foreach (var item in appointments)
+                {
+                    var z = item.GroupBy(a => new { StartTime = a.StartTime, EndTime = a.EndTime });
 
-                var _list = await upgrades.Include(a => a.Appointments).OrderByDescending(a => a.Id)
-                                   .Select(a => new AppointmentListDto
-                                   {
-                                       UpgradeId = a.Id,
-                                       Date = a.StartDate,
-                                       Duration = a.DurationMin,
-                                       Appointments = a.Appointments.Where(x => !bookings.Any(c => c.AppointmentId == x.Id)).Select(x => new AppointmentDto { StartTime = x.StartTime, EndTime = x.EndTime, Id = x.Id }).ToList()
-                                   }).ToListAsync();
-                return _list;
+                    list.Add(new AppointmentListDto()
+                    {
+                        Date = item.Key,
+                        Appointments = z.Select(x => new AppointmentTimesDto { StartTime = x.Key.StartTime, EndTime = x.Key.EndTime }).ToList()
+                        //Appointments = item.Where(x => !bookings.Any(c => c.AppointmentId == x.Id)).Select(x => new AppointmentDto { StartTime = x.StartTime, EndTime = x.EndTime, Id = x.Id }).ToList()
+                    });
+                }
+                return list;
             }
             catch (Exception ex)
             {

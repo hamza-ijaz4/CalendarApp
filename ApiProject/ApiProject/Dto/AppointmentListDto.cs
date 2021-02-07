@@ -8,11 +8,8 @@ namespace ApiProject.Dto
 {
     public class AppointmentListDto
     {
-        public Guid UpgradeId { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
         public DateTime Date { get; set; }
         public int Duration { get; set; }
-        public List<AppointmentDto> Appointments { get; set; }
+        public List<AppointmentTimesDto> Appointments { get; set; }
     }
 }
