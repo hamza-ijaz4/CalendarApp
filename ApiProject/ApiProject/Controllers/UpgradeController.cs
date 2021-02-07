@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApiProject.Dto;
 using ApiProject.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ using Newtonsoft.Json;
 
 namespace ApiProject.Controllers
 {
+    [EnableCors("Default")]
     [Route("api/[controller]")]
     [ApiController]
     public class UpgradeController : ControllerBase
@@ -30,6 +32,7 @@ namespace ApiProject.Controllers
 
         // GET: api/Upgrades
         [HttpGet]
+
         public async Task<ActionResult<IEnumerable<Upgrade>>> GetUpgrades()
         {
             return await _context.Upgrades.ToListAsync();
@@ -182,5 +185,7 @@ namespace ApiProject.Controllers
         {
             return _context.Upgrades.Any(e => e.Id == id);
         }
+
+
     }
 }

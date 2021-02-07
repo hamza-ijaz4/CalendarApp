@@ -2,9 +2,10 @@
   <div class="header">
     <div id="upgradeSelector">
       <label id="upgradeText" for="upgrade-Version">Select Upgrade:</label>
-      <select name="upgrade-Version" id="upgrade-Version" (change)="getAppointments()" [(ngModel)]="upgradeId">
+      <!-- (change)="getAllAppointments()" -->
+      <select name="upgrade-Version" id="upgrade-Version" [(ngModel)]="upgradeId">
         <option [value]="undefined" selected> Select version</option>
-        <option *ngFor="let item of upgrades" [value]="item.Key">{{item.Value}}</option>
+        <option *ngFor="let item of upgrades" [value]="item.id">{{item.version}}</option>
       </select>
       <button routerLink="setupcalender"> Add upgrade </button>
     </div>
@@ -20,7 +21,7 @@
   </div>
 
 
-  <app-upgrade-calender [appointments]="items">
+  <app-upgrade-calender [upgradeCalenderDaysArray]="upgrades">
 
   </app-upgrade-calender>
 </div>

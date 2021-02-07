@@ -4,6 +4,7 @@ import { Appointment } from 'src/app/models/Appointment';
 
 export interface BookingDto {
   appointmentId: number | undefined;
+  day: any;
   herId: number | undefined;
   id: number | undefined;
 }
@@ -14,9 +15,10 @@ export interface BookingDto {
   styleUrls: ['./upgrade-day.component.css']
 })
 
-export class UpgradeDayComponent implements OnInit, OnChanges {
+export class UpgradeDayComponent implements OnInit, OnChanges { //
 
-  @Input() appointment: any;
+  // @Input() appointment: any;
+  @Input() day: any;
   hours: any;
   selected: boolean = false;
   showAppointments = false;
@@ -29,10 +31,10 @@ export class UpgradeDayComponent implements OnInit, OnChanges {
     //this.hours= this.appointment.hour
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.appointment.currentValue)
-      this.appointment = changes.appointment.currentValue;
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (changes.appointment.currentValue)
+  //     this.appointment = changes.appointment.currentValue;
+  // }
 
   setClasses() {
     let classes = {
@@ -42,32 +44,36 @@ export class UpgradeDayComponent implements OnInit, OnChanges {
     return classes;
   }
 
-  change(event: any) {
-    this.selectedAppointmentId = event.target.value;
+  ngOnChanges(changes: SimpleChanges) {
+
+    if (changes.day.currentValue)
+      this.day = changes.day.currentValue;
+    console.log("on change call from days", this.day)
+    //this.selectedAppointmentId = event.target.value;
   }
 
-  saveBooking() {
+  // saveBooking() {
 
-    if (!this.selectedAppointmentId)
-      return;
+  //   if (!this.selectedAppointmentId)
+  //     return;
 
-    let _headers = new HttpHeaders();
-    _headers.append('Access-Control-Allow-Credentials', 'true')
-    _headers.append('Content-Type', 'application/json')
+  //   let _headers = new HttpHeaders();
+  //   _headers.append('Access-Control-Allow-Credentials', 'true')
+  //   _headers.append('Content-Type', 'application/json')
 
-    let url = 'https://localhost:44332';
-    url = url + "/api/booking";
+  //   let url = 'https://localhost:44332';
+  //   url = url + "/api/booking";
 
-    const booking: BookingDto = {
-      appointmentId: Number(this.selectedAppointmentId),
-      herId: 0,
-      id: 1
-    }
+  //   const booking: BookingDto = {
+  //     appointmentId: Number(this.selectedAppointmentId),
+  //     herId: 0,
+  //     id: 1
+  //   }
 
-    this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
-      window.location.reload();
-    })
-  }
+  //   this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
+  //     window.location.reload();
+  //   })
+  // }
 
 
 

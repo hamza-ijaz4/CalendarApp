@@ -1,19 +1,23 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Appointment } from 'src/app/models/Appointment';
-import { FetchAppointmentsService } from 'src/app/services/fetch-appointments.service';
+import { AppointmentService } from 'src/app/services/appointment.service';
+
 
 @Component({
   selector: 'app-upgrade-calender',
   templateUrl: './upgrade-calender.component.html',
   styleUrls: ['./upgrade-calender.component.css']
 })
-export class UpgradeCalenderComponent implements OnInit, OnChanges {
+export class UpgradeCalenderComponent implements OnInit, OnChanges { //
 
+  @Input() upgradeCalenderDaysArray: any;
+  appointments: any[] = [];
   //appointments!: Appointment[];
-  @Input() appointments: any[] = [];
+  @Input() upgradeVersion: string = "";
 
 
-  constructor(private appointmentService: FetchAppointmentsService) { }
+  constructor(private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
 
@@ -22,11 +26,34 @@ export class UpgradeCalenderComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.appointments.currentValue)
-      this.appointments = changes.appointments.currentValue;
+
+    if (changes.upgradeCalenderDaysArray.currentValue) {
+      this.upgradeCalenderDaysArray = changes.upgradeCalenderDaysArray.currentValue;
+    }
+
   }
 
-  buildMonth() { }
+  //will be called by by change in dropdown in
+  getAppointmentDaysByUpgradeVersioOperation(version: string) {
+    this.appointmentService.getAppointments().subscribe((result: any) => {
+      this.appointments = result;
+      console.log("up", this.upgradeVersion)
+      this.upgradeCalenderDaysArray = this.getAppointmentsDayArray();
+      console.log(this.upgradeCalenderDaysArray)
+
+    })
+  }
+
+  getAppointmentsDayArray() {
+    return this.appointments.reduce(function (dayArray, el) {
+      dayArray[el.date] = dayArray[el.date] || [];
+      dayArray[el.date].push(el);
+      return dayArray;
+    }, []);
+  }
+
+
+
 }
 
 // kalender henter dagens dato

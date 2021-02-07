@@ -37,10 +37,20 @@ namespace ApiProject.Controllers
             {
                 var upgrades = _context.Upgrades.AsQueryable();
                 var bookings = _context.Bookings.AsQueryable();
+                var appointments = _context.Appointments.AsQueryable();
                 if (upgradeId.HasValue)
                 {
                     upgrades = upgrades.Where(a => a.Id == upgradeId);
                 }
+
+                //var collection = from a in appointments
+                //         group a by a.Date;
+
+                //var list = appointments.GroupBy(a => new { Year = a.Date.Year, Month = a.Date.Month, Day = a.Date.Day })
+                //                        .Select(a => new { Date = a.Key.Day + "/" + a.Key.Month + "/" + a.Key.Year,Appointment = a.ToList() });
+                                        //.OrderByDescending(a => a.Date)
+                                        //.ToList();
+                //into g select new { Date = g.Key, Cars = g.ToList() }).ToListAsync();
 
                 var _list = await upgrades.Include(a => a.Appointments).OrderByDescending(a => a.Id)
                                    .Select(a => new AppointmentListDto

@@ -56,40 +56,41 @@ export class SetupFormComponent implements OnInit {
     _headers.append('Access-Control-Allow-Credentials', 'true')
 
     const formData: FormData = new FormData();
-    if (this.fileToUpload) {
-      formData.append('fileKey', this.fileToUpload, this.fileToUpload.name);
-    }
+    // if (this.fileToUpload) {
+    //   formData.append('fileKey', this.fileToUpload, this.fileToUpload.name);
+    // }
 
 
 
-    let appointments = [];
+    let timeGroups = [];
     if (this.upgradeHoursPerDay > 0) {
-      appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart1), "slots": this.slotsTime1 });
+      timeGroups.push({ "startTime": this.timeStart1, "slots": this.slotsTime1 });
     }
     if (this.upgradeHoursPerDay > 1) {
-      appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart2), "slots": this.slotsTime2 });
+      timeGroups.push({ "startTime": this.timeStart2, "slots": this.slotsTime2 });
     }
     if (this.upgradeHoursPerDay > 2) {
-      appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart3), "slots": this.slotsTime3 });
+      timeGroups.push({ "startTime": this.timeStart3, "slots": this.slotsTime3 });
     }
     if (this.upgradeHoursPerDay > 3) {
-      appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart4), "slots": this.slotsTime4 });
+      timeGroups.push({ "startTime": this.timeStart4, "slots": this.slotsTime4 });
     }
     if (this.upgradeHoursPerDay > 4) {
-      appointments.push({ "startTime": this.timeStart1, "endTime": this.setEndTime(this.timeStart4), "slots": this.slotsTime5 });
+      timeGroups.push({ "startTime": this.timeStart5, "slots": this.slotsTime5 });
     }
 
-    let appointmentJson = JSON.stringify(appointments);
-    formData.append('title', this.upgradeVersion);
+    let timeGroupsJson = JSON.stringify(timeGroups);
+    formData.append('version', this.upgradeVersion);
     formData.append('description', this.shortDescription);
-    formData.append('duration', this.duration);
+    formData.append('durationMin', this.duration);
     formData.append('endDate', this.endDate.toString());
     formData.append('startDate', this.startDate.toString());
-    formData.append('appointmnetsJson', appointmentJson);
+    formData.append('timeGroupsJson', timeGroupsJson);
+    //formData.append('appointmnetsJson', appointmentJson);
 
 
-    let url = 'https://localhost:44332';
-    url = url + "/api/upgrades";
+    let url = 'https://localhost:44332/';
+    url = url + "api/upgrade";
 
     this.httpClient.post(url, formData, { headers: _headers }).subscribe(result => {
       window.location.href = 'http://localhost:4200/'
@@ -126,13 +127,13 @@ export class SetupFormComponent implements OnInit {
     */
   }
 
-  setEndTime(startTime: any) {
-    let str = startTime.toString();
-    let _str = str.split(':')[1];
-    let numb = Number(_str) + Number(this.duration);
-    return str.split(':')[0] + ':' + numb;
+  // setEndTime(startTime: any) {
+  //   let str = startTime.toString();
+  //   let _str = str.split(':')[1];
+  //   let numb = Number(_str) + Number(this.duration);
+  //   return str.split(':')[0] + ':' + numb;
 
-  }
+  // }
 
 
   appendTime() {
