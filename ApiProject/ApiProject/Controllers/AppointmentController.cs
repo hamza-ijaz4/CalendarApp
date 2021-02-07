@@ -48,8 +48,8 @@ namespace ApiProject.Controllers
 
                 //var list = appointments.GroupBy(a => new { Year = a.Date.Year, Month = a.Date.Month, Day = a.Date.Day })
                 //                        .Select(a => new { Date = a.Key.Day + "/" + a.Key.Month + "/" + a.Key.Year,Appointment = a.ToList() });
-                                        //.OrderByDescending(a => a.Date)
-                                        //.ToList();
+                //.OrderByDescending(a => a.Date)
+                //.ToList();
                 //into g select new { Date = g.Key, Cars = g.ToList() }).ToListAsync();
 
                 var _list = await upgrades.Include(a => a.Appointments).OrderByDescending(a => a.Id)
@@ -66,6 +66,35 @@ namespace ApiProject.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [Route("delete-times")]
+        [HttpDelete]
+        public async Task<ActionResult> DeleteAppointmentTimes([FromQuery] DeleteAppointmentDaytime input)
+        {
+            var appointments = await _context.Appointments.Where(a => a.Date == input.Day && a.StartTime == input.StartTime).ToListAsync();
+            if (appointments.Count() == 0)
+            {
+                return NotFound();
+            }
+
+            _context.Appointments.RemoveRange(appointments);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("delete-appointment-days")]
+        public async Task<ActionResult> DeleteAppointmentDays(DateTime input)
+        {
+            var appointments = await _context.Appointments.Where(a => a.Date == input).ToListAsync();
+            if (appointments.Count() == 0)
+            {
+                return NotFound();
+            }
+            _context.Appointments.RemoveRange(appointments);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         // GET: api/Appointments

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http'
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class UpgradeService {
 
 
-  upgradesUrl: string = 'https://localhost:44332/api/upgrade';
+  baseUrl = 'https://localhost:44332/';
   headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
@@ -17,7 +17,18 @@ export class UpgradeService {
   }
 
   getUpgrades() {
-    return this.http.get(this.upgradesUrl)
+    return this.http.get(this.baseUrl + 'api/upgrade')
+  }
+
+  downloadUpgradeFile(upgradeId: string) {
+    let url = this.baseUrl + 'api/upgrade/GetUpgradeFile?upgradeId=' + upgradeId;
+    return this.http
+      .request(
+        new HttpRequest("GET", url, null, {
+          reportProgress: true,
+          responseType: "blob",
+        })
+      )
   }
 
 

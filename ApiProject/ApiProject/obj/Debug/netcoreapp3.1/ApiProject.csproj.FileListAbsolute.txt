@@ -133,8 +133,6 @@ E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\bin\D
 E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.csprojAssemblyReference.cache
 E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.AssemblyInfoInputs.cache
 E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.AssemblyInfo.cs
-E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.csproj.CoreCompileInputs.cache
-E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.MvcApplicationPartsAssemblyInfo.cache
 E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.RazorAssemblyInfo.cache
 E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.RazorAssemblyInfo.cs
 E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.TagHelpers.input.cache
@@ -156,3 +154,8 @@ E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\D
 E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.dll
 E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.pdb
 E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.genruntimeconfig.cache
+E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\bin\Debug\netcoreapp3.1\Npgsql.dll
+E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\bin\Debug\netcoreapp3.1\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\bin\Debug\netcoreapp3.1\MimeTypes.dll
+E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.csproj.CoreCompileInputs.cache
+E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.MvcApplicationPartsAssemblyInfo.cache

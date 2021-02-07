@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { UpgradeService } from 'src/app/services/upgrade.service';
@@ -12,6 +12,7 @@ export class BookingUpgradeComponent implements OnInit {
 
   upgrades: any[] = [];
   upgradeId = undefined;
+  appointments: any[] = [];
   constructor(private upgradeService: UpgradeService, private _httpClient: HttpClient) { }
 
 
@@ -20,6 +21,52 @@ export class BookingUpgradeComponent implements OnInit {
     this.upgradeService.getUpgrades().subscribe((result: any) => {
       this.upgrades = result;
     })
+  }
+
+  downloadFile() {
+    this.upgradeService.downloadUpgradeFile('23f832ce-72e7-4c30-8aac-04271489cfb7').subscribe((data: any) => {
+      if (data.type != 4) {
+        return;
+      }
+      if (!data.body) {
+
+        return;
+      } else {
+
+      }
+      const blob = new Blob([data.body as Blob], {
+        type: data.headers.get("Content-type"),
+      });
+      const dataURL = window.URL.createObjectURL(blob);
+      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(blob);
+        return;
+      }
+
+      const link = document.createElement("a");
+      link.href = dataURL;
+      link.download =
+        this.getFileNameFromHttpResponse(data) || 'demoo.png';
+      link.click();
+
+      setTimeout(() => {
+        window.URL.revokeObjectURL(dataURL);
+      }, 100);
+      // const blob = new Blob([file], { type: 'png' });
+      // const url = window.URL.createObjectURL(blob);
+      // window.open(url);
+    });
+  }
+
+  getFileNameFromHttpResponse(httpResponse: HttpResponse<any>) {
+    let contentDispositionHeader = httpResponse.headers.get(
+      "Content-Disposition"
+    );
+    let result =
+      (contentDispositionHeader &&
+        contentDispositionHeader.split(";")[1].trim().split("=")[1]) ||
+      "";
+    return result.replace(/"/g, "");
   }
 
   // this.getUpgrades();

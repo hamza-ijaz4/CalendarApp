@@ -33,7 +33,7 @@ namespace ApiProject
             }));
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
         }

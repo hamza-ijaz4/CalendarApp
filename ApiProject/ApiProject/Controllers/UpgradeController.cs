@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MimeTypes;
 using Newtonsoft.Json;
 
 namespace ApiProject.Controllers
@@ -98,19 +99,10 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var file = Request.Form.Files;
+                var files = Request.Form.Files;
                 var path = _hostingEnvironment.WebRootPath;
                 var uploads = Path.Combine(path, "files");
-                var filePath = string.Empty;
-
-                if (file.Count() > 0)
-                {
-                    filePath = Path.Combine(uploads, file[0].FileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        file[0].CopyTo(fileStream);
-                    }
-                }
+                //var filePath = string.Empty;
 
                 var timeGroupsJson = HttpContext.Request.Form["timeGroupsJson"];
                 var Version = HttpContext.Request.Form["version"];
@@ -125,12 +117,24 @@ namespace ApiProject.Controllers
                 {
                     Version = Version,
                     Description = Description,
-                    // FilePath = filePath,
                     DurationMin = DurationMin,
                     StartDate = StartDate,
-                    EndDate = EndDate
+                    EndDate = EndDate,
                 };
 
+                if (files.Count() > 0)
+                {
+                    upgrade.FileName = files[0].FileName;
+                    using (var stream = files[0].OpenReadStream())
+                    {
+                        upgrade.Bytes = stream.ReadAllBytes();
+                    }
+                    //filePath = Path.Combine(uploads, file[0].FileName);
+                    //using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    //{
+                    //    file[0].CopyTo(fileStream);
+                    //}
+                }
 
                 _context.Upgrades.Add(upgrade);
                 await _context.SaveChangesAsync();
@@ -161,7 +165,23 @@ namespace ApiProject.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
 
+        [HttpGet]
+        [Route("GetUpgradeFile")]
+        public async Task<ActionResult> GetFiles(Guid upgradeId)
+        {
+            var upgrade = _context.Upgrades.FirstOrDefault(a => a.Id == upgradeId);
+            if (upgrade == null || upgrade.Bytes.Length == 0)
+                return NotFound("No upgrade allowed");
+
+            var index = upgrade.FileName.IndexOf(".");
+            var ext = upgrade.FileName.Substring(index+1);
+            return new FileContentResult(upgrade.Bytes,
+                        MimeTypeMap.GetMimeType(ext))
+                        {
+                            FileDownloadName = $"{upgrade.FileName}"
+                        };
         }
 
 
@@ -187,5 +207,22 @@ namespace ApiProject.Controllers
         }
 
 
+
+    }
+
+    // code needs to move to another file
+    public static class StreamExtensions
+    {
+        public static byte[] ReadAllBytes(this Stream instream)
+        {
+            if (instream is MemoryStream)
+                return ((MemoryStream)instream).ToArray();
+
+            using (var memoryStream = new MemoryStream())
+            {
+                instream.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
     }
 }

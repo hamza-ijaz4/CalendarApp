@@ -56,9 +56,9 @@ export class SetupFormComponent implements OnInit {
     _headers.append('Access-Control-Allow-Credentials', 'true')
 
     const formData: FormData = new FormData();
-    // if (this.fileToUpload) {
-    //   formData.append('fileKey', this.fileToUpload, this.fileToUpload.name);
-    // }
+    if (this.fileToUpload) {
+      formData.append('fileKey', this.fileToUpload, this.fileToUpload.name);
+    }
 
 
 
@@ -93,7 +93,7 @@ export class SetupFormComponent implements OnInit {
     url = url + "api/upgrade";
 
     this.httpClient.post(url, formData, { headers: _headers }).subscribe(result => {
-      window.location.href = 'http://localhost:4200/'
+      //window.location.href = 'http://localhost:4200/'
     })
 
 
