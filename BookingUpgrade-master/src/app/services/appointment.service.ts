@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentService {
 
-  upgradesUrl : string =  'https://localhost:44322/api/appointments';
+  upgradesUrl : string =  'https://localhost:44332/api/getAppointment/';
   headers : HttpHeaders;
 
   constructor(private http:HttpClient) { 
@@ -16,7 +17,12 @@ export class AppointmentService {
 
   }
 
-  getAppointments(){
+  getAppointmentDays(){
     return this.http.get(this.upgradesUrl) 
   }
+
+  getAppointmentDaysByUpgradeId(UpgradeId: string){
+    return this.http.get(`this.appointmentUrl+ ${UpgradeId}`) 
+  }
+
 }
