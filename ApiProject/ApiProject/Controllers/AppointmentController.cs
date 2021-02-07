@@ -41,6 +41,7 @@ namespace ApiProject.Controllers
                 if (upgradeId.HasValue)
                 {
                     upgrades = upgrades.Where(a => a.Id == upgradeId);
+
                 }
 
                 //var collection = from a in appointments
