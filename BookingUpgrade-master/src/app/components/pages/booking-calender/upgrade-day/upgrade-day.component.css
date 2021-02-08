@@ -1,12 +1,21 @@
 .day {
   /* flex: 1 0 51%;  */
   margin: 5px;
-  height: 70px;
+  height: auto;
   width: 230px;
   background-color: #e2e2e2;
   border-width: 2px;
   border-style: solid;
-  border-color: #08081b;
+  border-color: #28282b;
+  border-radius: 5px;
+}
+
+.day:hover {
+  background-color: #c2c2c2;
+  cursor: pointer;
+
+  position: relative;
+
 }
 
 .disableBox {
@@ -17,8 +26,12 @@
 #deleteButton {
   position: relative;
   float: right;
-  top: -11px;
+  top: -5px;
   right: 2px;
+}
+#deleteButton:hover {
+  background-color: #8d8d8d;
+  cursor: pointer;
 }
 
 .slot {
@@ -29,23 +42,22 @@
   border-style: solid;
   border-color: black;
   border-width: 2px;
-  margin: 4px;
+  margin: 10px;
   transition-duration: 0.4s;
   border-radius: 10px;
 }
 
 .slot:hover {
-  background-color: #4f9751;
+  background-color: #5c5c5c;
   cursor: pointer;
 
   position: relative;
-  right: 2px;
-  top: 2px;
+
 }
 
 h3 {
-  margin-left: 5px;
-  margin-top: 15px;
+  padding: 8px;
+  margin: 6px;
   font-weight: 300;
   font-weight: bold;
   text-align: center;
@@ -60,11 +72,11 @@ h3 {
   padding-right: 10px;
   line-height: 35px;
   font-size: 18px;
-  padding-top: 20px;
+  padding-top: 20px; 
+
 }
 
 .appointment-box {
-  background: #e2e2e2;
   border-bottom: 2px solid black;
 }
 

@@ -1,5 +1,5 @@
 .header{
-    height: 140px;
+    height: 80px;
 }
 
 
@@ -8,16 +8,16 @@
     top:40px;
     left:14px;
     font-size: 20px;
-    color: white;
+    color: whitesmoke;
 }
 
 #header-title{
     text-align: center;
     margin: 6px;
     padding: 5px;
-    color: white;
+    color: whitesmoke;
 
-    border-bottom: solid white;
+    border-bottom: solid whitesmoke;
 
    
 }

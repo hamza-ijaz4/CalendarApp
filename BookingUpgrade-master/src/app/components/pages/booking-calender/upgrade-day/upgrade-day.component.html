@@ -6,8 +6,8 @@
   <div class="appointments">
     <ng-template [ngIf]="showAppointments && day.appointments">
       <div *ngFor="let item of day.appointments; let i = index" class="appointment-box">
-        <label for="radio1">{{item.startTime.hours+ ':'+ item.startTime.minutes + get12HourTime(item.startTime.hours)}}
-          - {{item.endTime.hours + ':'+
+        <label for="radio1">{{item.startTime.hours+ ':'+ 0 + item.startTime.minutes + get12HourTime(item.startTime.hours)}}
+          - {{item.endTime.hours + ':'+ 0 +
           item.endTime.minutes + get12HourTime(item.startTime.hours)}}</label>
         <input type="radio" (change)="selectedTime(item.startTime)" class="select-appointment" [id]="'appointment'"
           [name]="'appointment'">
