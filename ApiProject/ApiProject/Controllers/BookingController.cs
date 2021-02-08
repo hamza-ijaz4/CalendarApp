@@ -23,15 +23,16 @@ namespace ApiProject.Controllers
             if (appointment == null)
                 return BadRequest("No appointment found");
 
-            var booking = new Booking()
-            {
-                AppointmentId = appointment.Id,
-                HerId = input.HerId
-            };
-            _context.Bookings.Add(booking);
-            await _context.SaveChangesAsync();
+            //var booking = new Booking()
+            //{
+            //    AppointmentId = appointment.Id,
+            //    HerId = input.HerId
+            //};
+            //_context.Bookings.Add(booking);
+            //await _context.SaveChangesAsync();
 
             appointment.Available = false;
+            appointment.HerId = input.HerId;
             _context.Appointments.Update(appointment);
             await _context.SaveChangesAsync();
             return Ok();

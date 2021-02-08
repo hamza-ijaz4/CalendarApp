@@ -141,7 +141,7 @@ namespace ApiProject.Controllers
                     timegroups.ForEach(t =>
                     {
                         for (int s = 0; s < t.Slots; s++)
-                        {   
+                        {
                             _context.Add(new Appointment
                             {
                                 Date = dt,
@@ -169,9 +169,10 @@ namespace ApiProject.Controllers
         public async Task<ActionResult> GetFiles(Guid upgradeId)
         {
             var upgrade = _context.Upgrades.FirstOrDefault(a => a.Id == upgradeId);
-            if (upgrade == null || upgrade.Bytes.Length == 0)
-                return NotFound("No upgrade allowed");
-
+            if (upgrade == null)
+                return NotFound();
+            if (upgrade.Bytes == null)
+                return NoContent();
             var index = upgrade.FileName.IndexOf(".");
             var ext = upgrade.FileName.Substring(index + 1);
             return new FileContentResult(upgrade.Bytes,

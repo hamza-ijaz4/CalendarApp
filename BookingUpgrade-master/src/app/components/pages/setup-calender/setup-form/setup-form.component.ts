@@ -93,7 +93,7 @@ export class SetupFormComponent implements OnInit {
     url = url + "api/upgrade";
 
     this.httpClient.post(url, formData, { headers: _headers }).subscribe(result => {
-      //window.location.href = 'http://localhost:4200/'
+      window.location.href = 'http://localhost:4200/'
     })
 
 

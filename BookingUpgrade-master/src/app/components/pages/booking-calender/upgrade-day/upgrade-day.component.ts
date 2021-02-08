@@ -5,7 +5,8 @@ import { Appointment } from 'src/app/models/Appointment';
 
 export interface BookingDto {
   day: any,
-  time: any
+  time: any,
+  herId: string
 }
 
 @Component({
@@ -73,7 +74,8 @@ export class UpgradeDayComponent implements OnInit, OnChanges { //
     url = url + "/api/booking";
     const booking: BookingDto = {
       day: day,
-      time: this.selectedAppointmentTime.hours
+      time: this.selectedAppointmentTime.hours,
+      herId: "23f832ce-72e7-4c30-8aac-04271489cfb7"
     };
     this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
       window.location.href = 'http://localhost:4200/';

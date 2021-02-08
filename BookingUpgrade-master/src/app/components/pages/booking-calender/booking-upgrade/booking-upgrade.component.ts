@@ -11,7 +11,7 @@ import { UpgradeService } from 'src/app/services/upgrade.service';
 export class BookingUpgradeComponent implements OnInit {
 
   upgrades: any[] = [];
-  upgradeId! : string;
+  upgradeId!: string;
   constructor(private upgradeService: UpgradeService) { }
 
 
@@ -23,7 +23,9 @@ export class BookingUpgradeComponent implements OnInit {
   }
 
   downloadFile() {
-    this.upgradeService.downloadUpgradeFile('23f832ce-72e7-4c30-8aac-04271489cfb7').subscribe((data: any) => {
+    if (!this.upgradeId)
+      return;
+    this.upgradeService.downloadUpgradeFile(this.upgradeId).subscribe((data: any) => {
       if (data.type != 4) {
         return;
       }
