@@ -1,3 +1,4 @@
+import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -7,7 +8,8 @@ import { Injectable } from '@angular/core';
 })
 export class AppointmentService {
 
-  upgradesUrl: string = 'https://localhost:44332/api/Appointment/GetAppointments';
+  upgradesUrl: string = environment.apiEndpoint + "/api/Appointment/GetAppointments";
+
   headers: HttpHeaders;
 
   constructor(private http: HttpClient) {

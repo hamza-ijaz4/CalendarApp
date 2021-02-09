@@ -1,3 +1,4 @@
+import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http'
 import { Observable } from 'rxjs';
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class UpgradeService {
 
 
-  baseUrl = 'https://localhost:44332/';
+  baseUrl = environment.apiEndpoint;
   headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
@@ -17,11 +18,11 @@ export class UpgradeService {
   }
 
   getUpgrades() {
-    return this.http.get(this.baseUrl + 'api/upgrade')
+    return this.http.get(this.baseUrl + '/api/upgrade')
   }
 
   downloadUpgradeFile(upgradeId: string) {
-    let url = this.baseUrl + 'api/upgrade/GetUpgradeFile?upgradeId=' + upgradeId;
+    let url = this.baseUrl + '/api/upgrade/GetUpgradeFile?upgradeId=' + upgradeId;
     return this.http
       .request(
         new HttpRequest("GET", url, null, {

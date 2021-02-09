@@ -1,3 +1,4 @@
+import { environment } from '../../../../../environments/environment';
 import { Time } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
@@ -70,7 +71,7 @@ export class UpgradeDayComponent implements OnInit, OnChanges { //
     let _headers = new HttpHeaders();
     _headers.append('Content-Type', 'application/json')
 
-    let url = 'https://localhost:44332';
+    let url = environment.apiEndpoint;
     url = url + "/api/booking";
     const booking: BookingDto = {
       day: day,
@@ -86,7 +87,7 @@ export class UpgradeDayComponent implements OnInit, OnChanges { //
     let _headers = new HttpHeaders();
     _headers.append('Content-Type', 'application/json')
 
-    let url = 'https://localhost:44332';
+    let url = environment.apiEndpoint;
     url = url + "/api/appointment/delete-appointment-days?input=" + this.day.date;
 
     this.httpClient.delete(url, { headers: _headers }).subscribe(result => {
