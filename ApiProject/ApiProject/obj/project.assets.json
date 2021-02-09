@@ -5918,19 +5918,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HP\\.nuget\\packages\\": {}
+    "C:\\Users\\henning\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
+      "projectUniqueName": "C:\\WebMed\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
       "projectName": "ApiProject",
-      "projectPath": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
-      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\obj\\",
+      "projectPath": "C:\\WebMed\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
+      "packagesPath": "C:\\Users\\henning\\.nuget\\packages\\",
+      "outputPath": "C:\\WebMed\\CalendarApp\\ApiProject\\ApiProject\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\henning\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5991,7 +5995,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.111\\RuntimeIdentifierGraph.json"
       }
     }
   }

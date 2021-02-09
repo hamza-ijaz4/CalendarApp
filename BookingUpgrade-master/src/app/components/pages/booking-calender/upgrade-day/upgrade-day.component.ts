@@ -18,7 +18,6 @@ export interface BookingDto {
 
 export class UpgradeDayComponent implements OnInit, OnChanges { //
 
-  // @Input() appointment: any;
   @Input() day: any;
   hours: any;
   selected: boolean = false;

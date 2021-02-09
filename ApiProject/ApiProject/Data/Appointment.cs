@@ -8,18 +8,18 @@ namespace ApiProject.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public DateTime Date { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
-        public bool Available { get; set; }
-        public string HerId { get; set; }
-        public string BookedBy { get; set; }
-        public string Exercuted { get; set; }
+    
+        public string? HerId { get; set; } //Customer /herID=123&User=Peter
+        public string? BookedBy { get; set; } //User (for later)
+        public bool AppoinmentMade { get; set; }
+        
 
         public bool IsDeleted { get; set; }
 
         public Guid UpgradeId { get; set; }
         [ForeignKey("UpgradeId")]
         public Upgrade UpgradeFk { get; set; }
+
+
     }
 }

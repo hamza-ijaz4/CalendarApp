@@ -25,5 +25,4 @@ export class AppointmentService {
   getAppointmentDaysByUpgradeId(UpgradeId: string) {
     return this.http.get(`${this.upgradesUrl}?upgradeId=${UpgradeId}`)
   }
-
 }
