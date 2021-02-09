@@ -15,6 +15,6 @@ namespace ApiProject.Models
 
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Upgrade> Upgrades { get; set; }
-        public DbSet<Booking> Bookings { get; set; }
+
     }
 }
