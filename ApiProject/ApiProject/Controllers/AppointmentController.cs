@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiProject.Data;
 using ApiProject.Dto;
 using ApiProject.Models;
 using Microsoft.AspNetCore.Cors;
@@ -35,7 +36,7 @@ namespace ApiProject.Controllers
         {
             try
             {
-                var appointmentsQuery = _context.Appointments.Where(a=>!a.IsDeleted && a.Available);
+                var appointmentsQuery = _context.TimeSlots.Where(a=>!a.IsDeleted && a.Available);
                 if (upgradeId != null)
                 {
                     appointmentsQuery = appointmentsQuery.Where(a => a.UpgradeId == upgradeId);
@@ -68,13 +69,13 @@ namespace ApiProject.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeleteAppointmentTimes([FromQuery] DeleteAppointmentDaytime input)
         {
-            var appointments = await _context.Appointments.Where(a => a.Date == input.Day && a.StartTime == input.StartTime).ToListAsync();
+            var appointments = await _context.TimeSlots.Where(a => a.Date == input.Day && a.StartTime == input.StartTime).ToListAsync();
             if (appointments.Count() == 0)
             {
                 return NotFound();
             }
 
-            _context.Appointments.RemoveRange(appointments);
+            _context.TimeSlots.RemoveRange(appointments);
             await _context.SaveChangesAsync();
             return Ok();
         }
@@ -83,29 +84,29 @@ namespace ApiProject.Controllers
         [Route("delete-appointment-days")]
         public async Task<ActionResult> DeleteAppointmentDays(DateTime input)
         {
-            var appointments = await _context.Appointments.Where(a => a.Date == input).ToListAsync();
+            var appointments = await _context.TimeSlots.Where(a => a.Date == input).ToListAsync();
             if (appointments.Count() == 0)
             {
                 return NotFound();
             }
             appointments.ForEach(a => { a.IsDeleted = true; });
-            _context.Appointments.RemoveRange(appointments);
+            _context.TimeSlots.RemoveRange(appointments);
             await _context.SaveChangesAsync();
             return Ok();
         }
 
         // GET: api/Appointments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointments()
+        public async Task<ActionResult<IEnumerable<TimeSlot>>> GetAppointments()
         {
-            return await _context.Appointments.ToListAsync();
+            return await _context.TimeSlots.ToListAsync();
         }
 
         // GET: api/Appointments/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Appointment>> GetAppointment(Guid id)
+        public async Task<ActionResult<TimeSlot>> GetAppointment(Guid id)
         {
-            var appointment = await _context.Appointments.FindAsync(id);
+            var appointment = await _context.TimeSlots.FindAsync(id);
 
             if (appointment == null)
             {
@@ -119,7 +120,7 @@ namespace ApiProject.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAppointment(Guid id, Appointment appointment)
+        public async Task<IActionResult> PutAppointment(Guid id, TimeSlot appointment)
         {
             if (id != appointment.Id)
             {
@@ -151,9 +152,9 @@ namespace ApiProject.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Appointment>> PostAppointment(Appointment appointment)
+        public async Task<ActionResult<Appointment>> PostAppointment(TimeSlot appointment)
         {
-            _context.Appointments.Add(appointment);
+            _context.TimeSlots.Add(appointment);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAppointment", new { id = appointment.Id }, appointment);
@@ -161,15 +162,15 @@ namespace ApiProject.Controllers
 
         // DELETE: api/Appointments/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Appointment>> DeleteAppointment(Guid id)
+        public async Task<ActionResult<TimeSlot>> DeleteAppointment(Guid id)
         {
-            var appointment = await _context.Appointments.FindAsync(id);
+            var appointment = await _context.TimeSlots.FindAsync(id);
             if (appointment == null)
             {
                 return NotFound();
             }
 
-            _context.Appointments.Remove(appointment);
+            _context.TimeSlots.Remove(appointment);
             await _context.SaveChangesAsync();
 
             return appointment;
@@ -177,7 +178,7 @@ namespace ApiProject.Controllers
 
         private bool AppointmentExists(Guid id)
         {
-            return _context.Appointments.Any(e => e.Id == id);
+            return _context.TimeSlots.Any(e => e.Id == id);
         }
 
     }

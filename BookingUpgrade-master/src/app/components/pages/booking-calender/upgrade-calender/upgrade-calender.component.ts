@@ -13,11 +13,12 @@ export class UpgradeCalenderComponent implements OnInit, OnChanges { //
 
   appointmentDays: any;
   @Input() upgradeId: string = "";
+  @Input() showBooking: boolean = true;
 
   constructor(private appointmentService: AppointmentService) { }
 
 
-  
+
   ngOnInit(): void {
     // this.appointmentService.getAppointmentDays()
     //   .subscribe(result => {

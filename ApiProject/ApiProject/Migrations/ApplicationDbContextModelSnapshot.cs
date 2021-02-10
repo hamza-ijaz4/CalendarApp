@@ -19,7 +19,45 @@ namespace ApiProject.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("ApiProject.Models.Appointment", b =>
+            modelBuilder.Entity("ApiProject.Data.AppointmentUpgrade", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UpgradeId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("UpgradeId");
+
+                    b.ToTable("AppointmentUpgrades");
+                });
+
+            modelBuilder.Entity("ApiProject.Data.Customer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("HerId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("ApiProject.Data.TimeSlot", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -28,20 +66,11 @@ namespace ApiProject.Migrations
                     b.Property<bool>("Available")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("BookedBy")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("interval");
-
-                    b.Property<string>("Exercuted")
-                        .HasColumnType("text");
-
-                    b.Property<string>("HerId")
-                        .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -56,26 +85,40 @@ namespace ApiProject.Migrations
 
                     b.HasIndex("UpgradeId");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("TimeSlots");
                 });
 
-            modelBuilder.Entity("ApiProject.Models.Booking", b =>
+            modelBuilder.Entity("ApiProject.Models.Appointment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("AppointmentId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("BookedBy")
+                        .HasColumnType("text");
 
                     b.Property<string>("HerId")
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid?>("TimeSlotId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("UpgradeId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AppointmentId");
+                    b.HasIndex("TimeSlotId");
 
-                    b.ToTable("Bookings");
+                    b.HasIndex("UpgradeId");
+
+                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("ApiProject.Models.Upgrade", b =>
@@ -110,10 +153,29 @@ namespace ApiProject.Migrations
                     b.ToTable("Upgrades");
                 });
 
-            modelBuilder.Entity("ApiProject.Models.Appointment", b =>
+            modelBuilder.Entity("ApiProject.Data.AppointmentUpgrade", b =>
+                {
+                    b.HasOne("ApiProject.Data.Customer", "CustomerFk")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApiProject.Models.Upgrade", "UpgradeFk")
+                        .WithMany()
+                        .HasForeignKey("UpgradeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CustomerFk");
+
+                    b.Navigation("UpgradeFk");
+                });
+
+            modelBuilder.Entity("ApiProject.Data.TimeSlot", b =>
                 {
                     b.HasOne("ApiProject.Models.Upgrade", "UpgradeFk")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("UpgradeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -121,15 +183,17 @@ namespace ApiProject.Migrations
                     b.Navigation("UpgradeFk");
                 });
 
-            modelBuilder.Entity("ApiProject.Models.Booking", b =>
+            modelBuilder.Entity("ApiProject.Models.Appointment", b =>
                 {
-                    b.HasOne("ApiProject.Models.Appointment", "AppointmentFk")
+                    b.HasOne("ApiProject.Data.TimeSlot", "TimeSlots")
                         .WithMany()
-                        .HasForeignKey("AppointmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TimeSlotId");
 
-                    b.Navigation("AppointmentFk");
+                    b.HasOne("ApiProject.Models.Upgrade", null)
+                        .WithMany("Appointments")
+                        .HasForeignKey("UpgradeId");
+
+                    b.Navigation("TimeSlots");
                 });
 
             modelBuilder.Entity("ApiProject.Models.Upgrade", b =>

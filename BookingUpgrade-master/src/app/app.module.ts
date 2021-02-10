@@ -15,6 +15,7 @@ import { SetupFormComponent } from './components/pages/setup-calender/setup-form
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CustomersComponent } from './components/pages/customers/customers.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     BookingUpgradeComponent,
     SetTimeComponent,
     SetupFormComponent,
+    CustomersComponent,
 
 
   ],

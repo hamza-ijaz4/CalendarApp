@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiProject.Data;
 using ApiProject.Dto;
 using ApiProject.Extensions;
 using ApiProject.Models;
@@ -142,7 +143,7 @@ namespace ApiProject.Controllers
                     {
                         for (int s = 0; s < t.Slots; s++)
                         {
-                            _context.Add(new Appointment
+                            _context.Add(new TimeSlot
                             {
                                 Date = dt,
                                 StartTime = t.StartTime,

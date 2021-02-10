@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\WebMed\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {}
+    "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {}
   },
   "projects": {
-    "C:\\WebMed\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {
+    "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\WebMed\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
+        "projectUniqueName": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
         "projectName": "ApiProject",
-        "projectPath": "C:\\WebMed\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
-        "packagesPath": "C:\\Users\\henning\\.nuget\\packages\\",
-        "outputPath": "C:\\WebMed\\CalendarApp\\ApiProject\\ApiProject\\obj\\",
+        "projectPath": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\henning\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -41,15 +38,27 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[5.0.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.11, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.2, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.4, )"
             },
             "MimeTypeMapOfficial": {
               "target": "Package",
@@ -78,7 +87,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.111\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

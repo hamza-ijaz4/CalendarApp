@@ -1,11 +1,13 @@
 ﻿using System.Threading.Tasks;
 using ApiProject.Dto;
 using ApiProject.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiProject.Controllers
 {
+    [EnableCors("Default")]
     [Route("api/[controller]")]
     [ApiController]
     public class BookingController : ControllerBase
@@ -19,22 +21,24 @@ namespace ApiProject.Controllers
         [HttpPost]
         public async Task<ActionResult> SaveBooking([FromBody] BookingDto input)
         {
-            var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Date == input.Day && a.StartTime.Hours == input.Time && a.Available);
-            if (appointment == null)
+            var TimeSlots = await _context.TimeSlots.FirstOrDefaultAsync(a => a.Date == input.Day && a.StartTime.Hours == input.Time && a.Available);
+            if (TimeSlots == null)
                 return BadRequest("No appointment found");
 
-            //var booking = new Booking()
-            //{
-            //    AppointmentId = appointment.Id,
-            //    HerId = input.HerId
-            //};
-            //_context.Bookings.Add(booking);
-            //await _context.SaveChangesAsync();
-
-            appointment.Available = false;
-            appointment.HerId = input.HerId;
-            _context.Appointments.Update(appointment);
+            var appointment = new Appointment()
+            {
+                HerId = input.HerId,
+                Status = AppointmentStats.Pending,
+                TimeSlotId = TimeSlots.Id,
+            };
+            _context.Appointments.Add(appointment);
             await _context.SaveChangesAsync();
+
+            TimeSlots.Available = false;
+            _context.TimeSlots.Update(TimeSlots);
+            await _context.SaveChangesAsync();
+
+
             return Ok();
         }
     }

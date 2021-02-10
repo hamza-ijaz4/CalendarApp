@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AppointmentService } from 'src/app/services/appointment.service';
@@ -12,7 +13,10 @@ export class BookingUpgradeComponent implements OnInit {
 
   upgrades: any[] = [];
   upgradeId!: string;
-  constructor(private upgradeService: UpgradeService) { }
+
+  displayBooking = true;
+  displayAdminTasks = true;
+  constructor(private upgradeService: UpgradeService, private _router: Router) { }
 
 
   ngOnInit(): void {
@@ -20,6 +24,12 @@ export class BookingUpgradeComponent implements OnInit {
     this.upgradeService.getUpgrades().subscribe((result: any) => {
       this.upgrades = result;
     })
+    if (this._router.url.indexOf('admin') > 0) {
+      this.displayBooking = false;
+    }
+    if (this._router.url.indexOf('herid') > 0) {
+      this.displayAdminTasks = false;
+    }
   }
 
   downloadFile() {
