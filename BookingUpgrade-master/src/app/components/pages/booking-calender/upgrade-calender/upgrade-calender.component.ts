@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Appointment } from 'src/app/models/Appointment';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { TimeSlotService } from 'src/app/services/time-slot.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class UpgradeCalenderComponent implements OnInit, OnChanges { //
   @Input() upgradeId: string = "";
   @Input() showBooking: boolean = true;
 
-  constructor(private appointmentService: AppointmentService) { }
+  constructor(private timeslotService: TimeSlotService) { }
 
 
 
@@ -29,7 +30,7 @@ export class UpgradeCalenderComponent implements OnInit, OnChanges { //
   ngOnChanges(changes: SimpleChanges) {
     if (changes.upgradeId.currentValue) {
       if (this.upgradeId) {
-        this.appointmentService.getAppointmentDaysByUpgradeId(this.upgradeId)
+        this.timeslotService.getTimeSlotDaysByUpgradeId(this.upgradeId)
           .subscribe(result => {
             this.appointmentDays = result
           });

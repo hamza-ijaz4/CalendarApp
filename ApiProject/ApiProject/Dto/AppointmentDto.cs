@@ -1,17 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ApiProject.Dto
 {
-    public class AppointmentTimesDto
-    {
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
-    }
     public class AppointmentDto
     {
-        public Guid Id { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
-        public int UpgradeId { get; set; }
+        public string HerId { get; set; }
+        public Guid UpgradeId { get; set; }
     }
 }

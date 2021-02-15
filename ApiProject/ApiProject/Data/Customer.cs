@@ -11,7 +11,6 @@ namespace ApiProject.Data
 
         public string Name { get; set; }
         public string HerId { get; set; }
-        //Name -OfficeName
-        //HerID -OfficeCode
+
     }
 }

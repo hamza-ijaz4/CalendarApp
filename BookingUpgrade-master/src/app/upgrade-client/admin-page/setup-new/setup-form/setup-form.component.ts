@@ -7,6 +7,7 @@ import { format, addDays, differenceInDays } from 'date-fns'
 import { Appointment } from 'src/app/models/Appointment';
 import { createAppointmentDto } from 'src/app/models/CreateAppointmentDto';
 import { appointments } from 'src/app/models/CreateAppointmentDto';
+import { EmitEvent, EventBusService } from 'src/app/services/event-bus-service';
 
 @Component({
   selector: 'app-setup-form',
@@ -39,10 +40,12 @@ export class SetupFormComponent implements OnInit {
   fileToUpload: any;
 
 
-  constructor(private httpClient: HttpClient, private _router: Router) { }
+  constructor(private httpClient: HttpClient,
+              private _router: Router,
+              private eventbus: EventBusService,) { }
 
   ngOnInit(): void {
-    this.onSubmit;
+    this.eventbus.emit(new EmitEvent('hideUpgrade', null));
   }
 
   handleFileInput(event: any) {
@@ -91,10 +94,9 @@ export class SetupFormComponent implements OnInit {
 
 
     let url = environment.apiEndpoint;
-    url = url + "/api/upgrades";
+    url = url + "/api/upgrade";
 
     this.httpClient.post(url, formData, { headers: _headers }).subscribe(result => {
-      console.log(result)
       window.location.href = 'http://localhost:4200/'
     })
 
@@ -113,3 +115,4 @@ export class SetupFormComponent implements OnInit {
     console.log("add time");
   }
 }
+

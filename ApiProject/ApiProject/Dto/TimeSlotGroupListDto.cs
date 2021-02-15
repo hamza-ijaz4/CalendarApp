@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ApiProject.Dto
 {
-    public class AppointmentListDto
+    public class TimeSlotGroupListDto
     {
         public DateTime Date { get; set; }
         public int Duration { get; set; }
-        public List<AppointmentTimesDto> Appointments { get; set; }
+        public List<TimeSlotGroupDto> TimeSlotGroups { get; set; }
     }
 }

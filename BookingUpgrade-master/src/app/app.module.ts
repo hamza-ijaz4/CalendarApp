@@ -9,14 +9,12 @@ import { UpgradeGroupComponent } from './components/pages/booking-calender/upgra
 import { UpgradeDayComponent } from './components/pages/booking-calender/upgrade-day/upgrade-day.component';
 import { UpgradeCalenderComponent } from './components/pages/booking-calender/upgrade-calender/upgrade-calender.component';
 import { BookingUpgradeComponent } from './components/pages/booking-calender/booking-upgrade/booking-upgrade.component';
-import { SetTimeComponent } from './components/pages/setup-calender/set-time/set-time.component';
-import { SetupFormComponent } from './components/pages/setup-calender/setup-form/setup-form.component';
+
 
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CustomersComponent } from './components/pages/customers/customers.component';
-import { UpgradeInviterComponent } from './upgrade-client/admin-page/add-clients/upgrade-inviter/upgrade-inviter.component';
+import { CustomersComponent } from './upgrade-client/admin-page/Add-customers/customers/customers.component';
 import { UpgradeMainComponent } from './upgrade-client/admin-page/main/upgrade-main/upgrade-main.component';
 import { TimeslotsDayComponent } from './upgrade-client/admin-page/timeslots/timeslots-day/timeslots-day.component';
 import { BookingMainComponent } from './upgrade-client/customer-page/booking-main/booking-main.component';
@@ -24,6 +22,8 @@ import { BookingTimeslotsComponent } from './upgrade-client/customer-page/bookin
 import { BookingDaysComponent } from './upgrade-client/customer-page/booking-days/booking-days.component';
 import { TimeslotsContainerComponent } from './upgrade-client/admin-page/timeslots/timeslots-container/timeslots-container.component';
 import { TopMenuComponent } from './top-menu/top-menu.component';
+import { SetTimeComponent } from './upgrade-client/admin-page/setup-new/set-time/set-time.component';
+import { SetupFormComponent } from './upgrade-client/admin-page/setup-new/setup-form/setup-form.component';
 
 
 @NgModule({
@@ -36,7 +36,7 @@ import { TopMenuComponent } from './top-menu/top-menu.component';
     SetTimeComponent,
     SetupFormComponent,
     CustomersComponent,
-    UpgradeInviterComponent,
+
     UpgradeMainComponent,
     TimeslotsDayComponent,
     BookingMainComponent,

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApiProject.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,6 +17,6 @@ namespace ApiProject.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public virtual ICollection<Appointment> Appointments { get; set; }
-
+        public virtual ICollection<TimeSlot> TimeSlots { get; set; }
     }
 }

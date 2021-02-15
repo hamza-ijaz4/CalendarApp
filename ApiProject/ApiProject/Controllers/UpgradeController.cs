@@ -41,7 +41,7 @@ namespace ApiProject.Controllers
             return await _context.Upgrades.ToListAsync();
         }
 
-        // GET: api/Upgrades/5
+        // GET: api/Upgrade/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Upgrade>> GetUpgrade(Guid id)
         {
@@ -55,7 +55,7 @@ namespace ApiProject.Controllers
             return upgrade;
         }
 
-        // PUT: api/Upgrades/5
+        // PUT: api/Upgrade/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
@@ -88,7 +88,7 @@ namespace ApiProject.Controllers
         }
 
         [HttpGet]
-        [Route("api/upgrades/getUpgradeLookups")]
+        [Route("api/upgrades/versiones")]
         public async Task<ActionResult<List<KeyValuePair<Guid, string>>>> GetUpgradeLookups()
         {
             var list = await _context.Upgrades.Select(a => new KeyValuePair<Guid, string>(a.Id, a.Version)).ToListAsync();
@@ -97,7 +97,8 @@ namespace ApiProject.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> SaveAppointments()
+        [Route("api/upgrade")]
+        public async Task<ActionResult> CreateUpgradeAndTimeSlots()
         {
             try
             {
@@ -113,7 +114,7 @@ namespace ApiProject.Controllers
                 var EndDate = Convert.ToDateTime(HttpContext.Request.Form["endDate"]);
                 var StartDate = Convert.ToDateTime(HttpContext.Request.Form["startDate"]);
 
-                var timegroups = JsonConvert.DeserializeObject<List<Timegroup>>(timeGroupsJson);
+                var timegroups = JsonConvert.DeserializeObject<List<TimeSlotGroupDto>>(timeGroupsJson);
 
                 var upgrade = new Upgrade()
                 {
@@ -166,8 +167,8 @@ namespace ApiProject.Controllers
         }
 
         [HttpGet]
-        [Route("GetUpgradeFile")]
-        public async Task<ActionResult> GetFiles(Guid upgradeId)
+        [Route("api/upgrade/{upgradeId}/file")]
+        public async Task<ActionResult> GetUpgradeFile(Guid upgradeId)
         {
             var upgrade = _context.Upgrades.FirstOrDefault(a => a.Id == upgradeId);
             if (upgrade == null)

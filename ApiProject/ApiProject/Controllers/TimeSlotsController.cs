@@ -18,42 +18,43 @@ namespace ApiProject.Controllers
     [EnableCors("Default")]
     [Route("api/[controller]")]
     [ApiController]
-    public class AppointmentController : ControllerBase
+    public class TimeSlotsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public AppointmentController(ApplicationDbContext context, IWebHostEnvironment hostingEnvironment)
+        public TimeSlotsController(ApplicationDbContext context, IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
             _hostingEnvironment = hostingEnvironment;
         }
 
 
+        // GET: api/Timeslots
         [HttpGet]
-        [Route("GetAppointments")]
-        public async Task<ActionResult<List<AppointmentListDto>>> GetAppointments(Guid? upgradeId)
+        [Route("api/timeslots/{upgradeId}")]
+        public async Task<ActionResult<List<TimeSlotGroupListDto>>> UpgradeTimeSlots(Guid? upgradeId)
         {
             try
             {
-                var appointmentsQuery = _context.TimeSlots.Where(a=>!a.IsDeleted && a.Available);
+                var timeSlotQuery = _context.TimeSlots.Where(a => !a.IsDeleted && a.Available);
                 if (upgradeId != null)
                 {
-                    appointmentsQuery = appointmentsQuery.Where(a => a.UpgradeId == upgradeId);
+                    timeSlotQuery = timeSlotQuery.Where(a => a.UpgradeId == upgradeId);
                 }
 
-                var appointmentList = await appointmentsQuery.ToListAsync();
-                var appointments = appointmentList.OrderBy(a => a.Date).GroupBy(a => a.Date).ToList();
+                var timeSlotList = await timeSlotQuery.ToListAsync();
+                var timeSlots = timeSlotList.OrderBy(a => a.Date).GroupBy(a => a.Date).ToList();
 
-                var list = new List<AppointmentListDto>();
-                foreach (var item in appointments)
+                var list = new List<TimeSlotGroupListDto>();
+                foreach (var item in timeSlots)
                 {
                     var z = item.GroupBy(a => new { StartTime = a.StartTime, EndTime = a.EndTime });
 
-                    list.Add(new AppointmentListDto()
+                    list.Add(new TimeSlotGroupListDto()
                     {
                         Date = item.Key,
-                        Appointments = z.Select(x => new AppointmentTimesDto { StartTime = x.Key.StartTime, EndTime = x.Key.EndTime }).ToList()
+                        TimeSlotGroups = z.Select(x => new TimeSlotGroupDto { StartTime = x.Key.StartTime, EndTime = x.Key.EndTime }).ToList()
                     });
                 }
                 return list;
@@ -65,44 +66,44 @@ namespace ApiProject.Controllers
         }
 
 
-        [Route("delete-times")]
+        [Route("api/timeslots/{upgradeId}/timegroup")]
         [HttpDelete]
-        public async Task<ActionResult> DeleteAppointmentTimes([FromQuery] DeleteAppointmentDaytime input)
+        public async Task<ActionResult> DeleteTimeSlotGroups([FromQuery] DeleteTimeSlotGroupDto input)
         {
-            var appointments = await _context.TimeSlots.Where(a => a.Date == input.Day && a.StartTime == input.StartTime).ToListAsync();
-            if (appointments.Count() == 0)
+            var timeslotGroup = await _context.TimeSlots.Where(a => a.Date == input.Day && a.StartTime == input.StartTime).ToListAsync();
+            if (timeslotGroup.Count == 0)
             {
                 return NotFound();
             }
 
-            _context.TimeSlots.RemoveRange(appointments);
+            _context.TimeSlots.RemoveRange(timeslotGroup);
             await _context.SaveChangesAsync();
             return Ok();
         }
 
         [HttpDelete]
-        [Route("delete-appointment-days")]
-        public async Task<ActionResult> DeleteAppointmentDays(DateTime input)
+        [Route("api/timeslots/{upgradeId}/day")]
+        public async Task<ActionResult> DeleteTimeSlotDays(DateTime input)
         {
-            var appointments = await _context.TimeSlots.Where(a => a.Date == input).ToListAsync();
-            if (appointments.Count() == 0)
+            var timeSlotDay = await _context.TimeSlots.Where(a => a.Date == input).ToListAsync();
+            if (timeSlotDay.Count() == 0)
             {
                 return NotFound();
             }
-            appointments.ForEach(a => { a.IsDeleted = true; });
-            _context.TimeSlots.RemoveRange(appointments);
+            timeSlotDay.ForEach(a => { a.IsDeleted = true; });
+            _context.TimeSlots.RemoveRange(timeSlotDay);
             await _context.SaveChangesAsync();
             return Ok();
         }
 
-        // GET: api/Appointments
+        // GET: api/Timeslots
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TimeSlot>>> GetAppointments()
         {
             return await _context.TimeSlots.ToListAsync();
         }
 
-        // GET: api/Appointments/5
+        // GET: api/Timeslot/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TimeSlot>> GetAppointment(Guid id)
         {
@@ -116,7 +117,7 @@ namespace ApiProject.Controllers
             return appointment;
         }
 
-        // PUT: api/Appointments/5
+        // PUT: api/Timeslot/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]

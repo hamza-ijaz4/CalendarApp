@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {}
+    "C:\\WebMed\\Other\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {}
   },
   "projects": {
-    "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {
+    "C:\\WebMed\\Other\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
+        "projectUniqueName": "C:\\WebMed\\Other\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
         "projectName": "ApiProject",
-        "projectPath": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
-        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\obj\\",
+        "projectPath": "C:\\WebMed\\Other\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
+        "packagesPath": "C:\\Users\\henning\\.nuget\\packages\\",
+        "outputPath": "C:\\WebMed\\Other\\CalendarApp\\ApiProject\\ApiProject\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\henning\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,6 +29,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -37,6 +41,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -44,7 +49,7 @@
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[3.1.11, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
@@ -54,11 +59,11 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[3.1.11, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[3.1.5, )"
             },
             "MimeTypeMapOfficial": {
               "target": "Package",
@@ -87,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }

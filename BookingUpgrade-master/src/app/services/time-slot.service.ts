@@ -2,13 +2,13 @@ import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 })
-export class TimeSlotService {
-
-  // upgradesUrl: string = environment.apiEndpoint + "/api/TimeSlots/GetTimeSlots";
-  upgradesUrl: string = environment.apiEndpoint + "/api/appointment/getappointments";
+export class TimeSlotService { 
+  
+  upgradesUrl: string = environment.apiEndpoint + "/api/TimeSlots/GetTimeSlots";
 
   headers: HttpHeaders;
 

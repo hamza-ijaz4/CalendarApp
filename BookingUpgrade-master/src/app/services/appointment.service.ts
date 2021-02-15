@@ -18,11 +18,5 @@ export class AppointmentService {
     this.headers.append('Access-Control-Allow-Credentials', 'true') //necessary? Json?
   }
 
-  getAppointmentDays() {
-    return this.http.get(this.upgradesUrl)
-  }
 
-  getAppointmentDaysByUpgradeId(UpgradeId: string) {
-    return this.http.get(`${this.upgradesUrl}?upgradeId=${UpgradeId}`)
-  }
 }

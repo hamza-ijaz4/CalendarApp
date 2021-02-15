@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace ApiProject.Dto
 {
-    public class AppointmentUpgradeDto
+    public class DeleteTimeSlotGroupDto
     {
-        public Guid[] CustomerIds { get; set; }
-        public Guid UpgradeId { get; set; }
+        public DateTime Day { get; set; }
+        public TimeSpan StartTime { get; set; }
     }
 }
