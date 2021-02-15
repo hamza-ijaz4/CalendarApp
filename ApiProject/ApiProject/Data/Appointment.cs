@@ -20,6 +20,11 @@ namespace ApiProject.Models
         public AppointmentStats Status { get; set; }
         public bool IsDeleted { get; set; }
 
+        public Guid CustomerId { get; set; }
+
+        [ForeignKey("CustomerId")]
+        public Customer CustomerFk { get; set; }
+
         public Guid? TimeSlotId { get; set; }
 
         [ForeignKey("TimeSlotId")]

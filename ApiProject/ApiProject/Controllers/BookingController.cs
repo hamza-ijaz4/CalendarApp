@@ -21,6 +21,7 @@ namespace ApiProject.Controllers
         [HttpPost]
         public async Task<ActionResult> SaveBooking([FromBody] BookingDto input)
         {
+            
             var TimeSlots = await _context.TimeSlots.FirstOrDefaultAsync(a => a.Date == input.Day && a.StartTime.Hours == input.Time && a.Available);
             if (TimeSlots == null)
                 return BadRequest("No appointment found");
@@ -37,7 +38,7 @@ namespace ApiProject.Controllers
             TimeSlots.Available = false;
             _context.TimeSlots.Update(TimeSlots);
             await _context.SaveChangesAsync();
-
+            
 
             return Ok();
         }

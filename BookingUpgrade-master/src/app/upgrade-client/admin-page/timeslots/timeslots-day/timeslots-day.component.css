@@ -1,0 +1,88 @@
+.day {
+    /* flex: 1 0 51%;  */
+    margin: 5px;
+    height: auto;
+    width: 230px;
+    background-color: #e2e2e2;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #28282b;
+    border-radius: 5px;
+  }
+  
+  .day:hover {
+    background-color: #c2c2c2;
+    cursor: pointer;
+  
+    position: relative;
+  
+  }
+  
+  .disableBox {
+    /* pointer-events: none; */
+    cursor: not-allowed !important;
+  }
+  
+  #deleteButton {
+    position: relative;
+    float: right;
+    top: -5px;
+    right: 2px;
+  }
+  #deleteButton:hover {
+    background-color: #8d8d8d;
+    cursor: pointer;
+  }
+  
+  .slot {
+    flex-grow: 1;
+    width: 90%;
+    height: 35px;
+    background-color: gray;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    margin: 10px;
+    transition-duration: 0.4s;
+    border-radius: 10px;
+  }
+  
+  .slot:hover {
+    background-color: #5c5c5c;
+    cursor: pointer;
+  
+    position: relative;
+  
+  }
+  
+  h3 {
+    padding: 8px;
+    margin: 6px;
+    font-weight: 300;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .box {
+    cursor: pointer;
+  }
+  
+  .appointments {
+    padding-left: 12px;
+    padding-right: 10px;
+    line-height: 35px;
+    font-size: 18px;
+    padding-top: 20px; 
+  
+  }
+  
+  .appointment-box {
+    border-bottom: 2px solid black;
+  }
+  
+  .select-appointment {
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+  

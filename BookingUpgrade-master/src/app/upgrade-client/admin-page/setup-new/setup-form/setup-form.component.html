@@ -1,0 +1,91 @@
+<div class="container">
+  <h2>Ny oppdateringskalender</h2>
+  <form id="NewUgradeForm" (ngSubmit)="onSubmit()">
+    <label for="upgradeVersion">Versjon-nummer:</label>
+    <input type="text" [(ngModel)]="upgradeVersion" name="upgradeVersion">
+    <br>
+    <label for="startDate">Startdato:</label>
+    <input type="date" [(ngModel)]="startDate" name="startDate">
+    <label for="endDate">Sluttdato:</label>
+    <input type="date" [(ngModel)]="endDate" name="endDate">
+    <br>
+    <select [(ngModel)]="upgradeHoursPerDay" name="upgradeHoursPerDay">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+
+    </select>
+    <br>
+
+    <div *ngIf="upgradeHoursPerDay > 0">
+      <label for="">Tidspunkt start: </label>
+      <input type="time" [(ngModel)]="timeStart1" name="timeStart1">
+      <label for="slots"> Slots: </label>
+      <input type="number" name="slotsTime1" [(ngModel)]="slotsTime1">
+      <br>
+    </div>
+
+    <div *ngIf="upgradeHoursPerDay > 1">
+      <br>
+      <label for="">Tidspunkt start: </label>
+      <input type="time" [(ngModel)]="timeStart2" name="timeStart2">
+      <label for="slots"> Slots: </label>
+      <input type="number" name="slotsTime2" [(ngModel)]="slotsTime2">
+      <br>
+    </div>
+
+    <div *ngIf="upgradeHoursPerDay >2">
+      <br>
+      <label for="">Tidspunkt start: </label>
+      <input type="time" [(ngModel)]="timeStart3" name="timeStart3">
+      <label for="slots"> Slots: </label>
+      <input type="number" name="slotsTime3" [(ngModel)]="slotsTime3">
+      <br>
+    </div>
+    <div *ngIf="upgradeHoursPerDay >3 ">
+      <br>
+      <label for="">Tidspunkt start: </label>
+      <input type="time" [(ngModel)]="timeStart4" name="timeStart4">
+      <label for="slots"> Slots: </label>
+      <input type="number" name="slotsTime4" [(ngModel)]="slotsTime4">
+      <br>
+    </div>
+    <div *ngIf="upgradeHoursPerDay > 4">
+      <br>
+      <label for="">Tidspunkt start: </label>
+      <input type="time" [(ngModel)]="timeStart5" name="timeStart5">
+      <label for="slots"> Slots: </label>
+      <input type="number" name="slotsTime5" [(ngModel)]="slotsTime5">
+      <br>
+    </div>
+
+    <!-- <button (click)= "appendTime()">+</button>
+          <label for=""> Legg til flere tidspunkt</label> -->
+    <div>
+      <br>
+      <br>
+    </div>
+    <label for="OppdateringsVarighet">Forventet varighet min:</label>
+    <select [(ngModel)]="duration" name="OppdateringsVarighet">
+      <option value="30">30 min</option>
+      <option value="60">60 min</option>
+      <option value="90">90 min</option>
+      <option value="120">120 min</option>
+      <option value="150">150 min</option>
+      <option value="180">180 min</option>
+    </select>
+    <br>
+    <br>
+    <label for="shortDescription">Kort beskrivelse: </label>
+    <textarea id="shortDescription" [(ngModel)]="shortDescription" name="shortDescription"
+      style="height:60px"></textarea>
+
+    <label for="releaseNote">Vedlagt realeasenote:</label>
+    <input type="file" id="releaseNote" (change)="handleFileInput($event)" name="releaseNote">
+    <br>
+    <br>
+    <input type="submit" value="Submit" />
+  </form>
+</div>

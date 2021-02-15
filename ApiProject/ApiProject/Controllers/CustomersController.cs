@@ -24,22 +24,6 @@ namespace ApiProject.Controllers
             _context = context;
         }
 
-        // GET: api/Customers
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<CustomerListDto>>> GetCustomers()
-        {
-            var customerBookings = _context.AppointmentUpgrades.AsQueryable();
-            return await _context.Customers.Where(a=> !customerBookings.Any(x=>x.CustomerId == a.Id)).Select(a => new CustomerListDto
-            {
-                Id = a.Id,
-                HerId = a.HerId,
-                IsSelected = false,
-                Name = a.Name
-            }).ToListAsync();
-        }
-
-
-
         // GET: api/Customers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(Guid id)
@@ -84,23 +68,6 @@ namespace ApiProject.Controllers
             }
 
             return NoContent();
-        }
-
-        [HttpPost]
-        [Route("save-appointments")]
-        public async Task<ActionResult> PostCustomer([FromBody]AppointmentUpgradeDto input)
-        {
-            var list = new List<AppointmentUpgrade>();
-
-            for (int i = 0; i < input.CustomerIds.Length; i++)
-            {
-                list.Add(new AppointmentUpgrade() { CustomerId = input.CustomerIds[i], UpgradeId = input.UpgradeId });
-            }
-
-            _context.AppointmentUpgrades.AddRange(list);
-            await _context.SaveChangesAsync();
-
-            return Ok();
         }
 
         // DELETE: api/Customers/5

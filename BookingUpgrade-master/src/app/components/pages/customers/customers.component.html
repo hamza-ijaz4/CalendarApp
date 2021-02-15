@@ -1,26 +1,18 @@
-<div class="wrapper">
+<!-- <div class="wrapper">
   <div class="header">
-    <div id="upgradeSelector">
-      <select name="upgrade-Version" id="upgrade-Version" [(ngModel)]="upgradeId">
-        <option [value]="undefined" selected> Select version</option>
-        <option *ngFor="let item of upgrades" [value]="item.id">{{item.version}}</option>
-      </select>
-    </div>
     <button [disabled]="!upgradeId" id="releaseNoteDown" (click)="save()"> Save</button>
-    <h1 id="header-title">Bestill system-oppdatering</h1>
-    <div class="container">
-      <span class="infoText">Klikk dag for å velge tid:</span>
-      <br>
-      <br>
-      <div class="calender">
-        <br />
-        <div class="day" [ngClass]="item.isSelected? 'selectedBox': ''" *ngFor="let item of items;"
-          (click)="item.isSelected = !item.isSelected">
-          <div class="box">
-            <h3 class="date">{{item.name}}</h3>
-          </div>
-        </div>
-      </div>
+    <br>
 
+  </div>
+</div> -->
+
+<div class="calender">
+  <button [disabled]="!upgradeId" id="releaseNoteDown" (click)="save()"> Save</button>
+  <br />
+  <div style="margin-top: 40px;" class="day" [ngClass]="item.isSelected? 'selectedBox': ''" *ngFor="let item of items;"
+    (click)="item.isSelected = !item.isSelected">
+    <div class="box">
+      <h3 class="date">{{item.name}}</h3>
     </div>
   </div>
+</div>

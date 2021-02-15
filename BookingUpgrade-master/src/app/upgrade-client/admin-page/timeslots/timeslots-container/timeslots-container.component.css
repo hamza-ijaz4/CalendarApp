@@ -1,0 +1,13 @@
+.calender{
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+.container{
+    padding: 15px;
+}
+
+.infoText{
+    color: whitesmoke;
+}

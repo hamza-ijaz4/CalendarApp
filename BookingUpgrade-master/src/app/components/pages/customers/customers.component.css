@@ -21,7 +21,7 @@
 
 #releaseNoteDown {
   position: absolute;
-  top: 45px;
+  /* top: 45px; */
   right: 18px;
   width: 200px;
   height: 30px;

@@ -1,0 +1,19 @@
+<div [ngClass]="setClasses()" [class.disableBox]="!day.timeSlotGroups">
+    <div (click)="showTimeSlots = !showTimeSlots" class="box">
+      <button class="box" (click)="DeleteTimeSlotDays()" id="deleteButton">X</button>
+      <h3 class="date">{{day.date | date: 'dd/MM/yyyy'}}</h3>
+    </div>
+    <div class="appointments">
+      <ng-template [ngIf]="showTimeSlots && day.timeSlotGroups">
+        <div *ngFor="let item of day.timeSlotGroups; let i = index" class="appointment-box">
+          <label for="radio1">{{item.startTime.hours+ ':'+ 0 + item.startTime.minutes + get12HourTime(item.startTime.hours)}}
+            - {{item.endTime.hours + ':'+ 0 +
+            item.endTime.minutes + get12HourTime(item.startTime.hours)}}</label>
+          <input type="radio" (change)="selectedTime(item.startTime)" class="select-appointment" [id]="'appointment'"
+            [name]="'appointment'">
+        </div>
+        <button (click)="saveBooking(day.date)" class="slot booked"><span class="book-span">Book</span></button>
+      </ng-template>
+    </div>
+  
+  
