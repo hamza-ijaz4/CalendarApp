@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class CustomersComponent implements OnInit {
 
   upgradeId!: string;
+  selectedIndex: number | undefined;
 
   upgrades: any[] = [];
   items: any[] = [];
@@ -43,7 +44,7 @@ export class CustomersComponent implements OnInit {
 
 
   getCustomers() {
-    this._customer.getCustomers().subscribe((result: any) => {
+    this._customer.getCustomers(this.upgradeId).subscribe((result: any) => {
       this.items = result;
     })
   }
@@ -57,27 +58,26 @@ export class CustomersComponent implements OnInit {
   }
 
   save() {
-    if (!this.upgradeId)
+    if (!this.upgradeId || !this.selectedIndex)
       return;
 
-    let data = new CustomerAppointment();
-    let customerIds = this.items.filter(a => a.isSelected).map(a => a.id);
-    data.upgradeId = this.upgradeId;
+    let customer = this.items[this.selectedIndex || 0];
 
-    this._httpClient.post('https://localhost:44332/api/customers/save-appointments', { upgradeId: this.upgradeId, customerIds: customerIds })
-      .subscribe(rsult => {
-        this.getCustomers();
-      });
-    // this._customer.saveAppointments(data).subscribe(result => {
-    //   console.log('success');
-    // })
+    let obj = {
+      "herId": customer.herId,
+      "upgradeId": this.upgradeId
+    }
 
+    return;
+    // needs to do that part
+    this._customer.saveAppointments(obj).subscribe(result => {
+      alert('saved');
+    });
+  }
 
+  public setRow(_index: number) {
+    this.selectedIndex = _index;
   }
 
 }
 
-export class CustomerAppointment {
-  customerIds: string[] = [];
-  upgradeId: string = '';
-}

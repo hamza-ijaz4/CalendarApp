@@ -10,6 +10,5 @@ namespace ApiProject.Dto
         public DateTime Day { get; set; }
         public int Time { get; set; }
         public string HerId { get; set; }
-
     }
 }

@@ -1,16 +1,8 @@
-<!-- <div class="wrapper">
-  <div class="header">
-    <button [disabled]="!upgradeId" id="releaseNoteDown" (click)="save()"> Save</button>
-    <br>
-
-  </div>
-</div> -->
-
 <div class="calender">
   <button [disabled]="!upgradeId" id="releaseNoteDown" (click)="save()"> Save</button>
   <br />
-  <div style="margin-top: 40px;" class="day" [ngClass]="item.isSelected? 'selectedBox': ''" *ngFor="let item of items;"
-    (click)="item.isSelected = !item.isSelected">
+  <div style="margin-top: 40px;" class="day" [ngClass]="selectedIndex === i? 'selectedBox': ''"
+    *ngFor="let item of items; let i = index;" (click)="setRow(i)">
     <div class="box">
       <h3 class="date">{{item.name}}</h3>
     </div>

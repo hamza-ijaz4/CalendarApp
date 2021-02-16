@@ -16,13 +16,15 @@ export class CustomerService {
     this.headers.append('Content-Type', 'application/json')
   }
 
-  getCustomers() {
-    return this.http.get(this.customerUrl)
+  getCustomers(upgradeId: string) {
+    return this.http.get(`${this.customerUrl}${upgradeId}/list`)
   }
 
   saveAppointments(data: any) {
-    let url = environment.apiEndpoint + '/api/customers/save-appointments'
-    return this.http.post(url, this.customerUrl, { headers: this.headers })
+    let obj = {
+      "herId": data.herId
+    }
+    return this.http.post(`this.customerUrl${data.upgradeId}&${data.herId}/save`, obj, { headers: this.headers })
   }
 
 }

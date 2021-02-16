@@ -24,6 +24,26 @@ namespace ApiProject.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        [Route("{upgradeId}/list")]
+        public async Task<List<CustomerListDto>> CusomersList()
+        {
+            var customersQuery = _context.Customers.AsQueryable();
+            var appointmentQuery = _context.Appointments.AsQueryable();
+
+            customersQuery = customersQuery.Where(a => !appointmentQuery.Any(x => x.HerId == a.HerId));
+
+            var list = await customersQuery.Select(a => new CustomerListDto()
+            {
+                HerId = a.HerId,
+                Id = a.Id,
+                Name = a.Name
+            }).ToListAsync();
+
+            return list;
+
+        }
+
         // GET: api/Customers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(Guid id)
