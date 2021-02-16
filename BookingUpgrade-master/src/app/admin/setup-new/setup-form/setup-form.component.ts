@@ -1,4 +1,4 @@
-import { environment } from '../../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { Time } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';

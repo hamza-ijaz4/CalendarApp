@@ -1,4 +1,4 @@
-import { environment } from '../../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from 'src/app/services/customer-service.service';

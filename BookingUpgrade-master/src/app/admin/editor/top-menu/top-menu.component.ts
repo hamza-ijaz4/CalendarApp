@@ -2,8 +2,8 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, Scroll, } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { EmitEvent, EventBusService } from '../services/event-bus-service';
-import { UpgradeService } from '../services/upgrade.service';
+import { EmitEvent, EventBusService } from '../../../services/event-bus-service';
+import { UpgradeService } from '../../../services/upgrade.service';
 
 @Component({
   selector: 'app-top-menu',

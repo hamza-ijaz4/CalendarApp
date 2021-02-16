@@ -14,16 +14,17 @@ import { BookingUpgradeComponent } from './components/pages/booking-calender/boo
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CustomersComponent } from './upgrade-client/admin-page/Add-customers/customers/customers.component';
-import { UpgradeMainComponent } from './upgrade-client/admin-page/main/upgrade-main/upgrade-main.component';
-import { TimeslotsDayComponent } from './upgrade-client/admin-page/timeslots/timeslots-day/timeslots-day.component';
-import { BookingMainComponent } from './upgrade-client/customer-page/booking-main/booking-main.component';
-import { BookingTimeslotsComponent } from './upgrade-client/customer-page/booking-timeslots/booking-timeslots.component';
-import { BookingDaysComponent } from './upgrade-client/customer-page/booking-days/booking-days.component';
-import { TimeslotsContainerComponent } from './upgrade-client/admin-page/timeslots/timeslots-container/timeslots-container.component';
-import { TopMenuComponent } from './top-menu/top-menu.component';
-import { SetTimeComponent } from './upgrade-client/admin-page/setup-new/set-time/set-time.component';
-import { SetupFormComponent } from './upgrade-client/admin-page/setup-new/setup-form/setup-form.component';
+import { CustomersComponent } from './admin/editor/customers/customers.component';
+import { UpgradeMainComponent } from './admin/main/upgrade-main/upgrade-main.component';
+import { TimeslotsDayComponent } from './admin/editor/timeslots/timeslots-day/timeslots-day.component';
+import { BookingMainComponent } from './customer-page/booking-main/booking-main.component';
+import { BookingTimeslotsComponent } from './customer-page/booking-timeslots/booking-timeslots.component';
+import { BookingDaysComponent } from './customer-page/booking-days/booking-days.component';
+import { TimeslotsContainerComponent } from './admin/editor/timeslots/timeslots-container/timeslots-container.component';
+import { TopMenuComponent } from './admin/editor/top-menu/top-menu.component';
+import { SetTimeComponent } from './admin/setup-new/set-time/set-time.component';
+import { SetupFormComponent } from './admin/setup-new/setup-form/setup-form.component';
+import { HeaderComponent } from './admin/layout/header/header.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { SetupFormComponent } from './upgrade-client/admin-page/setup-new/setup-
     BookingDaysComponent,
     TimeslotsContainerComponent,
     TopMenuComponent,
+    HeaderComponent,
   ],
   imports: [
     CommonModule,
