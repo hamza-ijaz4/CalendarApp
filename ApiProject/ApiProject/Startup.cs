@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using ApiProject.Models;
 using Microsoft.AspNetCore.Builder;
@@ -10,9 +12,24 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
 
 namespace ApiProject
 {
+    public class TimeSpanToStringConverter : JsonConverter<TimeSpan>
+    {
+        public override TimeSpan Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            var value = reader.GetString();
+            return TimeSpan.Parse(value);
+        }
+
+        public override void Write(Utf8JsonWriter writer, TimeSpan value, JsonSerializerOptions options)
+        {
+            writer.WriteStringValue(value.ToString());
+        }
+    }
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -32,10 +49,16 @@ namespace ApiProject
                        .AllowAnyHeader();
             }));
 
+            services.AddSwaggerGen();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllersWithViews();
+
+            services.AddControllersWithViews().AddNewtonsoftJson();
+
+            //services.AddControllers().AddJsonOptions(options=>
+            //options.JsonSerializerOptions.Converters.Add(new TimeSpanToStringConverter()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +79,17 @@ namespace ApiProject
 
             app.UseRouting();
             app.UseCors("Default");
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Test1 Api v1");
+                c.RoutePrefix = string.Empty;
+            });
+
             app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {

@@ -32,7 +32,7 @@ namespace ApiProject.Controllers
 
         // GET: api/Timeslots
         [HttpGet]
-        [Route("api/timeslots/{upgradeId}")]
+        [Route("{upgradeId}/days")]
         public async Task<ActionResult<List<TimeSlotGroupListDto>>> UpgradeTimeSlots(Guid? upgradeId)
         {
             try
@@ -66,11 +66,18 @@ namespace ApiProject.Controllers
         }
 
 
-        [Route("api/timeslots/{upgradeId}/timegroup")]
+        [Route("{upgradeId}/timegroup")]
         [HttpDelete]
-        public async Task<ActionResult> DeleteTimeSlotGroups([FromQuery] DeleteTimeSlotGroupDto input)
+        public async Task<ActionResult> DeleteTimeSlotGroups(DeleteTimeSlotGroupDto input)
         {
-            var timeslotGroup = await _context.TimeSlots.Where(a => a.Date == input.Day && a.StartTime == input.StartTime).ToListAsync();
+
+            var timeslotGroup = await _context.TimeSlots
+                                              .Where(a => a.Date == input.Day &&
+                                                          a.StartTime == input.StartTime &&
+                                                          a.EndTime == input.EndTime &&
+                                                          a.Available)
+                                              .ToListAsync();
+
             if (timeslotGroup.Count == 0)
             {
                 return NotFound();
@@ -82,16 +89,17 @@ namespace ApiProject.Controllers
         }
 
         [HttpDelete]
-        [Route("api/timeslots/{upgradeId}/day")]
-        public async Task<ActionResult> DeleteTimeSlotDays(DateTime input)
+        [Route("{upgradeId}/day")]
+        public async Task<ActionResult> DeleteDayTimeSlot([FromBody]DateTime input)
         {
-            var timeSlotDay = await _context.TimeSlots.Where(a => a.Date == input).ToListAsync();
+            var date = input.Date.AddDays(1).Date;
+            var timeSlotDay = await _context.TimeSlots.Where(a => a.Date.Date == date).ToListAsync();
             if (timeSlotDay.Count() == 0)
             {
                 return NotFound();
             }
             timeSlotDay.ForEach(a => { a.IsDeleted = true; });
-            _context.TimeSlots.RemoveRange(timeSlotDay);
+            _context.TimeSlots.UpdateRange(timeSlotDay);
             await _context.SaveChangesAsync();
             return Ok();
         }

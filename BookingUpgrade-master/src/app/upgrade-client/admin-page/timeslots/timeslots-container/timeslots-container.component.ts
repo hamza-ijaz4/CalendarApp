@@ -14,10 +14,7 @@ export class TimeslotsContainerComponent implements OnInit, OnChanges { //
 
   constructor(private timeslotService: TimeSlotService) { }
 
-
-
   ngOnInit(): void {
-
   }
 
   ngOnChanges(changes: SimpleChanges) {

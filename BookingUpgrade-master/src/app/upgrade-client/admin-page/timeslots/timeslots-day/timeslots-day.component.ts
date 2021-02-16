@@ -1,6 +1,9 @@
 import { environment } from '../../../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { TimeSlotService } from 'src/app/services/time-slot.service';
+import * as moment from 'moment';
+import { EmitEvent, EventBusService } from 'src/app/services/event-bus-service';
 
 
 export interface BookingDto {
@@ -17,23 +20,22 @@ export interface BookingDto {
 export class TimeslotsDayComponent implements OnInit, OnChanges { //
 
   @Input() day: any;
+  @Input() upgradeId: string | undefined;
+  itemss: any[] = [];
   hours: any;
   selected: boolean = false;
   showTimeSlots = false;
   selectedTimeSlotId = undefined;
   selectedTimeSlotTime: any;
+  isAdmin = false;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+    private _timeSlotService: TimeSlotService,
+    private eventbus: EventBusService,) { }
 
   ngOnInit(): void {
-
-    //this.hours= this.appointment.hour
+    window.location.href.indexOf('admin') > 0 ? this.isAdmin = true : this.isAdmin = false;
   }
-
-  // ngOnChanges(changes: SimpleChanges) {
-  //   if (changes.appointment.currentValue)
-  //     this.appointment = changes.appointment.currentValue;
-  // }
 
   setClasses() {
     let classes = {
@@ -46,8 +48,7 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
   ngOnChanges(changes: SimpleChanges) {
     if (changes.day.currentValue)
       this.day = changes.day.currentValue;
-    console.log("on change call from days", this.day)
-    //this.selectedTimeSlotId = event.target.value;
+    console.log("on change call from days", this.day);
   }
 
   get12HourTime(data: any) {
@@ -80,15 +81,27 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
     })
   }
 
-  DeleteTimeSlotDays() {
-    let _headers = new HttpHeaders();
-    _headers.append('Content-Type', 'application/json')
+  DeleteDayTimeSlots(date: any) {
+    let obj = {
+      "upgradeId": this.upgradeId,
+      "date": date
+    };
+    this._timeSlotService.deleteDayTimeSlots(obj).subscribe(result => {
 
-    let url = environment.apiEndpoint;
-    url = url + "/api/timeslots/delete-timeslot-days?input=" + this.day.date;
+    });
+  }
 
-    this.httpClient.delete(url, { headers: _headers }).subscribe(result => {
-      window.location.href = 'http://localhost:4200/';
+  deleteTimeSlot(date: any, timeSlot: any, index: number) {
+
+    let obj = {
+      "upgradeId": this.upgradeId,
+      "date": date,
+      "startTime": timeSlot.startTime,
+      "endTime": timeSlot.endTime
+    };
+
+    this._timeSlotService.deleteTimeSlot(obj).subscribe((result: any) => {
+      this.eventbus.emit(new EmitEvent('getTimeSlots', this.upgradeId));
     })
   }
 

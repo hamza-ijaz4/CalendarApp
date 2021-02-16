@@ -1,14 +1,14 @@
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TimeSlotService { 
-  
-  upgradesUrl: string = environment.apiEndpoint + "/api/TimeSlots/GetTimeSlots";
+export class TimeSlotService {
+
+  upgradesUrl: string = environment.apiEndpoint + "/api/TimeSlots/";
 
   headers: HttpHeaders;
 
@@ -23,6 +23,32 @@ export class TimeSlotService {
   }
 
   getTimeSlotDaysByUpgradeId(UpgradeId: string) {
-    return this.http.get(`${this.upgradesUrl}?upgradeId=${UpgradeId}`)
+    return this.http.get(`${this.upgradesUrl}${UpgradeId}/days`)
   }
+
+  deleteTimeSlot(data: any) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        "day": data.date,
+        "startTime": data.startTime,
+        "endTime": data.endTime,
+      },
+    };
+    return this.http.delete(`${this.upgradesUrl}${data.upgradeId}/timegroup`, options)
+  }
+
+  deleteDayTimeSlots(data: any) {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: new Date(data.date)
+    };
+    return this.http.delete(`${this.upgradesUrl}${data.upgradeId}/day`, options)
+  }
+
+
 }

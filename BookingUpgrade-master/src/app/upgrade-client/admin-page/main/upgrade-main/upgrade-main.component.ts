@@ -27,9 +27,8 @@ export class UpgradeMainComponent implements OnInit {
       .subscribe(params => {
         if (params.upgradeId) {
           this.upgradeId = params.upgradeId;
-          console.log(params); // { order: "popular" }
+          console.log(params);
         }
-
       });
   }
 
