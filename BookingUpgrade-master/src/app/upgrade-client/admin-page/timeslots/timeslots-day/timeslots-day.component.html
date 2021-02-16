@@ -1,5 +1,5 @@
 <div [ngClass]="setClasses()" [class.disableBox]="!day.timeSlotGroups">
-  <div (click)="showTimeSlots = !showTimeSlots" class="box">
+  <div (click)="showTimeSlots = !showTimeSlots" class="box"> 
     <button class="box" (click)="DeleteDayTimeSlots(day.date)" id="deleteButton">X</button>
     <h3 class="date">{{day.date | date: 'dd/MM/yyyy'}}</h3>
   </div>

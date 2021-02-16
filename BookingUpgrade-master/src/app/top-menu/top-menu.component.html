@@ -6,7 +6,7 @@
       <option [value]="undefined" selected> Select version</option>
       <option *ngFor="let item of upgrades" [value]="item.id">{{item.version}}</option>
     </select>
-
+    <button routerLink="setupcalender"> Add upgrade </button>
 
   </div>
   <!-- <button id="releaseNoteUp"> Upload realease note</button> -->
@@ -16,7 +16,8 @@
   <div style="text-align: center; margin-bottom: 10px;">
     <p class="timeTitle" style="display:inline-block; margin: 4px;"> </p>
     <button (click)="redirect('admin')"> Time slots </button>
-    <button routerLink="setupcalender"> Add upgrade </button>
+
+    <button (click)="redirect('time-slots')"> Booking </button>
     <button (click)="redirect('customers')"> Add client </button>
     <button> Calender // Todo </button>
   </div>

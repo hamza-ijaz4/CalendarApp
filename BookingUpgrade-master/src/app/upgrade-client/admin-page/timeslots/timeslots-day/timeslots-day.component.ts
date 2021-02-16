@@ -24,7 +24,7 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
   itemss: any[] = [];
   hours: any;
   selected: boolean = false;
-  showTimeSlots = false;
+  showTimeSlots = true;
   selectedTimeSlotId = undefined;
   selectedTimeSlotTime: any;
   isAdmin = false;

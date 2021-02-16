@@ -74,7 +74,7 @@ namespace ApiProject.Controllers
         //    return NoContent();
         //}
 
-        [HttpPut("api/appointment/Booking")]
+        [HttpPut("Booking")]
         public async Task<ActionResult> SaveBooking([FromBody] BookingDto input) // by customer
         {
 

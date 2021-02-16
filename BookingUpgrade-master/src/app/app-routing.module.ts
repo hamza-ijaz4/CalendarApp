@@ -8,6 +8,7 @@ import { CustomersComponent } from './upgrade-client/admin-page/Add-customers/cu
 const routes: Routes = [
   { path: '', redirectTo: 'admin', pathMatch: 'full' },
   { path: 'admin', component: UpgradeMainComponent, },
+  { path: 'time-slots', component: UpgradeMainComponent, },
   { path: 'herid/:herid', component: BookingUpgradeComponent },
   { path: 'setupcalender', component: SetupFormComponent },
   { path: 'customers', component: CustomersComponent }

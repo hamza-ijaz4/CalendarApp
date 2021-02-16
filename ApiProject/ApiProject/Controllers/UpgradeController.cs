@@ -88,7 +88,7 @@ namespace ApiProject.Controllers
         }
 
         [HttpGet]
-        [Route("api/upgrades/versiones")]
+        [Route("versiones")]
         public async Task<ActionResult<List<KeyValuePair<Guid, string>>>> GetUpgradeLookups()
         {
             var list = await _context.Upgrades.Select(a => new KeyValuePair<Guid, string>(a.Id, a.Version)).ToListAsync();
@@ -97,7 +97,7 @@ namespace ApiProject.Controllers
 
 
         [HttpPost]
-        [Route("api/upgrade")]
+       // [Route("api/upgrade")]
         public async Task<ActionResult> CreateUpgradeAndTimeSlots()
         {
             try
@@ -167,7 +167,7 @@ namespace ApiProject.Controllers
         }
 
         [HttpGet]
-        [Route("api/upgrade/{upgradeId}/file")]
+        [Route("{upgradeId}/file")]
         public async Task<ActionResult> GetUpgradeFile(Guid upgradeId)
         {
             var upgrade = _context.Upgrades.FirstOrDefault(a => a.Id == upgradeId);

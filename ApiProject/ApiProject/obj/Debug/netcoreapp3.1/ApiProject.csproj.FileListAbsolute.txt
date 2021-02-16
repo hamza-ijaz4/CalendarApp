@@ -506,3 +506,12 @@ E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\bin\D
 E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.csproj.CoreCompileInputs.cache
 E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.MvcApplicationPartsAssemblyInfo.cs
 E:\Projects\Upwork\BookingUpgrade-master\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.MvcApplicationPartsAssemblyInfo.cache
+C:\WebMed\Other\CalendarApp\ApiProject\ApiProject\bin\Debug\netcoreapp3.1\Humanizer.dll
+C:\WebMed\Other\CalendarApp\ApiProject\ApiProject\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\WebMed\Other\CalendarApp\ApiProject\ApiProject\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\WebMed\Other\CalendarApp\ApiProject\ApiProject\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\WebMed\Other\CalendarApp\ApiProject\ApiProject\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\WebMed\Other\CalendarApp\ApiProject\ApiProject\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\WebMed\Other\CalendarApp\ApiProject\ApiProject\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\WebMed\Other\CalendarApp\ApiProject\ApiProject\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\WebMed\Other\CalendarApp\ApiProject\ApiProject\obj\Debug\netcoreapp3.1\ApiProject.MvcApplicationPartsAssemblyInfo.cs
