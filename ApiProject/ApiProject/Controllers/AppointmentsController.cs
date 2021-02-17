@@ -112,7 +112,7 @@ namespace ApiProject.Controllers
             {
                 HerId = input.HerId,
                 UpgradeId = input.UpgradeId,
-                Status = AppointmentStats.Pending
+                Status = AppointmentStats.Invited
             };
             _context.Appointments.Add(appointment);
             await _context.SaveChangesAsync();

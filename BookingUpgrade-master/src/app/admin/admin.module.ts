@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // prime ng modules
 import { TabViewModule } from 'primeng/tabview';
+import { ToastModule } from 'primeng/toast';
 
 //components
 import { AdminComponent } from './admin.component';
@@ -17,6 +18,7 @@ import { AddUpgradeComponent } from './add-upgrade/add-upgrade.component';
 import { TimeslotsContainerComponent } from './editor/timeslots/timeslots-container/timeslots-container.component';
 import { TimeslotsDayComponent } from './editor/timeslots/timeslots-day/timeslots-day.component';
 import { SharedModule } from '../shared/shared.module';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   imports: [
@@ -24,7 +26,10 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
+
+    // primeng modules
     TabViewModule,
+    CardModule,
 
     // custom modules
     AdminRoutingModule,
@@ -41,6 +46,8 @@ import { SharedModule } from '../shared/shared.module';
   exports: [
 
   ],
-  providers: []
+  providers: [
+
+  ]
 })
 export class AdminModule { }

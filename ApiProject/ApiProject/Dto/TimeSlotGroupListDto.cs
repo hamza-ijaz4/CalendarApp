@@ -12,4 +12,9 @@ namespace ApiProject.Dto
         public int Duration { get; set; }
         public List<TimeSlotGroupDto> TimeSlotGroups { get; set; }
     }
+
+    public class TimeSlotListDto
+    {
+
+    }
 }

@@ -25,22 +25,34 @@ namespace ApiProject.Controllers
         }
 
         [HttpGet]
-        [Route("{upgradeId}/list")]
-        public async Task<List<CustomerListDto>> CusomersList()
+        [Route("list")]
+        public async Task<ActionResult<List<CustomerListDto>>> CusomersList()
         {
-            var customersQuery = _context.Customers.AsQueryable();
-            var appointmentQuery = _context.Appointments.AsQueryable();
-
-            customersQuery = customersQuery.Where(a => !appointmentQuery.Any(x => x.HerId == a.HerId));
-
-            var list = await customersQuery.Select(a => new CustomerListDto()
+            try
             {
-                HerId = a.HerId,
-                Id = a.Id,
-                Name = a.Name
-            }).ToListAsync();
+                var customersQuery = _context.Customers.AsQueryable();
+                var appointmentQuery = _context.Appointments.AsQueryable();
 
-            return list;
+                var joinedQuery = from q in customersQuery
+                                  join a in appointmentQuery
+                                  on q.HerId equals a.HerId
+                                  into qaJoined
+                                  from a in qaJoined.DefaultIfEmpty()
+                                  select new CustomerListDto
+                                  {
+                                      HerId = q.HerId,
+                                      Id = q.Id,
+                                      Name = q.Name,
+                                      GotAppointment = a != null ? true : false
+                                  };
+
+                var list = await joinedQuery.ToListAsync();
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
         }
 

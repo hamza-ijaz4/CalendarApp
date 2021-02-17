@@ -1,3 +1,9 @@
+.disablebox {
+  pointer-events: none;
+  background-color: #1eff03fc !important;
+  color: #ffffff !important;
+}
+
 .header {
   height: 80px;
 }

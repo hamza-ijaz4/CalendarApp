@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using ApiProject.Dto;
 using ApiProject.Models;
 using Microsoft.AspNetCore.Cors;
@@ -18,27 +20,57 @@ namespace ApiProject.Controllers
             _context = context;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> SaveBooking([FromBody] BookingDto input)
-        {
-            
-            var TimeSlots = await _context.TimeSlots.FirstOrDefaultAsync(a => a.Date == input.Day && a.StartTime.Hours == input.Time && a.Available);
-            if (TimeSlots == null)
-                return BadRequest("No appointment found");
 
-            var appointment = new Appointment()
+        [HttpPost]
+        [Route("CreateBookingInvites")]
+        public async Task<ActionResult> CreateBookingInvites(CreateAppointmentInviteDto input)
+        {
+            try
             {
-                HerId = input.HerId,
-                Status = AppointmentStats.Pending,
-                TimeSlotId = TimeSlots.Id,
-            };
-            _context.Appointments.Add(appointment);
-            await _context.SaveChangesAsync();
+                if (input.HerIds?.Count == 0)
+                    return BadRequest("Customers count should not be null");
+
+                var list = new List<Appointment>();
+                input.HerIds?.ForEach(a =>
+                {
+                    list.Add(new Appointment() { HerId = a, UpgradeId = input.UpgradeId, Status = AppointmentStats.Invited });
+                });
+
+                _context.Appointments.AddRange(list);
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("SetBookingTime")]
+        public async Task<ActionResult> SetBookingTime(UpdateBookingInvitesDto input)
+        {
+
+            var TimeSlots = await _context.TimeSlots.FirstOrDefaultAsync(a => a.Date == input.Day &&
+                                                                         a.StartTime == input.StartTime &&
+                                                                         a.EndTime == input.EndTime &&
+                                                                         a.Available);
+            if (TimeSlots == null)
+                return BadRequest("No timeslot found");
+
+            var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Id == input.AppointmentId);
+            if (appointment == null)
+                return NotFound("No appointment found");
 
             TimeSlots.Available = false;
             _context.TimeSlots.Update(TimeSlots);
             await _context.SaveChangesAsync();
-            
+
+            appointment.Status = AppointmentStats.Booked;
+            appointment.TimeSlotId = TimeSlots.Id;
+            _context.Appointments.Update(appointment);
+            await _context.SaveChangesAsync();
 
             return Ok();
         }

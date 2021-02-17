@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class CustomerService {
 
+  bookingUrl: string = environment.apiEndpoint + "/api/booking/";
   customerUrl: string = environment.apiEndpoint + "/api/customers/";
   headers: HttpHeaders
 
@@ -15,14 +16,11 @@ export class CustomerService {
   }
 
   getCustomers(upgradeId: string) {
-    return this.http.get(`${this.customerUrl}${upgradeId}/list`)
+    return this.http.get(`${this.customerUrl}list`)
   }
 
   saveAppointments(data: any) {
-    let obj = {
-      "herId": data.herId
-    }
-    return this.http.post(`this.customerUrl${data.upgradeId}&${data.herId}/save`, obj, { headers: this.headers })
+    return this.http.post(`${this.bookingUrl}createBookingInvites`, data, { headers: this.headers })
   }
 
 }

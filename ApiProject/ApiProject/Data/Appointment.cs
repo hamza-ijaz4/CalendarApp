@@ -7,7 +7,7 @@ namespace ApiProject.Models
 {
     public enum AppointmentStats
     {
-        Pending,
+        Invited,
         Booked,
         Completed
     }

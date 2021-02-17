@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { CustomerService } from 'src/app/shared/services/customer-service.service';
 
 @Component({
@@ -10,13 +11,12 @@ import { CustomerService } from 'src/app/shared/services/customer-service.servic
 export class CustomersComponent implements OnInit {
 
   @Input() upgradeId!: string;
-  selectedIndex: number | undefined;
 
   upgrades: any[] = [];
   items: any[] = [];
 
   selected: boolean = false;
-  constructor(private _customer: CustomerService,) { }
+  constructor(private _customer: CustomerService, private messageService: MessageService) { }
 
 
   ngOnInit(): void {
@@ -49,25 +49,20 @@ export class CustomersComponent implements OnInit {
   }
 
   save() {
-    if (!this.upgradeId || !this.selectedIndex)
+    if (!this.upgradeId)
       return;
 
-    let customer = this.items[this.selectedIndex || 0];
+    let herIds = this.items.filter(a => a.isSelected).map(a => a.herId);
 
     let obj = {
-      "herId": customer.herId,
+      "herIds": herIds,
       "upgradeId": this.upgradeId
     }
 
-    return;
-    // needs to do that part
     this._customer.saveAppointments(obj).subscribe(() => {
-      alert('saved');
+      this.messageService.add({ severity: 'success', summary: 'Invited successfully' });
+      this.getCustomers();
     });
-  }
-
-  public setRow(_index: number) {
-    this.selectedIndex = _index;
   }
 
 }
