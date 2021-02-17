@@ -18,7 +18,6 @@ import { TimeslotsContainerComponent } from './editor/upgrade-timeslots/timeslot
 import { TimeslotsDayComponent } from './editor/upgrade-timeslots/timeslots/timeslots-day/timeslots-day.component';
 import { UpgradeTimeslotsComponent } from './editor/upgrade-timeslots/timeslots/upgrade-timeslots/upgrade-timeslots.component';
 import { SharedModule } from '../shared/shared.module';
-import { UpgradeMainComponent } from './editor/upgrade-timeslots/upgrade-timeslots.component';
 
 @NgModule({
   imports: [
@@ -37,7 +36,6 @@ import { UpgradeMainComponent } from './editor/upgrade-timeslots/upgrade-timeslo
     CustomersComponent,
     TimeslotsContainerComponent,
     TimeslotsDayComponent,
-    UpgradeMainComponent,
     UpgradeTimeslotsComponent,
     EditorComponent,
     AddUpgradeComponent

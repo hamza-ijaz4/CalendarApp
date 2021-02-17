@@ -3,7 +3,6 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { AdminComponent } from "./admin.component";
 import { CustomersComponent } from "./editor/customers/customers.component";
-import { UpgradeMainComponent } from "./editor/upgrade-timeslots/upgrade-timeslots.component";
 import { AddUpgradeComponent } from './add-upgrade/add-upgrade.component';
 
 @NgModule({
