@@ -7,12 +7,8 @@
     <ng-template [ngIf]="showTimeSlots && day.timeSlotGroups">
       <div *ngFor="let item of day.timeSlotGroups; let i = index" class="appointment-box">
         <label for="radio1">{{item.startTime}} - {{item.endTime}}</label>
-        <input *ngIf="!isAdmin" type="radio" (change)="selectedTime(item.startTime)" class="select-appointment"
-          [id]="'appointment'" [name]="'appointment'">
-        <button *ngIf="isAdmin" class="deleteTimeSlot" (click)="deleteTimeSlot(day.date, item, i)"
+        <button class="deleteTimeSlot" (click)="deleteTimeSlot(day.date, item, i)"
           type="button">x</button>
       </div>
-      <button *ngIf="!isAdmin" (click)="saveBooking(day.date)" class="slot booked"><span
-          class="book-span">Book</span></button>
     </ng-template>
   </div>

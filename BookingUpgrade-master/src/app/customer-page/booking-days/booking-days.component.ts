@@ -25,14 +25,14 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
   showTimeSlots = true;
   selectedTimeSlotId = undefined;
   selectedTimeSlotTime: any;
-  isAdmin = false;
+
 
   constructor(private httpClient: HttpClient,
     private _timeSlotService: TimeSlotService,
     private eventbus: EventBusService,) { }
 
   ngOnInit(): void {
-    window.location.href.indexOf('admin') > 0 ? this.isAdmin = true : this.isAdmin = false;
+   // window.location.href.indexOf('admin') > 0 ? this.isAdmin = true : this.isAdmin = false;
   }
 
   setClasses() {
@@ -76,30 +76,6 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
     };
     this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
       window.location.href = 'http://localhost:4200/';
-    })
-  }
-
-  DeleteDayTimeSlots(date: any) {
-    let obj = {
-      "upgradeId": this.upgradeId,
-      "date": date
-    };
-    this._timeSlotService.deleteDayTimeSlots(obj).subscribe(result => {
-
-    });
-  }
-
-  deleteTimeSlot(date: any, timeSlot: any, index: number) {
-
-    let obj = {
-      "upgradeId": this.upgradeId,
-      "date": date,
-      "startTime": timeSlot.startTime,
-      "endTime": timeSlot.endTime
-    };
-
-    this._timeSlotService.deleteTimeSlot(obj).subscribe((result: any) => {
-      this.eventbus.emit(new EmitEvent('getTimeSlots', this.upgradeId));
     })
   }
 

@@ -5,9 +5,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UpgradeDayComponent } from './components/pages/booking-calender/upgrade-day/upgrade-day.component';
-import { UpgradeCalenderComponent } from './components/pages/booking-calender/upgrade-calender/upgrade-calender.component';
-import { BookingUpgradeComponent } from './components/pages/booking-calender/booking-upgrade/booking-upgrade.component';
+
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -19,12 +17,10 @@ import { SharedModule } from './shared/shared.module';
 import { BookingContainerComponent } from './customer-page/booking-container/booking-container.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
-    UpgradeDayComponent,
-    UpgradeCalenderComponent,
-    BookingUpgradeComponent,
     BookingMainComponent,
     BookingDaysComponent,
     BookingContainerComponent,

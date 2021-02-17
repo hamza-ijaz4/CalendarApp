@@ -24,14 +24,14 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
   showTimeSlots = true;
   selectedTimeSlotId = undefined;
   selectedTimeSlotTime: any;
-  isAdmin = false;
 
   constructor(private httpClient: HttpClient,
     private _timeSlotService: TimeSlotService,
   ) { }
 
+  //   window.location.href.indexOf('admin') > 0 ? this.isAdmin = true : this.isAdmin = false;
   ngOnInit(): void {
-    window.location.href.indexOf('admin') > 0 ? this.isAdmin = true : this.isAdmin = false;
+ 
   }
 
   setClasses() {

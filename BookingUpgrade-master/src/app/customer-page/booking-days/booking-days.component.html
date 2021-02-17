@@ -1,6 +1,5 @@
 <div [ngClass]="setClasses()" [class.disableBox]="!day.timeSlotGroups">
     <div (click)="showTimeSlots = !showTimeSlots" class="box"> 
-      <button class="box" (click)="DeleteDayTimeSlots(day.date)" id="deleteButton">X</button>
       <h3 class="date">{{day.date | date: 'dd/MM/yyyy'}}</h3>
     </div>
     <div class="appointments">
@@ -9,8 +8,6 @@
           <label for="radio1">{{item.startTime}} - {{item.endTime}}</label>
           <input  type="radio" (change)="selectedTime(item.startTime)" class="select-appointment"
             [id]="'appointment'" [name]="'appointment'">
-          <button *ngIf="isAdmin" class="deleteTimeSlot" (click)="deleteTimeSlot(day.date, item, i)"
-            type="button">x</button>
         </div>
         <button (click)="saveBooking(day.date)" class="slot booked"><span
             class="book-span">Book</span></button>
