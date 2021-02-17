@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { AppointmentService } from 'src/app/services/appointment.service';
-import { UpgradeService } from 'src/app/services/upgrade.service';
+import { UpgradeService } from 'src/app/shared/services/upgrade.service';
+
 
 @Component({
   selector: 'app-booking-upgrade',

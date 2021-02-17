@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <label id="upgradeText" for="upgrade-Version">Select Upgrade: </label>
+      <select [(ngModel)]="upgradeId" name="upgrade-Version" id="upgrade-Version">
+        <option [value]="undefined" selected> Select version</option>
+        <option *ngFor="let item of upgrades" [value]="item.id">{{item.version}}</option>
+      </select>
+      <button id="releaseNoteDown" style="float: right;" (click)="downloadFile()"> Download realease note</button>
+    </div>
+    <br />
+    <div class="col-lg-12 card">
+      <p-tabView>
+        <p-tabPanel header="Time slots" [headerStyle]="{'padding-right': '1em',  'color':'white'}">
+          <app-timeslots-container [upgradeId]="upgradeId"></app-timeslots-container>
+        </p-tabPanel>
+        <p-tabPanel header="Customers" [headerStyle]="{'padding-right': '1em', 'color':'white'}">
+          <app-customers [upgradeId]="upgradeId"></app-customers>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</div>

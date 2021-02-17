@@ -1,10 +1,6 @@
-import { environment } from '../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { CustomerService } from 'src/app/services/customer-service.service';
-import { UpgradeService } from 'src/app/services/upgrade.service';
-import { EventBusService } from 'src/app/services/event-bus-service';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CustomerService } from 'src/app/shared/services/customer-service.service';
 
 @Component({
   selector: 'app-customers',
@@ -13,37 +9,32 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CustomersComponent implements OnInit {
 
-  upgradeId!: string;
+  @Input() upgradeId!: string;
   selectedIndex: number | undefined;
 
   upgrades: any[] = [];
   items: any[] = [];
 
   selected: boolean = false;
-  constructor(private _customer: CustomerService,
-    private upgradeService: UpgradeService,
-    private _httpClient: HttpClient,
-    private eventbus: EventBusService,
-    private _activatedRoute: ActivatedRoute) { }
+  constructor(private _customer: CustomerService,) { }
 
 
   ngOnInit(): void {
-    this.eventbus.on('getTimeSlots', ((event: any) => {
-      this.upgradeId = event;
-      this.getCustomers();
-    }));
 
-    this._activatedRoute.queryParams
-      .subscribe(params => {
-        if (params.upgradeId) {
-          this.upgradeId = params.upgradeId;
-          this.getCustomers();
-        }
-      });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.upgradeId.currentValue) {
+      if (this.upgradeId) {
+        this.getCustomers();
+      }
+    }
   }
 
 
   getCustomers() {
+    if (!this.upgradeId)
+      return;
     this._customer.getCustomers(this.upgradeId).subscribe((result: any) => {
       this.items = result;
     })
@@ -70,7 +61,7 @@ export class CustomersComponent implements OnInit {
 
     return;
     // needs to do that part
-    this._customer.saveAppointments(obj).subscribe(result => {
+    this._customer.saveAppointments(obj).subscribe(() => {
       alert('saved');
     });
   }

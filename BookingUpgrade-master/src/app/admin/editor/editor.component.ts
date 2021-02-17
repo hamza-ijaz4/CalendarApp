@@ -1,24 +1,25 @@
-
-import { Component, OnInit } from '@angular/core';
-
 import { HttpResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { UpgradeService } from 'src/app/shared/services/upgrade.service';
 
-
 @Component({
-  selector: 'app-booking-main',
-  templateUrl: './booking-main.component.html',
-  styleUrls: ['./booking-main.component.css']
+  selector: 'app-editor',
+  templateUrl: './editor.component.html',
+  styleUrls: ['./editor.component.css']
 })
-export class BookingMainComponent implements OnInit {
+export class EditorComponent implements OnInit {
 
   upgrades: any[] = [];
   upgradeId!: string;
-  constructor(private upgradeService: UpgradeService) { }
 
+  constructor(private upgradeService: UpgradeService,) {
+  }
 
   ngOnInit(): void {
+    this.getUpgrades();
+  }
 
+  getUpgrades() {
     this.upgradeService.getUpgrades().subscribe((result: any) => {
       this.upgrades = result;
     })
@@ -71,6 +72,8 @@ export class BookingMainComponent implements OnInit {
       "";
     return result.replace(/"/g, "");
   }
+
+
 
 
 }

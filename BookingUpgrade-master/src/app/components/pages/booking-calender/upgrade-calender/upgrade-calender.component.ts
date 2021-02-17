@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Appointment } from 'src/app/models/Appointment';
-import { AppointmentService } from 'src/app/services/appointment.service';
-import { TimeSlotService } from 'src/app/services/time-slot.service';
+import { TimeSlotService } from 'src/app/shared/services/time-slot.service';
 
 
 @Component({

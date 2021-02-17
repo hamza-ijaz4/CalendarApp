@@ -14,17 +14,10 @@ import { BookingUpgradeComponent } from './components/pages/booking-calender/boo
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CustomersComponent } from './admin/editor/customers/customers.component';
-import { UpgradeMainComponent } from './admin/main/upgrade-main/upgrade-main.component';
-import { TimeslotsDayComponent } from './admin/editor/timeslots/timeslots-day/timeslots-day.component';
 import { BookingMainComponent } from './customer-page/booking-main/booking-main.component';
 import { BookingTimeslotsComponent } from './customer-page/booking-timeslots/booking-timeslots.component';
 import { BookingDaysComponent } from './customer-page/booking-days/booking-days.component';
-import { TimeslotsContainerComponent } from './admin/editor/timeslots/timeslots-container/timeslots-container.component';
-import { TopMenuComponent } from './admin/editor/top-menu/top-menu.component';
-import { SetTimeComponent } from './admin/setup-new/set-time/set-time.component';
-import { SetupFormComponent } from './admin/setup-new/setup-form/setup-form.component';
-import { HeaderComponent } from './admin/layout/header/header.component';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -34,18 +27,9 @@ import { HeaderComponent } from './admin/layout/header/header.component';
     UpgradeDayComponent,
     UpgradeCalenderComponent,
     BookingUpgradeComponent,
-    SetTimeComponent,
-    SetupFormComponent,
-    CustomersComponent,
-
-    UpgradeMainComponent,
-    TimeslotsDayComponent,
     BookingMainComponent,
     BookingTimeslotsComponent,
     BookingDaysComponent,
-    TimeslotsContainerComponent,
-    TopMenuComponent,
-    HeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -54,7 +38,8 @@ import { HeaderComponent } from './admin/layout/header/header.component';
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
