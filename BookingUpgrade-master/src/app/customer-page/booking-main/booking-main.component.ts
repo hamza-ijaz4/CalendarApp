@@ -13,16 +13,16 @@ import { UpgradeService } from 'src/app/shared/services/upgrade.service';
 export class BookingMainComponent implements OnInit {
 
   upgrades: any[] = [];
-  upgradeId!: string;
+  upgradeId: string = "3408c572-357f-4780-a6d6-f43f9a6b51c8";
   constructor(private upgradeService: UpgradeService) { }
 
 
   ngOnInit(): void {
 
-    this.upgradeService.getUpgrades().subscribe((result: any) => {
-      this.upgrades = result;
-    })
-  }
+  //   this.upgradeService.getUpgrades().subscribe((result: any) => {
+  //     this.upgrades = result;
+  //   })
+   }
 
   downloadFile() {
     if (!this.upgradeId)

@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BookingMainComponent } from './customer-page/booking-main/booking-main.component';
 import { BookingDaysComponent } from './customer-page/booking-days/booking-days.component';
 import { SharedModule } from './shared/shared.module';
+import { BookingContainerComponent } from './customer-page/booking-container/booking-container.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { SharedModule } from './shared/shared.module';
     BookingUpgradeComponent,
     BookingMainComponent,
     BookingDaysComponent,
+    BookingContainerComponent,
   ],
   imports: [
     CommonModule,

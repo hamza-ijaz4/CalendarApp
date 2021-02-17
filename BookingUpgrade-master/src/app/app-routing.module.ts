@@ -11,7 +11,7 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), //Lazy load admin module
     data: { preload: true }
   },
-  { path: 'herid/:herid', component: BookingUpgradeComponent},
+  { path: 'booking', component: BookingMainComponent},
 
   // { path: 'admin', component: UpgradeMainComponent, },
   // { path: 'time-slots', component: UpgradeMainComponent, },
