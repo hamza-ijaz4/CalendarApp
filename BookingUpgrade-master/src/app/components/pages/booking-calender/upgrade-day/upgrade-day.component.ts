@@ -22,7 +22,7 @@ export class UpgradeDayComponent implements OnInit, OnChanges { //
   @Input() showBooking: boolean = true;
   hours: any;
   selected: boolean = false;
-  showAppointments = false;
+  showAppointments = true;
   selectedAppointmentId = undefined;
   selectedAppointmentTime: any;
 

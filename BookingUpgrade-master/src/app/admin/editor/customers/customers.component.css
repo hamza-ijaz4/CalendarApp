@@ -62,7 +62,7 @@ p {
   color: whitesmoke;
 }
 
-.day {
+.customer {
   /* flex: 1 0 51%;  */
   margin: 5px;
   height: auto;
@@ -74,7 +74,7 @@ p {
   border-radius: 5px;
 }
 
-.day:hover {
+.customer:hover {
   background-color: #c2c2c2;
   cursor: pointer;
 

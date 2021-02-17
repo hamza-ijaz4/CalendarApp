@@ -14,9 +14,8 @@ import { CustomersComponent } from './editor/customers/customers.component';
 import { EditorComponent } from './editor/editor.component';
 import { AdminRoutingModule } from './admin-routig.module';
 import { AddUpgradeComponent } from './add-upgrade/add-upgrade.component';
-import { TimeslotsContainerComponent } from './editor/upgrade-timeslots/timeslots/timeslots-container/timeslots-container.component';
-import { TimeslotsDayComponent } from './editor/upgrade-timeslots/timeslots/timeslots-day/timeslots-day.component';
-import { UpgradeTimeslotsComponent } from './editor/upgrade-timeslots/timeslots/upgrade-timeslots/upgrade-timeslots.component';
+import { TimeslotsContainerComponent } from './editor/timeslots/timeslots-container/timeslots-container.component';
+import { TimeslotsDayComponent } from './editor/timeslots/timeslots-day/timeslots-day.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -36,7 +35,6 @@ import { SharedModule } from '../shared/shared.module';
     CustomersComponent,
     TimeslotsContainerComponent,
     TimeslotsDayComponent,
-    UpgradeTimeslotsComponent,
     EditorComponent,
     AddUpgradeComponent
   ],
