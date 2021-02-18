@@ -1,7 +1,7 @@
 .disablebox {
   pointer-events: none;
-  background-color: #1eff03fc !important;
-  color: #ffffff !important;
+  background-color: #18ff03fc !important;
+  color: #000000 !important;
 }
 
 .header {
@@ -162,6 +162,8 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
+  background-color: #232f41;
+
 }
 .container {
   padding: 15px;

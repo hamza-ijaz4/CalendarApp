@@ -3,6 +3,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
+    background-color: #7e8b8b;
 }
 .container{
     padding: 15px;

@@ -1,4 +1,5 @@
 <div class="calender">
+  <br>
   <button [disabled]="!upgradeId" id="releaseNoteDown" (click)="save()"> Save</button>
   <br />
   <div style="margin-top: 40px;" class="customer" [ngClass]="{'selectedBox': item.isSelected, 'disablebox': item.gotAppointment}"
@@ -7,4 +8,5 @@
       <h3 class="date">{{item.name}}</h3>
     </div>
   </div>
+  <br>
 </div>

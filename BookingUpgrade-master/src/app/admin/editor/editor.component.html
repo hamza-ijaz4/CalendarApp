@@ -10,16 +10,16 @@
     </div>
     <br />
     <div class="col-lg-12">
-      <p-card>
+
         <p-tabView>
-          <p-tabPanel header="Time slots" [headerStyle]="{'padding': '1em'}">
+          <p-tabPanel header="Time slots" [headerStyle]="{'padding': '1em', 'color':'white', 'background-color':'#7e8b8b'}">
             <app-timeslots-container [upgradeId]="upgradeId"></app-timeslots-container>
           </p-tabPanel>
-          <p-tabPanel header="Customers" [headerStyle]="{'padding': '1em'}">
+          <p-tabPanel header="Customers" [headerStyle]="{'padding': '1em',  'color':'white', 'background-color':'#232f41'}">
             <app-customers [upgradeId]="upgradeId"></app-customers>
           </p-tabPanel>
         </p-tabView>
-      </p-card>
+
 
     </div>
   </div>
