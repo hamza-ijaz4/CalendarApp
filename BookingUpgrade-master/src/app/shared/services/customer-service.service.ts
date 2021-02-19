@@ -20,7 +20,11 @@ export class CustomerService {
   }
 
   saveAppointments(data: any) {
-    return this.http.post(`${this.bookingUrl}createBookingInvites`, data, { headers: this.headers })
+    return this.http.post(`${this.bookingUrl}bookingInvites`, data, { headers: this.headers })
+  }
+
+  getUpgradeIdByAppointmentId(appointmentId: string){
+    return this.http.get(this.bookingUrl+ appointmentId)
   }
 
 }

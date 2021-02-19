@@ -24,6 +24,8 @@
     "@fullcalendar/core": "4.0.1",
     "@fullcalendar/daygrid": "4.0.1",
     "@fullcalendar/interaction": "^4.0.1",
+    "ag-grid-angular": "^25.0.1",
+    "ag-grid-community": "^25.0.1",
     "date-fns": "^2.16.1",
     "moment": "^2.29.1",
     "ng-fullcalendar": "^2.0.3",

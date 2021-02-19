@@ -28,6 +28,13 @@ namespace ApiProject.Controllers
             return await _context.Appointments.ToListAsync();
         }
 
+        [HttpGet("Booked")]
+        public async Task<ActionResult<IEnumerable<Appointment>>> GetBookedAppointments()
+        {
+            return await _context.Appointments.Where(a => a.Status == AppointmentStats.Booked).ToListAsync();
+        }
+
+
         // GET: api/Appointments/5
         [HttpGet("{herId}")]
         public async Task<ActionResult<Appointment>> GetAppointment(string HerId)

@@ -1,5 +1,5 @@
 <div [ngClass]="setClasses()" [class.disableBox]="!day.timeSlotGroups">
-    <div (click)="showTimeSlots = !showTimeSlots" class="box"> 
+    <div (click)="showTimeSlots = !showTimeSlots" class="box">
       <h3 class="date">{{day.date | date: 'dd/MM/yyyy'}}</h3>
     </div>
     <div class="appointments">
@@ -9,8 +9,7 @@
           <input  type="radio" (change)="selectedTime(item.startTime)" class="select-appointment"
             [id]="'appointment'" [name]="'appointment'">
         </div>
-        <button (click)="saveBooking(day.date)" class="slot booked"><span
+        <button (click)="bookTime(day.date)" class="slot booked"><span
             class="book-span">Book</span></button>
       </ng-template>
     </div>
-  

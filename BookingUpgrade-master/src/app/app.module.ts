@@ -26,6 +26,7 @@ import { BookingContainerComponent } from './customer-page/booking-container/boo
     BookingContainerComponent,
   ],
   imports: [
+    
     CommonModule,
     BrowserModule,
     AppRoutingModule,

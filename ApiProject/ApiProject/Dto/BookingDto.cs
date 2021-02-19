@@ -13,7 +13,7 @@ namespace ApiProject.Dto
         public string HerId { get; set; }
     }
 
-    public class UpdateBookingInvitesDto
+    public class SetBookingTimeDto
     {
         public Guid AppointmentId { get; set; }
         public DateTime Day { get; set; }

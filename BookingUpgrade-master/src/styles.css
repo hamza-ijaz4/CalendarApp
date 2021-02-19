@@ -1,9 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+
+
 body{
         margin : 8px;
         /* background: radial-gradient( rgb(125, 125, 128), rgb(56, 61, 71)); */
         background: radial-gradient(rgb(70, 103, 133), rgb(56, 104, 143) );
+        /* background-color: white; */
         /* background: radial-gradient( rgb(180, 180, 180), rgb(74, 120, 163) ); */
         /* background: radial-gradient( rgb(125, 125, 128), rgb(70, 103, 133) ); */
         min-height: 98vh;

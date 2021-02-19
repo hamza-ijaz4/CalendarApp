@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
 
+import { AgGridModule } from 'ag-grid-angular';
+
 //components
 import { AdminComponent } from './admin.component';
 import { CustomersComponent } from './editor/customers/customers.component';
@@ -19,6 +21,8 @@ import { TimeslotsContainerComponent } from './editor/timeslots/timeslots-contai
 import { TimeslotsDayComponent } from './editor/timeslots/timeslots-day/timeslots-day.component';
 import { SharedModule } from '../shared/shared.module';
 import { CardModule } from 'primeng/card';
+import { AppointmentsOverviewComponent } from './appointments-overview/appointments-overview.component';
+import { BtnCellRenderer } from './appointments-overview/btn-cell-renderer.component';
 
 @NgModule({
   imports: [
@@ -31,17 +35,22 @@ import { CardModule } from 'primeng/card';
     TabViewModule,
     CardModule,
 
+    // ag-grid
+    AgGridModule.withComponents([BtnCellRenderer]),
+
     // custom modules
     AdminRoutingModule,
     SharedModule
   ],
   declarations: [
     AdminComponent,
+    BtnCellRenderer,
     CustomersComponent,
     TimeslotsContainerComponent,
     TimeslotsDayComponent,
     EditorComponent,
-    AddUpgradeComponent
+    AddUpgradeComponent,
+    AppointmentsOverviewComponent
   ],
   exports: [
 

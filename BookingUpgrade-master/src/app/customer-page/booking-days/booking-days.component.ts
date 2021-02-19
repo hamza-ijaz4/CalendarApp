@@ -59,7 +59,7 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
     this.selectedTimeSlotTime = data;
   }
 
-  saveBooking(day: any) {
+  bookTime(day: any) {
 
     if (!this.selectedTimeSlotTime)
       return;
@@ -68,12 +68,15 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
     _headers.append('Content-Type', 'application/json')
 
     let url = environment.apiEndpoint;
-    url = url + "/api/booking";
+    url = url + "/api/booking/bookTime";
     const booking: BookingDto = {
       day: day,
       time: this.selectedTimeSlotTime.hours,
       herId: "23f832ce-72e7-4c30-8aac-04271489cfb7"
+
+
     };
+    console.log("Selected Timeslot",this.selectedTimeSlotTime.hours)
     this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
       window.location.href = 'http://localhost:4200/';
     })

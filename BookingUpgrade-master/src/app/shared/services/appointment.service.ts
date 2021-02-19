@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class AppointmentService {
 
-  upgradesUrl: string = environment.apiEndpoint + "/api/Appointment/GetAppointments";
+  appontmentUrl: string = environment.apiEndpoint + "/api/Appointments";
 
   headers: HttpHeaders;
 
@@ -15,5 +15,9 @@ export class AppointmentService {
     this.headers.append('Access-Control-Allow-Credentials', 'true') //necessary? Json?
   }
 
+
+  getBookedAppointments(){
+    return this.http.get(this.appontmentUrl+"/booked")
+  }
 
 }

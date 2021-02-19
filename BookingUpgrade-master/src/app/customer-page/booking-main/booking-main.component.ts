@@ -1,6 +1,6 @@
-
+import { CustomerService } from 'src/app/shared/services/customer-service.service';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-
 import { HttpResponse } from '@angular/common/http';
 import { UpgradeService } from 'src/app/shared/services/upgrade.service';
 
@@ -11,17 +11,18 @@ import { UpgradeService } from 'src/app/shared/services/upgrade.service';
   styleUrls: ['./booking-main.component.css']
 })
 export class BookingMainComponent implements OnInit {
-
+  appointmentId: string ="";
   upgrades: any[] = [];
   upgradeId: string = "3408c572-357f-4780-a6d6-f43f9a6b51c8";
-  constructor(private upgradeService: UpgradeService) { }
+  constructor(private upgradeService: UpgradeService, private bookingService: CustomerService, private route: ActivatedRoute) { }
 
 
   ngOnInit(): void {
-
-  //   this.upgradeService.getUpgrades().subscribe((result: any) => {
-  //     this.upgrades = result;
-  //   })
+       let appointmentQuery = this.route.snapshot.paramMap.get('appointmentId');
+       this.appointmentId += appointmentQuery;
+       this.bookingService.getUpgradeIdByAppointmentId(this.appointmentId).subscribe((result: any) => {
+       this.upgradeId = result;
+   })
    }
 
   downloadFile() {

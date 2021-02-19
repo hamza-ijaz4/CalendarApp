@@ -4,13 +4,13 @@ import { BookingMainComponent } from './customer-page/booking-main/booking-main.
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'admin/editor', pathMatch: 'full' },
+  { path: '', redirectTo: 'admin/overview', pathMatch: 'full' },
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), //Lazy load admin module
     data: { preload: true }
   },
-  { path: 'booking', component: BookingMainComponent},
+  { path: 'booking/:appointmentId', component: BookingMainComponent},
 
   // { path: 'admin', component: UpgradeMainComponent, },
   // { path: 'time-slots', component: UpgradeMainComponent, },

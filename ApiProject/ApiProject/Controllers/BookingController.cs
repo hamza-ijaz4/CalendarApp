@@ -22,7 +22,7 @@ namespace ApiProject.Controllers
 
 
         [HttpPost]
-        [Route("CreateBookingInvites")]
+        [Route("BookingInvites")]
         public async Task<ActionResult> CreateBookingInvites(CreateAppointmentInviteDto input)
         {
             try
@@ -48,8 +48,8 @@ namespace ApiProject.Controllers
         }
 
         [HttpPost]
-        [Route("SetBookingTime")]
-        public async Task<ActionResult> SetBookingTime(UpdateBookingInvitesDto input)
+        [Route("BookTime")]
+        public async Task<ActionResult> SetBookingTime(SetBookingTimeDto input)
         {
 
             var TimeSlots = await _context.TimeSlots.FirstOrDefaultAsync(a => a.Date == input.Day &&
@@ -73,6 +73,19 @@ namespace ApiProject.Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpGet("{appointmentId}")]
+        public async Task<ActionResult<Guid>> GetUpgradeByAppointmentId(Guid appointmentId)
+        {
+            var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Id == appointmentId); //check it appointment is booked
+
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+
+            return appointment.UpgradeId;
         }
     }
 }
