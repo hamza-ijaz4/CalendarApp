@@ -12,16 +12,17 @@ import { UpgradeService } from 'src/app/shared/services/upgrade.service';
 })
 export class BookingMainComponent implements OnInit {
   appointmentId: string ="";
-  upgrades: any[] = [];
-  upgradeId: string = "3408c572-357f-4780-a6d6-f43f9a6b51c8";
+  upgradeId: string = "";
   constructor(private upgradeService: UpgradeService, private bookingService: CustomerService, private route: ActivatedRoute) { }
 
 
   ngOnInit(): void {
        let appointmentQuery = this.route.snapshot.paramMap.get('appointmentId');
+       console.log("appointmentQuery", appointmentQuery)
        this.appointmentId += appointmentQuery;
        this.bookingService.getUpgradeIdByAppointmentId(this.appointmentId).subscribe((result: any) => {
        this.upgradeId = result;
+
    })
    }
 

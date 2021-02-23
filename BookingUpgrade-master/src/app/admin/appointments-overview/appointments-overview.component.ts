@@ -33,11 +33,11 @@ export class AppointmentsOverviewComponent implements OnInit {
       { field: 'upgradeId', sortable: true, filter: true },
       { field: 'status', sortable: true, filter: true},
       {
-        headerName: 'Upgrade Implemented',
+        headerName: 'Complete Upgrade',
         cellRenderer: 'buttonRenderer',
         cellRendererParams: {
           onClick: this.onBtnClick1.bind(this),
-          label: 'Set Complete'
+          label: 'Set Completed'
         }
       },
 

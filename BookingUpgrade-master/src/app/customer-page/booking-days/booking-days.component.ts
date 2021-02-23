@@ -7,7 +7,8 @@ import { environment } from '../../../environments/environment';
 export interface BookingDto {
   day: any,
   time: any,
-  herId: string
+  herId: string,
+ // upgradeId: string
 }
 
 @Component({
@@ -19,7 +20,7 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
 
   @Input() day: any;
   @Input() upgradeId: string | undefined;
-  itemss: any[] = [];
+  items: any[] = [];
   hours: any;
   selected: boolean = false;
   showTimeSlots = true;
@@ -33,6 +34,7 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
 
   ngOnInit(): void {
    // window.location.href.indexOf('admin') > 0 ? this.isAdmin = true : this.isAdmin = false;
+
   }
 
   setClasses() {
@@ -47,6 +49,7 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
     if (changes.day.currentValue)
       this.day = changes.day.currentValue;
     console.log("on change call from days", this.day);
+
   }
 
   get12HourTime(data: any) {
@@ -76,10 +79,10 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
 
 
     };
-    console.log("Selected Timeslot",this.selectedTimeSlotTime.hours)
-    this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
-      window.location.href = 'http://localhost:4200/';
-    })
+    console.log("Selected Timeslot",this.selectedTimeSlotTime.hours, "day", day)
+    // this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
+    //   window.location.href = 'http://localhost:4200/';
+    // })
   }
 
 

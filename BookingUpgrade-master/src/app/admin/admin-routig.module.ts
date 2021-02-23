@@ -13,7 +13,7 @@ import { AppointmentsOverviewComponent } from './appointments-overview/appointme
         path: '',
         component: AdminComponent,
         children: [
-          { path: 'customers', component: CustomersComponent },
+        //  { path: 'customers', component: CustomersComponent },
           { path: 'editor', component: EditorComponent },
           { path: 'add-upgrade', component: AddUpgradeComponent },
           { path: 'overview', component: AppointmentsOverviewComponent},

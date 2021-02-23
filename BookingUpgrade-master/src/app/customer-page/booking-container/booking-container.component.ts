@@ -23,6 +23,7 @@ export class BookingContainerComponent implements  OnInit, OnChanges { //
         this.timeslotService.getTimeSlotDaysByUpgradeId(this.upgradeId)
           .subscribe((result: any) => {
             this.timeSlotDays = result
+            console.log("timeslots days", result)
           });
       }
 
