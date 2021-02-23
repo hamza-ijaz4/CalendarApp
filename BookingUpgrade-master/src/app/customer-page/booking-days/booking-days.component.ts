@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { EmitEvent, EventBusService } from 'src/app/shared/services/event-bus-service';
 import { TimeSlotService } from 'src/app/shared/services/time-slot.service';
 import { environment } from '../../../environments/environment';
 
 export interface BookingDto {
   day: any,
-  time: any,
-  herId: string,
+  StartTime: any,
+  AppointmentId: string,
  // upgradeId: string
 }
 
@@ -26,14 +27,17 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
   showTimeSlots = true;
   selectedTimeSlotId = undefined;
   selectedTimeSlotTime: any;
+  appointmentId: string ="";
 
 
   constructor(private httpClient: HttpClient,
     private _timeSlotService: TimeSlotService,
-    private eventbus: EventBusService,) { }
+    private eventbus: EventBusService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
    // window.location.href.indexOf('admin') > 0 ? this.isAdmin = true : this.isAdmin = false;
+   let appointmentQuery = this.route.snapshot.paramMap.get('appointmentId');
+   this.appointmentId += appointmentQuery;
 
   }
 
@@ -60,6 +64,7 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
 
   selectedTime(data: any) {
     this.selectedTimeSlotTime = data;
+    console.log(data)
   }
 
   bookTime(day: any) {
@@ -74,15 +79,15 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
     url = url + "/api/booking/bookTime";
     const booking: BookingDto = {
       day: day,
-      time: this.selectedTimeSlotTime.hours,
-      herId: "23f832ce-72e7-4c30-8aac-04271489cfb7"
+      StartTime: this.selectedTimeSlotTime,
+      AppointmentId: this.appointmentId
 
 
     };
-    console.log("Selected Timeslot",this.selectedTimeSlotTime.hours, "day", day)
-    // this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
-    //   window.location.href = 'http://localhost:4200/';
-    // })
+    console.log("Selected Timeslot",this.selectedTimeSlotTime, "day", day, "appointmentId " ,this.appointmentId)
+    this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
+      window.location.href = 'http://localhost:4200/';
+    })
   }
 
 

@@ -35,7 +35,7 @@ namespace ApiProject.Controllers
 
                 var joinedQuery = from q in customersQuery
                                   join a in appointmentQuery
-                                  on q.HerId equals a.HerId
+                                  on q.HerId equals a.Customer.HerId
                                   into qaJoined
                                   from a in qaJoined.DefaultIfEmpty()
                                   select new CustomerListDto

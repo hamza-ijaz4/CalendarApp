@@ -89,7 +89,7 @@ namespace ApiProject.Controllers
             if (TimeSlots == null)
                 return BadRequest("Required time slot found");
 
-            var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.HerId == input.HerId);
+            var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Customer.HerId == input.HerId);
 
             appointment.Status = AppointmentStats.Booked;
             appointment.TimeSlotId = TimeSlots.Id;

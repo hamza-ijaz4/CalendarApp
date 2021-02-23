@@ -3,15 +3,17 @@ using System;
 using ApiProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ApiProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210223150151_addedUpgradeVersionToAppointment")]
+    partial class addedUpgradeVersionToAppointment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,11 +78,8 @@ namespace ApiProject.Migrations
                     b.Property<string>("BookedBy")
                         .HasColumnType("text");
 
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("Customer")
                         .HasColumnType("text");
-
-                    b.Property<Guid?>("CustomerId1")
-                        .HasColumnType("uuid");
 
                     b.Property<string>("HerId")
                         .HasColumnType("text");
@@ -100,9 +99,10 @@ namespace ApiProject.Migrations
                     b.Property<Guid>("UpgradeId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UpgradeVersion")
+                        .HasColumnType("text");
 
-                    b.HasIndex("CustomerId1");
+                    b.HasKey("Id");
 
                     b.HasIndex("TimeSlotId");
 
@@ -156,10 +156,6 @@ namespace ApiProject.Migrations
 
             modelBuilder.Entity("ApiProject.Models.Appointment", b =>
                 {
-                    b.HasOne("ApiProject.Data.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId1");
-
                     b.HasOne("ApiProject.Data.TimeSlot", "TimeSlots")
                         .WithMany()
                         .HasForeignKey("TimeSlotId");
@@ -169,8 +165,6 @@ namespace ApiProject.Migrations
                         .HasForeignKey("UpgradeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
 
                     b.Navigation("TimeSlots");
 

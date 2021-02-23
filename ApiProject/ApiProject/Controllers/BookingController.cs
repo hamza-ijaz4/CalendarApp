@@ -30,6 +30,8 @@ namespace ApiProject.Controllers
                 if (input.HerIds?.Count == 0)
                     return BadRequest("Customers count should not be null");
 
+                var upgrade = await _context.Upgrades.FirstOrDefaultAsync(u => u.Id == input.UpgradeId);
+
                 var list = new List<Appointment>();
                 input.HerIds?.ForEach(a =>
                 {
@@ -42,7 +44,7 @@ namespace ApiProject.Controllers
                 return Ok();
             }
             catch (Exception ex)
-            {
+             {
                 return BadRequest(ex.Message);
             }
         }
@@ -52,23 +54,25 @@ namespace ApiProject.Controllers
         public async Task<ActionResult> SetBookingTime(SetBookingTimeDto input)
         {
 
-            var TimeSlots = await _context.TimeSlots.FirstOrDefaultAsync(a => a.Date == input.Day &&
+            var timeSlots = await _context.TimeSlots.FirstOrDefaultAsync(a => a.Date == input.Day &&
                                                                          a.StartTime == input.StartTime &&
-                                                                         a.EndTime == input.EndTime &&
                                                                          a.Available);
-            if (TimeSlots == null)
+
+            if (timeSlots == null)
                 return BadRequest("No timeslot found");
 
             var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Id == input.AppointmentId);
             if (appointment == null)
                 return NotFound("No appointment found");
 
-            TimeSlots.Available = false;
-            _context.TimeSlots.Update(TimeSlots);
-            await _context.SaveChangesAsync();
 
+            timeSlots.Available = false;
+            _context.TimeSlots.Update(timeSlots);
+            await _context.SaveChangesAsync();
+            
+           
             appointment.Status = AppointmentStats.Booked;
-            appointment.TimeSlotId = TimeSlots.Id;
+            appointment.TimeSlotId = timeSlots.Id;
             _context.Appointments.Update(appointment);
             await _context.SaveChangesAsync();
 

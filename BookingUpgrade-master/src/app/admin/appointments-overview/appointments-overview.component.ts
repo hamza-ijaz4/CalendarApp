@@ -25,7 +25,7 @@ export class AppointmentsOverviewComponent implements OnInit {
 
     columnDefs = [
 
-      { field: 'DateTime', headerName:"Date Time" , sortable: true, filter: true},
+      { field: 'startTime', headerName:"Date Time" , sortable: true, filter: true},
       { field: 'customer', headerName:"Customer", sortable: true, filter: true},
       { field: 'bookedBy', headerName:"Booked By" , sortable: true, filter: true},
 
@@ -68,7 +68,5 @@ export class AppointmentsOverviewComponent implements OnInit {
       this.rowDataClicked1 = e.rowData;
       console.log(e)
     }
-
-
 
 }

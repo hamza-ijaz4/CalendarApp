@@ -9,4 +9,5 @@ namespace ApiProject.Dto
         public int Slots { get; set; }
 
     }
+
 }
