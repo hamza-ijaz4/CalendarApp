@@ -5,7 +5,7 @@ namespace ApiProject.Dto
 {
     public class CreateAppointmentInviteDto
     {
-        public List<string> HerIds { get; set; }
+        public List<Guid> CustomerIds { get; set; }
         public Guid UpgradeId { get; set; }
     }
 }

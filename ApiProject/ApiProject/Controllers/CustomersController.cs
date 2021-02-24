@@ -35,7 +35,7 @@ namespace ApiProject.Controllers
 
                 var joinedQuery = from q in customersQuery
                                   join a in appointmentQuery
-                                  on q.HerId equals a.Customer.HerId
+                                  on q.HerId equals a.CustomerFk.HerId
                                   into qaJoined
                                   from a in qaJoined.DefaultIfEmpty()
                                   select new CustomerListDto
@@ -43,7 +43,8 @@ namespace ApiProject.Controllers
                                       HerId = q.HerId,
                                       Id = q.Id,
                                       Name = q.Name,
-                                      GotAppointment = a != null ? true : false
+                                      GotAppointment = a != null ? true : false,
+                                      Status = a.Status
                                   };
 
                 var list = await joinedQuery.ToListAsync();

@@ -17,7 +17,8 @@ export class AppointmentService {
 
 
   getBookedAppointments(){
-    return this.http.get(this.appontmentUrl+"/booked")
+    //return this.http.get(this.appontmentUrl+"/booked")
+    return this.http.get(this.appontmentUrl)
   }
 
 }

@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ApiProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210223195004_CustomerToAppointment")]
-    partial class CustomerToAppointment
+    [Migration("20210223213759_appointmentChanges")]
+    partial class appointmentChanges
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -78,20 +78,11 @@ namespace ApiProject.Migrations
                     b.Property<string>("BookedBy")
                         .HasColumnType("text");
 
-                    b.Property<string>("CustomerId")
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("CustomerId1")
+                    b.Property<Guid>("CustomerId")
                         .HasColumnType("uuid");
-
-                    b.Property<string>("HerId")
-                        .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
-
-                    b.Property<TimeSpan?>("StartTime")
-                        .HasColumnType("interval");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
@@ -104,7 +95,7 @@ namespace ApiProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId1");
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("TimeSlotId");
 
@@ -158,11 +149,13 @@ namespace ApiProject.Migrations
 
             modelBuilder.Entity("ApiProject.Models.Appointment", b =>
                 {
-                    b.HasOne("ApiProject.Data.Customer", "Customer")
+                    b.HasOne("ApiProject.Data.Customer", "CustomerFk")
                         .WithMany()
-                        .HasForeignKey("CustomerId1");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("ApiProject.Data.TimeSlot", "TimeSlots")
+                    b.HasOne("ApiProject.Data.TimeSlot", "TimeSlotFk")
                         .WithMany()
                         .HasForeignKey("TimeSlotId");
 
@@ -172,9 +165,9 @@ namespace ApiProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.Navigation("CustomerFk");
 
-                    b.Navigation("TimeSlots");
+                    b.Navigation("TimeSlotFk");
 
                     b.Navigation("UpgradeFk");
                 });

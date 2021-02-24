@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApiProject.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,5 +14,6 @@ namespace ApiProject.Dto
         public string HerId { get; set; }
         public bool IsSelected { get; set; }
         public bool GotAppointment { get; set; }
+        public AppointmentStatus? Status { get; set; }
     }
 }

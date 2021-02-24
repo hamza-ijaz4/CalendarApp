@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210223210738_appointmentChanges.cs" />
+    <Compile Remove="Migrations\20210223210738_appointmentChanges.Designer.cs" />
+    <Compile Remove="Migrations\20210223212805_appointmentChanges.cs" />
+    <Compile Remove="Migrations\20210223212805_appointmentChanges.Designer.cs" />
+    <Compile Remove="Migrations\20210223212920_appointmentChanges.cs" />
+    <Compile Remove="Migrations\20210223212920_appointmentChanges.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.3">

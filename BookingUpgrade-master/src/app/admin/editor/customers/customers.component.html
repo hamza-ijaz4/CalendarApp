@@ -1,4 +1,4 @@
-<div class="calender">
+<!-- <div class="calender">
   <br>
   <button [disabled]="!upgradeId" id="releaseNoteDown" (click)="save()"> Save</button>
   <br />
@@ -9,4 +9,10 @@
     </div>
   </div>
   <br>
-</div>
+</div> -->
+
+<button style="margin-top: 10px;" (click)="save()">Save</button>
+<ag-grid-angular style="width: 100%; height: 800px;" class="ag-theme-alpine" [rowData]="rowData"
+  [columnDefs]="columnDefs" [rowSelection]="rowSelection" [rowMultiSelectWithClick]="true"
+  (gridReady)="onGridReady($event)" (selectionChanged)="onSelectionChanged($event)">
+</ag-grid-angular>

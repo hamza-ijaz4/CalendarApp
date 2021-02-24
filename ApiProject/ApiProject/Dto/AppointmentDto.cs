@@ -7,7 +7,7 @@ namespace ApiProject.Dto
 {
     public class AppointmentDto
     {
-        public string HerId { get; set; }
+        public Guid CustomerId { get; set; }
         public Guid UpgradeId { get; set; }
     }
 }

@@ -27,15 +27,15 @@ namespace ApiProject.Controllers
         {
             try
             {
-                if (input.HerIds?.Count == 0)
+                if (input.CustomerIds?.Count == 0)
                     return BadRequest("Customers count should not be null");
 
                 var upgrade = await _context.Upgrades.FirstOrDefaultAsync(u => u.Id == input.UpgradeId);
 
                 var list = new List<Appointment>();
-                input.HerIds?.ForEach(a =>
+                input.CustomerIds?.ForEach(a =>
                 {
-                    list.Add(new Appointment() { HerId = a, UpgradeId = input.UpgradeId, Status = AppointmentStats.Invited });
+                    list.Add(new Appointment() { CustomerId = a, UpgradeId = input.UpgradeId, Status = AppointmentStatus.Invited });
                 });
 
                 _context.Appointments.AddRange(list);
@@ -44,7 +44,7 @@ namespace ApiProject.Controllers
                 return Ok();
             }
             catch (Exception ex)
-             {
+            {
                 return BadRequest(ex.Message);
             }
         }
@@ -69,9 +69,9 @@ namespace ApiProject.Controllers
             timeSlots.Available = false;
             _context.TimeSlots.Update(timeSlots);
             await _context.SaveChangesAsync();
-            
-           
-            appointment.Status = AppointmentStats.Booked;
+
+
+            appointment.Status = AppointmentStatus.Booked;
             appointment.TimeSlotId = timeSlots.Id;
             _context.Appointments.Update(appointment);
             await _context.SaveChangesAsync();

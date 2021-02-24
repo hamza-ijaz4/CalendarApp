@@ -23,15 +23,32 @@ namespace ApiProject.Controllers
 
         // GET: api/Appointments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Appointment>>> GetAppointments()
+        public async Task<ActionResult<List<AppointmentListDto>>> GetAppointments()
         {
-            return await _context.Appointments.ToListAsync();
+            var query = _context.Appointments.Where(a => a.Status == AppointmentStatus.Booked).Include(a => a.CustomerFk).Include(a => a.TimeSlotFk).Include(a => a.UpgradeFk);
+
+            var list = await (query.Select(a =>
+            new AppointmentListDto
+            {
+                AppointmentTime = a.TimeSlotFk.Date,
+                AppointmentId = a.Id,
+                BookedBy = a.BookedBy,
+                CustomerId = a.CustomerId,
+                CustomerName = a.CustomerFk.Name,
+                Status = a.Status,
+                UpgradeVersionId = a.UpgradeId,
+                UpgradeVersion = a.UpgradeFk.Version
+            }
+            )).ToListAsync();
+
+            return Ok(list);
+
         }
 
         [HttpGet("Booked")]
         public async Task<ActionResult<IEnumerable<Appointment>>> GetBookedAppointments()
         {
-            return await _context.Appointments.Where(a => a.Status == AppointmentStats.Booked).ToListAsync();
+            return await _context.Appointments.Where(a => a.Status == AppointmentStatus.Booked).ToListAsync();
         }
 
 
@@ -89,11 +106,11 @@ namespace ApiProject.Controllers
             if (TimeSlots == null)
                 return BadRequest("Required time slot found");
 
-            var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Customer.HerId == input.HerId);
+            var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.CustomerId == input.CustomerId);
 
-            appointment.Status = AppointmentStats.Booked;
+            appointment.Status = AppointmentStatus.Booked;
             appointment.TimeSlotId = TimeSlots.Id;
-           
+
             _context.Appointments.Add(appointment);
             await _context.SaveChangesAsync();
 
@@ -111,15 +128,16 @@ namespace ApiProject.Controllers
         [HttpPost]
         public async Task<ActionResult<Appointment>> CreateAppointment(AppointmentDto input) // by Admin
         {
-            var ExistingAppointment = await _context.Appointments.FirstOrDefaultAsync(a => a.HerId == input.HerId);
+            //var ExistingAppointment = await _context.Appointments.FirstOrDefaultAsync(a => a.HerId == input.HerId);
+            var ExistingAppointment = await _context.Appointments.FirstOrDefaultAsync(a => a.CustomerId == input.CustomerId);
             if (ExistingAppointment != null)
                 return BadRequest("Appointment already exists");
 
             var appointment = new Appointment()
             {
-                HerId = input.HerId,
+                //HerId = input.HerId,
                 UpgradeId = input.UpgradeId,
-                Status = AppointmentStats.Invited
+                Status = AppointmentStatus.Invited
             };
             _context.Appointments.Add(appointment);
             await _context.SaveChangesAsync();

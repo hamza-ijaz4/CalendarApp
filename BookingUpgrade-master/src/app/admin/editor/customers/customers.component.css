@@ -8,6 +8,13 @@
   height: 80px;
 }
 
+.status {
+  background: #0532b2;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
 #upgradeSelector {
   position: relative;
   top: 40px;
@@ -163,7 +170,6 @@ h3 {
   flex-wrap: wrap;
   justify-content: left;
   background-color: #232f41;
-
 }
 .container {
   padding: 15px;

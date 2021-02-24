@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ApiProject.Models
 {
-    public enum AppointmentStats
+    public enum AppointmentStatus
     {
         Invited,
         Booked,
@@ -17,19 +17,18 @@ namespace ApiProject.Models
         [Key]
         public Guid Id { get; set; }
    
-        public AppointmentStats Status { get; set; }
+        public AppointmentStatus Status { get; set; }
         public bool IsDeleted { get; set; }
-       
-        public string HerId { get; set; } 
         public string BookedBy { get; set; }
-        public string CustomerId { get; set; }
-        public Customer Customer { get; set; }
+        public Guid CustomerId { get; set; }
+
+        [ForeignKey("CustomerId")]
+        public Customer CustomerFk { get; set; }
 
 
-        public TimeSpan? StartTime { get; set; }
         public Guid? TimeSlotId { get; set; }
         [ForeignKey("TimeSlotId")]
-        public TimeSlot TimeSlots { get; set; }
+        public TimeSlot TimeSlotFk { get; set; }
 
         public Guid UpgradeId { get; set; }
         [ForeignKey("UpgradeId")]
