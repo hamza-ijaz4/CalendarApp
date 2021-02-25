@@ -38,6 +38,7 @@ namespace ApiProject.Controllers
             try
             {
                 var timeSlotQuery = _context.TimeSlots.Where(a => !a.IsDeleted && a.Available);
+      
                 
                 if (upgradeId != null)
                 {

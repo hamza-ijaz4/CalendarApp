@@ -23,6 +23,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CardModule } from 'primeng/card';
 import { AppointmentsOverviewComponent } from './appointments-overview/appointments-overview.component';
 import { BtnCellRenderer } from './appointments-overview/btn-cell-renderer.component';
+import { InviterComponent } from './inviter/inviter.component';
 
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import { BtnCellRenderer } from './appointments-overview/btn-cell-renderer.compo
     TimeslotsDayComponent,
     EditorComponent,
     AddUpgradeComponent,
-    AppointmentsOverviewComponent
+    AppointmentsOverviewComponent,
+    InviterComponent
   ],
   exports: [
 

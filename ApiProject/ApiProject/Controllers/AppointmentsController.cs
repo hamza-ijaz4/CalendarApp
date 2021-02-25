@@ -30,7 +30,8 @@ namespace ApiProject.Controllers
             var list = await (query.Select(a =>
             new AppointmentListDto
             {
-                AppointmentTime = a.TimeSlotFk.Date,
+                AppointmentTime = a.TimeSlotFk.StartTime,
+                AppointmentDate = a.TimeSlotFk.Date,
                 AppointmentId = a.Id,
                 BookedBy = a.BookedBy,
                 CustomerId = a.CustomerId,
@@ -53,8 +54,40 @@ namespace ApiProject.Controllers
 
 
         // GET: api/Appointments/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Appointment>> GetAppointment(Guid id)
+        {
+            var appointment = await _context.Appointments.FindAsync(id);
+
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+
+            return appointment;
+        }
+
+        [HttpPatch("Status")]
+        public async Task<ActionResult<Appointment>> UpdateAppointmentStatus(AppointmentStatusDto statusDto)
+        {
+            var appointment = await _context.Appointments.FindAsync(statusDto.Id);
+
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+
+            appointment.Status = statusDto.Status;
+            _context.Appointments.Update(appointment);
+            await _context.SaveChangesAsync();
+
+            return appointment;
+        }
+
+
+
         [HttpGet("{herId}")]
-        public async Task<ActionResult<Appointment>> GetAppointment(string HerId)
+        public async Task<ActionResult<Appointment>> GetAppointmentByHerId(string HerId)
         {
             var appointment = await _context.Appointments.FindAsync(HerId);
 
@@ -65,6 +98,7 @@ namespace ApiProject.Controllers
 
             return appointment;
         }
+
 
         //// PUT: api/Appointments/5
         //// To protect from overposting attacks, enable the specific properties you want to bind to, for

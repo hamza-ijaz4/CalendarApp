@@ -24,8 +24,8 @@ export class AppointmentsOverviewComponent implements OnInit {
 
 
   columnDefs = [
-
-    { field: 'appointmentTime', headerName: "Date Time", sortable: true, filter: true },
+    { field: 'appointmentDate', headerName: "Date", sortable: true, filter: true },
+    { field: 'appointmentTime', headerName: "Time", sortable: true, filter: true },
     { field: 'customerName', headerName: "Customer", sortable: true, filter: true },
     { field: 'bookedBy', headerName: "Booked By", sortable: true, filter: true },
 
@@ -63,10 +63,16 @@ export class AppointmentsOverviewComponent implements OnInit {
     })
 
   }
-
+  //Todo, improve
   onBtnClick1(e: any) {
     this.rowDataClicked1 = e.rowData;
-    console.log(e)
+    console.log("from overview", e.rowData.appointmentId)
+    this.appointmentService.completeAppointment(e.rowData.appointmentId).subscribe((result: any) => {
+      console.log(result);
+    //  this.rowData = result;
+
+    });
+
   }
 
 }

@@ -15,9 +15,18 @@ export class CustomerService {
     this.headers.append('Content-Type', 'application/json')
   }
 
+  // getCustomersById(upgradeId: string) {
+  //   return this.http.get(`${this.customerUrl}list`)
+  // }
+
   getCustomers(upgradeId: string) {
     return this.http.get(`${this.customerUrl}list`)
   }
+  
+  getCustomers2(upgradeId: string) {
+    return this.http.get(`${this.customerUrl}list2`)
+  }
+
 
   saveAppointments(data: any) {
     return this.http.post(`${this.bookingUrl}bookingInvites`, data, { headers: this.headers })

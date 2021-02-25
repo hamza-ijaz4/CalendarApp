@@ -14,6 +14,8 @@ namespace ApiProject.Dto
         public string HerId { get; set; }
         public bool IsSelected { get; set; }
         public bool GotAppointment { get; set; }
+        public string UpcommingUpgrade { get; set; }
+
         public AppointmentStatus? Status { get; set; }
     }
 }

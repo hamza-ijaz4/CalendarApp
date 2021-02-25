@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ApiProject.Dto;
 using ApiProject.Models;
@@ -32,6 +33,7 @@ namespace ApiProject.Controllers
 
                 var upgrade = await _context.Upgrades.FirstOrDefaultAsync(u => u.Id == input.UpgradeId);
 
+                //Make sure duplcation of invites is not possible     
                 var list = new List<Appointment>();
                 input.CustomerIds?.ForEach(a =>
                 {
@@ -82,9 +84,10 @@ namespace ApiProject.Controllers
         [HttpGet("{appointmentId}")]
         public async Task<ActionResult<Guid>> GetUpgradeByAppointmentId(Guid appointmentId)
         {
-            var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Id == appointmentId); //check it appointment is booked
+            var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Id == appointmentId);
 
-            if (appointment == null)
+    
+            if (appointment == null || appointment.Status != AppointmentStatus.Invited) //Return an allready booked appointment message
             {
                 return NotFound();
             }

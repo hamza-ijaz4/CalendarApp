@@ -9,7 +9,8 @@ namespace ApiProject.Dto
     public class AppointmentListDto
     {
         public Guid AppointmentId { get; set; }
-        public DateTime? AppointmentTime { get; set; }
+        public DateTime? AppointmentDate { get; set; }
+        public TimeSpan AppointmentTime { get; set; }
         public string CustomerName { get; set; }
         public Guid CustomerId { get; set; }
         public string BookedBy { get; set; }

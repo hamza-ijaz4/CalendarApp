@@ -5,6 +5,7 @@ import { AdminComponent } from "./admin.component";
 import { CustomersComponent } from "./editor/customers/customers.component";
 import { AddUpgradeComponent } from './add-upgrade/add-upgrade.component';
 import { AppointmentsOverviewComponent } from './appointments-overview/appointments-overview.component';
+import { InviterComponent } from './inviter/inviter.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { AppointmentsOverviewComponent } from './appointments-overview/appointme
           { path: 'editor', component: EditorComponent },
           { path: 'add-upgrade', component: AddUpgradeComponent },
           { path: 'overview', component: AppointmentsOverviewComponent},
+          { path: 'invite', component: InviterComponent},
           { path: '', redirectTo: 'editor', pathMatch: 'full' }
         ]
       }

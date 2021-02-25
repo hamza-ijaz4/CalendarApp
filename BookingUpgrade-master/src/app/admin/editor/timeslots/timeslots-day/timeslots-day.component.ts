@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { TimeSlotService } from 'src/app/shared/services/time-slot.service';
 import { environment } from 'src/environments/environment';
+import { getDay, parseISO } from 'date-fns'
 
 export interface BookingDto {
   day: any,
@@ -18,6 +19,7 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
 
   @Input() day: any;
   @Input() upgradeId: string | undefined;
+  dayName!: string;
   itemss: any[] = [];
   hours: any;
   selected: boolean = false;
@@ -31,7 +33,7 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
 
   //   window.location.href.indexOf('admin') > 0 ? this.isAdmin = true : this.isAdmin = false;
   ngOnInit(): void {
- 
+
   }
 
   setClasses() {
@@ -46,6 +48,7 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
     if (changes.day && changes.day.currentValue)
       this.day = changes.day.currentValue;
     console.log("on change call from days", this.day);
+    this.dayName = this.getDayName(this.day);
   }
 
   get12HourTime(data: any) {
@@ -53,6 +56,36 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
       return ' PM';
     return ' AM';
   }
+
+  getDayName(date:any){
+    console.log("date: ", date.date);
+    let day: string;
+    switch (getDay(parseISO(date.date))) {
+      case 0:
+        day = "Søndag";
+        break;
+      case 1:
+        day = "Mandag";
+        break;
+      case 2:
+         day = "Tirsdag";
+        break;
+      case 3:
+        day = "Onsdag";
+        break;
+      case 4:
+        day = "Torsdag";
+        break;
+      case 5:
+        day = "Fredag";
+        break;
+      case 6:
+        day = "Lørdag";
+    }
+    console.log( day);
+    return day;
+  }
+
 
   selectedTime(data: any) {
     this.selectedTimeSlotTime = data;
