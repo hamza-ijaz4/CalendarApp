@@ -79,6 +79,7 @@ namespace ApiProject.Controllers
                                       Id = q.Id,
                                       Name = q.Name,
                                       Status = a.Status,
+                                      CurrentVersion = q.CurrentVersion,
                                       UpcommingUpgrade = a.Status == AppointmentStatus.Booked || a.Status == AppointmentStatus.Invited ? a.UpgradeFk.Version : null,  
 
                                   };

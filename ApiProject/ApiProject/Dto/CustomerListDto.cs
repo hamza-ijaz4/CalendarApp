@@ -15,7 +15,7 @@ namespace ApiProject.Dto
         public bool IsSelected { get; set; }
         public bool GotAppointment { get; set; }
         public string UpcommingUpgrade { get; set; }
-
+        public string CurrentVersion { get; set; }
         public AppointmentStatus? Status { get; set; }
     }
 }

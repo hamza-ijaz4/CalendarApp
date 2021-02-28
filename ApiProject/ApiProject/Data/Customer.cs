@@ -12,5 +12,6 @@ namespace ApiProject.Data
         public string Name { get; set; }
         public string HerId { get; set; }
 
+        public string CurrentVersion { get; set; }
     }
 }

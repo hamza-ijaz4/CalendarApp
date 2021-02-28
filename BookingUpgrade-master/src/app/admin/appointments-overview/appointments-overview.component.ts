@@ -40,6 +40,14 @@ export class AppointmentsOverviewComponent implements OnInit {
         label: 'Set Completed'
       }
     },
+        {
+      headerName: 'Cancel Upgrade',
+      cellRenderer: 'buttonRenderer',
+      cellRendererParams: {
+        onClick: this.onBtnClick1.bind(this),
+        label: 'Cancel'
+      }
+    },
 
   ];
 
@@ -57,7 +65,6 @@ export class AppointmentsOverviewComponent implements OnInit {
     //this.httpClient.get(this.appointmentUrl).subscribe(() => {
     this.appointmentService.getBookedAppointments().subscribe((result: any) => {
       this.bookedAppointmentList = result;
-      console.log(result);
       this.rowData = result;
 
     })
@@ -71,8 +78,16 @@ export class AppointmentsOverviewComponent implements OnInit {
       console.log(result);
     //  this.rowData = result;
 
+      this.appointmentService.getBookedAppointments().subscribe((result: any) => {
+      this.bookedAppointmentList = result;
+      this.rowData = result;
+      })
+
     });
 
   }
 
 }
+
+
+//overdue 

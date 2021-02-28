@@ -31,7 +31,7 @@ namespace ApiProject.Controllers
             new AppointmentListDto
             {
                 AppointmentTime = a.TimeSlotFk.StartTime,
-                AppointmentDate = a.TimeSlotFk.Date,
+                AppointmentDate = a.TimeSlotFk.Date.AddHours(a.TimeSlotFk.StartTime.Hours),
                 AppointmentId = a.Id,
                 BookedBy = a.BookedBy,
                 CustomerId = a.CustomerId,
