@@ -121,8 +121,7 @@ namespace ApiProject.Controllers
                     Version = Version,
                     Description = Description,
                     DurationMin = DurationMin,
-                    StartDate = StartDate,
-                    EndDate = EndDate,
+  
                 };
 
                 if (files.Count() > 0)
@@ -150,7 +149,6 @@ namespace ApiProject.Controllers
                                 StartTime = t.StartTime,
                                 EndTime = new TimeSpan(t.StartTime.Days, t.StartTime.Hours, t.StartTime.Minutes + DurationMin, t.StartTime.Seconds),
                                 Available = true,
-                                UpgradeId = upgrade.Id,
                             });
                         }
 

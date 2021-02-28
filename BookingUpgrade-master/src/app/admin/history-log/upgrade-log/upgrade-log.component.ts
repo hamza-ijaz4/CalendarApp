@@ -5,11 +5,11 @@ import { CustomerService } from 'src/app/shared/services/customer-service.servic
 import { UpgradeService } from 'src/app/shared/services/upgrade.service';
 
 @Component({
-  selector: 'app-customers',
-  templateUrl: './customers.component.html',
-  styleUrls: ['./customers.component.css']
+  selector: 'app-upgrade-log',
+  templateUrl: './upgrade-log.component.html',
+  styleUrls: ['./upgrade-log.component.css']
 })
-export class CustomersComponent implements OnInit {
+export class UpgradeLogComponent implements OnInit {
 
   @Input() upgradeId!: string;
 
@@ -52,7 +52,7 @@ export class CustomersComponent implements OnInit {
     if (status == 2)
       return '<b style="background: #ac209b;color: white;padding: 5px;border-radius: 5px;">Completed</b>';
     if (status == 3)
-      return '<b style="background: orange;color: white;padding: 5px;border-radius: 5px;">Transfered</b>';
+      return '<b style="background: red;color: white;padding: 5px;border-radius: 5px;">Cancelled</b>';
     return '';
   }
 

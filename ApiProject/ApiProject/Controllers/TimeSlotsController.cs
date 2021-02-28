@@ -38,12 +38,6 @@ namespace ApiProject.Controllers
             try
             {
                 var timeSlotQuery = _context.TimeSlots.Where(a => !a.IsDeleted && a.Available);
-      
-                
-                if (upgradeId != null)
-                {
-                    timeSlotQuery = timeSlotQuery.Where(a => a.UpgradeId == upgradeId);
-                }
 
                 var timeSlotList = await timeSlotQuery.ToListAsync();
                 var timeSlots = timeSlotList.OrderBy(a => a.Date).GroupBy(a => a.Date).ToList();

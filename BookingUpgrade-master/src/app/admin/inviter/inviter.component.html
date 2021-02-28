@@ -1,11 +1,11 @@
 <div class="calender">
   <div style="float: right;">
-  <label style="color: aliceblue;" for="id">Selected Upgrade: </label>
+  <label style="color: aliceblue;" for="id">Plan Upgrade: </label>
   <select [(ngModel)]="upgradeId" name="upgrade-Version" id="upgrade-Version">
     <option [value]="undefined" selected> Select version</option>
     <option *ngFor="let item of upgrades" [value]="item.id">{{item.version}}</option>
   </select>
-  <button style="margin-top: 5px;" (click)="save()">Send invite</button>
+  <button style="margin-top: 5px;" (click)="save()">Send</button>
   </div>
 <br>
 <br>

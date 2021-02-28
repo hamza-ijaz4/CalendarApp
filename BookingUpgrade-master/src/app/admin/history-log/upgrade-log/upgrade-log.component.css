@@ -1,0 +1,180 @@
+.disablebox {
+  pointer-events: none;
+  background-color: #18ff03fc !important;
+  color: #000000 !important;
+}
+
+.header {
+  height: 80px;
+}
+
+.status {
+  background: #0532b2;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#upgradeSelector {
+  position: relative;
+  top: 40px;
+  left: 14px;
+  font-size: 20px;
+  color: whitesmoke;
+}
+
+#header-title {
+  text-align: center;
+  margin: 6px;
+  padding: 5px;
+  color: whitesmoke;
+
+  border-bottom: solid whitesmoke;
+}
+
+#releaseNoteDown {
+  position: absolute;
+  /* top: 45px; */
+  right: 18px;
+  width: 200px;
+  height: 30px;
+  border: 1px solid #000000;
+  background-color: whitesmoke;
+}
+
+/*
+Hide radio button (the round disc)
+we will use just the label to create pushbutton effect
+*/
+input[type="radio"] {
+  display: none;
+  margin: 10px;
+}
+
+/*
+Change the look'n'feel of labels (which are adjacent to radiobuttons).
+Add some margin, padding to label
+*/
+input[type="radio"] + label {
+  display: inline-block;
+  margin: -2px;
+  padding: 4px 12px;
+  background-color: #e7e7e7;
+  border-color: #ddd;
+}
+/*
+Change background color for label next to checked radio button
+to make it look like highlighted button
+*/
+input[type="radio"]:checked + label {
+  background-image: none;
+  background-color: #8d8d8d;
+}
+
+p {
+  color: whitesmoke;
+}
+
+.customer {
+  /* flex: 1 0 51%;  */
+  margin: 5px;
+  height: auto;
+  width: 230px;
+  background-color: #e2e2e2;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #28282b;
+  border-radius: 5px;
+}
+
+.customer:hover {
+  background-color: #c2c2c2;
+  cursor: pointer;
+
+  position: relative;
+}
+
+.selectedBox {
+  background-color: #c2c2c2;
+  border-color: rgb(19, 255, 19);
+}
+
+.disableBox {
+  /* pointer-events: none; */
+  cursor: not-allowed !important;
+}
+
+#deleteButton {
+  position: relative;
+  float: right;
+  top: -5px;
+  right: 2px;
+}
+#deleteButton:hover {
+  background-color: #8d8d8d;
+  cursor: pointer;
+}
+
+.slot {
+  flex-grow: 1;
+  width: 90%;
+  height: 35px;
+  background-color: gray;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  margin: 10px;
+  transition-duration: 0.4s;
+  border-radius: 10px;
+}
+
+.slot:hover {
+  background-color: #5c5c5c;
+  cursor: pointer;
+
+  position: relative;
+}
+
+h3 {
+  padding: 8px;
+  margin: 6px;
+  font-weight: 300;
+  font-weight: bold;
+  text-align: center;
+}
+
+.box {
+  cursor: pointer;
+}
+
+.appointments {
+  padding-left: 12px;
+  padding-right: 10px;
+  line-height: 35px;
+  font-size: 18px;
+  padding-top: 20px;
+}
+
+.appointment-box {
+  border-bottom: 2px solid black;
+}
+
+.select-appointment {
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.calender {
+  /* display: flex;
+  flex-wrap: wrap;
+  justify-content: left; */
+  background-color: #232f41;
+}
+.container {
+  padding: 15px;
+}
+
+.infoText {
+  color: whitesmoke;
+}

@@ -2,7 +2,7 @@ import { EditorComponent } from './editor/editor.component';
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { AdminComponent } from "./admin.component";
-import { CustomersComponent } from "./editor/customers/customers.component";
+import { UpgradeLogComponent } from "./history-log/upgrade-log/upgrade-log.component";
 import { AddUpgradeComponent } from './add-upgrade/add-upgrade.component';
 import { AppointmentsOverviewComponent } from './appointments-overview/appointments-overview.component';
 import { InviterComponent } from './inviter/inviter.component';
@@ -19,6 +19,8 @@ import { InviterComponent } from './inviter/inviter.component';
           { path: 'add-upgrade', component: AddUpgradeComponent },
           { path: 'overview', component: AppointmentsOverviewComponent},
           { path: 'invite', component: InviterComponent},
+          { path: 'history', component: UpgradeLogComponent},
+
           { path: '', redirectTo: 'editor', pathMatch: 'full' }
         ]
       }

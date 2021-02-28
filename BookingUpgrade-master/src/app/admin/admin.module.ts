@@ -13,7 +13,7 @@ import { AgGridModule } from 'ag-grid-angular';
 
 //components
 import { AdminComponent } from './admin.component';
-import { CustomersComponent } from './editor/customers/customers.component';
+import { CustomersComponent } from './history-log/customers/customers.component';
 import { EditorComponent } from './editor/editor.component';
 import { AdminRoutingModule } from './admin-routig.module';
 import { AddUpgradeComponent } from './add-upgrade/add-upgrade.component';
@@ -24,6 +24,7 @@ import { CardModule } from 'primeng/card';
 import { AppointmentsOverviewComponent } from './appointments-overview/appointments-overview.component';
 import { BtnCellRenderer } from './appointments-overview/btn-cell-renderer.component';
 import { InviterComponent } from './inviter/inviter.component';
+import { UpgradeLogComponent } from './history-log/upgrade-log/upgrade-log.component';
 
 @NgModule({
   imports: [
@@ -52,7 +53,8 @@ import { InviterComponent } from './inviter/inviter.component';
     EditorComponent,
     AddUpgradeComponent,
     AppointmentsOverviewComponent,
-    InviterComponent
+    InviterComponent,
+    UpgradeLogComponent
   ],
   exports: [
 

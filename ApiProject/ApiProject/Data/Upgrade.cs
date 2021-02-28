@@ -14,9 +14,9 @@ namespace ApiProject.Models
         public int DurationMin { get; set; }
         public string FileName { get; set; }
         public virtual byte[] Bytes { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime StartDate { get; set; } //remove
+        public DateTime EndDate { get; set; }//remove
         public virtual ICollection<Appointment> Appointments { get; set; }
-        public virtual ICollection<TimeSlot> TimeSlots { get; set; }
+        public virtual ICollection<TimeSlot> TimeSlots { get; set; }//remove
     }
 }

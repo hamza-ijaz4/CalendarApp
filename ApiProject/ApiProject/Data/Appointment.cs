@@ -9,7 +9,8 @@ namespace ApiProject.Models
     {
         Invited,
         Booked,
-        Completed
+        Completed, 
+        Cancelled
     }
 
     public class Appointment

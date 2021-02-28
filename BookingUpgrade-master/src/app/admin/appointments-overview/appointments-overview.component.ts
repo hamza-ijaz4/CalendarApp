@@ -31,9 +31,8 @@ export class AppointmentsOverviewComponent implements OnInit {
 
     { field: 'upgradeVersion', headerName: 'Upgrade Version', sortable: true, filter: true },
     { field: 'upgradeVersionId', sortable: true, filter: true },
-    { field: 'status', sortable: true, filter: true },
     {
-      headerName: 'Complete Upgrade',
+      headerName: 'Upgrade Complete ',
       cellRenderer: 'buttonRenderer',
       cellRendererParams: {
         onClick: this.onBtnClick1.bind(this),
@@ -41,7 +40,7 @@ export class AppointmentsOverviewComponent implements OnInit {
       }
     },
         {
-      headerName: 'Cancel Upgrade',
+      headerName: 'Cancel Appointment',
       cellRenderer: 'buttonRenderer',
       cellRendererParams: {
         onClick: this.onBtnClick1.bind(this),
@@ -90,4 +89,4 @@ export class AppointmentsOverviewComponent implements OnInit {
 }
 
 
-//overdue 
+//overdue
