@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiProject.Data;
@@ -8,10 +7,8 @@ using ApiProject.Dto;
 using ApiProject.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 namespace ApiProject.Controllers
 {
@@ -32,8 +29,8 @@ namespace ApiProject.Controllers
 
         // GET: api/Timeslots
         [HttpGet]
-        [Route("{upgradeId}/days")]
-        public async Task<ActionResult<List<TimeSlotGroupListDto>>> UpgradeTimeSlots(Guid? upgradeId)
+        [Route("days")]
+        public async Task<ActionResult<List<TimeSlotGroupListDto>>> UpgradeTimeSlots()
         {
             try
             {
@@ -61,6 +58,13 @@ namespace ApiProject.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("SaveTimeSlots")]
+        public async Task<ActionResult> SaveTimeSlots()
+        {
+            return Ok();
+        }
+
 
         [Route("{upgradeId}/timegroup")]
         [HttpDelete]
@@ -86,7 +90,7 @@ namespace ApiProject.Controllers
 
         [HttpDelete]
         [Route("{upgradeId}/day")]
-        public async Task<ActionResult> DeleteDayTimeSlot([FromBody]DateTime input)
+        public async Task<ActionResult> DeleteDayTimeSlot([FromBody] DateTime input)
         {
             var date = input.Date.AddDays(1).Date;
             var timeSlotDay = await _context.TimeSlots.Where(a => a.Date.Date == date).ToListAsync();

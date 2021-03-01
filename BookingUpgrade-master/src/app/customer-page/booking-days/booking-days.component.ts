@@ -9,7 +9,7 @@ export interface BookingDto {
   day: any,
   StartTime: any,
   AppointmentId: string,
- // upgradeId: string
+  // upgradeId: string
 }
 
 @Component({
@@ -17,7 +17,7 @@ export interface BookingDto {
   templateUrl: './booking-days.component.html',
   styleUrls: ['./booking-days.component.css']
 })
-export class BookingDaysComponent  implements OnInit, OnChanges { //
+export class BookingDaysComponent implements OnInit, OnChanges { //
 
   @Input() day: any;
   @Input() upgradeId: string | undefined;
@@ -27,7 +27,7 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
   showTimeSlots = true;
   selectedTimeSlotId = undefined;
   selectedTimeSlotTime: any;
-  appointmentId: string ="";
+  appointmentId: string = "";
 
 
   constructor(private httpClient: HttpClient,
@@ -35,9 +35,9 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
     private eventbus: EventBusService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-   // window.location.href.indexOf('admin') > 0 ? this.isAdmin = true : this.isAdmin = false;
-   let appointmentQuery = this.route.snapshot.paramMap.get('appointmentId');
-   this.appointmentId += appointmentQuery;
+    // window.location.href.indexOf('admin') > 0 ? this.isAdmin = true : this.isAdmin = false;
+    let appointmentQuery = this.route.snapshot.paramMap.get('appointmentId');
+    this.appointmentId += appointmentQuery;
 
   }
 
@@ -82,9 +82,8 @@ export class BookingDaysComponent  implements OnInit, OnChanges { //
       StartTime: this.selectedTimeSlotTime,
       AppointmentId: this.appointmentId
 
-
     };
-    console.log("Selected Timeslot",this.selectedTimeSlotTime, "day", day, "appointmentId " ,this.appointmentId)
+    console.log("Selected Timeslot", this.selectedTimeSlotTime, "day", day, "appointmentId ", this.appointmentId)
     this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
       window.location.href = 'http://localhost:4200/';
     })

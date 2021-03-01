@@ -29,7 +29,7 @@ export class UpgradeLogComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getUpgrades();
+    this.getCustomers();
   }
 
   columnDefs = [
@@ -37,18 +37,12 @@ export class UpgradeLogComponent implements OnInit {
     { field: 'name', headerName: "Customer name", sortable: true, filter: true },
     { field: 'herId', headerName: "Her Id", sortable: true, filter: true },
     { field: 'bookedBy', headerName: "Booked By", sortable: true, filter: true },
-    { field: 'status', cellRenderer: (params: any) => { return this.getAppointmentStatusString(params.value) }, headerName: "Status", sortable: true, filter: true },
-
-    { field: 'gotAppointment', cellRenderer: (params: any) => { return this.hasAppointment(params.value) }, headerName: 'Has Appointment', sortable: true, },
+    { field: 'status', cellRenderer: (params: any) => { return this.getAppointmentStatusString(params.value) }, headerName: "Status", sortable: true, filter: true }
 
   ];
 
   getAppointmentStatusString(status?: number) {
 
-    if (status == 0)
-      return '<b style="background: #0532b2;color: white;padding: 5px;border-radius: 5px;">Invited</b>';
-    if (status == 1)
-      return '<b style="background: #3f9a39;color: white;padding: 5px;border-radius: 5px;">Booked</b>';
     if (status == 2)
       return '<b style="background: #ac209b;color: white;padding: 5px;border-radius: 5px;">Completed</b>';
     if (status == 3)
@@ -77,7 +71,7 @@ export class UpgradeLogComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.upgradeId.currentValue) {
       if (this.upgradeId) {
-        this.getCustomers();
+        //this.getCustomers();
       }
     }
   }
@@ -88,9 +82,8 @@ export class UpgradeLogComponent implements OnInit {
 
 
   getCustomers() {
-    if (!this.upgradeId)
-      return;
-    this.customerService.getCustomers(this.upgradeId).subscribe((result: any) => {
+    // 2: for completed appointments
+    this.customerService.getCustomers(2).subscribe((result: any) => {
       this.items = result;
       this.rowData = result
     })

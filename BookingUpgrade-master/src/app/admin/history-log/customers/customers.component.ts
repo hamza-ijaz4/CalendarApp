@@ -90,7 +90,7 @@ export class CustomersComponent implements OnInit {
   getCustomers() {
     if (!this.upgradeId)
       return;
-    this.customerService.getCustomers(this.upgradeId).subscribe((result: any) => {
+    this.customerService.getCustomers(0).subscribe((result: any) => {
       this.items = result;
       this.rowData = result
     })

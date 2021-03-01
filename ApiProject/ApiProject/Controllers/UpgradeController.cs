@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using ApiProject.Data;
-using ApiProject.Dto;
 using ApiProject.Extensions;
 using ApiProject.Models;
 using Microsoft.AspNetCore.Cors;
@@ -13,7 +11,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MimeTypes;
-using Newtonsoft.Json;
 
 namespace ApiProject.Controllers
 {
@@ -36,7 +33,7 @@ namespace ApiProject.Controllers
         // GET: api/Upgrades
         [HttpGet]
 
-        public async Task<ActionResult<IEnumerable<Upgrade>>> GetUpgrades()
+        public async Task<ActionResult<IEnumerable<Upgrade>>> GetUpgrades(AppointmentStatus status)
         {
             return await _context.Upgrades.ToListAsync();
         }
@@ -107,21 +104,24 @@ namespace ApiProject.Controllers
                 var uploads = Path.Combine(path, "files");
                 //var filePath = string.Empty;
 
-                var timeGroupsJson = HttpContext.Request.Form["timeGroupsJson"];
+                
                 var Version = HttpContext.Request.Form["version"];
                 var Description = HttpContext.Request.Form["description"];
                 var DurationMin = Convert.ToInt32(HttpContext.Request.Form["durationMin"]);
-                var EndDate = Convert.ToDateTime(HttpContext.Request.Form["endDate"]);
-                var StartDate = Convert.ToDateTime(HttpContext.Request.Form["startDate"]);
 
-                var timegroups = JsonConvert.DeserializeObject<List<TimeSlotGroupDto>>(timeGroupsJson);
+                #region old code
+                //var EndDate = Convert.ToDateTime(HttpContext.Request.Form["endDate"]);
+                //var StartDate = Convert.ToDateTime(HttpContext.Request.Form["startDate"]);
+                //var timeGroupsJson = HttpContext.Request.Form["timeGroupsJson"];
+                //var timegroups = JsonConvert.DeserializeObject<List<TimeSlotGroupDto>>(timeGroupsJson);
 
+                #endregion
+                
                 var upgrade = new Upgrade()
                 {
                     Version = Version,
                     Description = Description,
                     DurationMin = DurationMin,
-  
                 };
 
                 if (files.Count() > 0)
@@ -136,24 +136,27 @@ namespace ApiProject.Controllers
                 _context.Upgrades.Add(upgrade);
                 await _context.SaveChangesAsync();
 
+                #region old code
 
-                for (var dt = StartDate; dt <= EndDate; dt = dt.AddDays(1))
-                {
-                    timegroups.ForEach(t =>
-                    {
-                        for (int s = 0; s < t.Slots; s++)
-                        {
-                            _context.Add(new TimeSlot
-                            {
-                                Date = dt,
-                                StartTime = t.StartTime,
-                                EndTime = new TimeSpan(t.StartTime.Days, t.StartTime.Hours, t.StartTime.Minutes + DurationMin, t.StartTime.Seconds),
-                                Available = true,
-                            });
-                        }
+                //for (var dt = StartDate; dt <= EndDate; dt = dt.AddDays(1))
+                //{
+                //    timegroups.ForEach(t =>
+                //    {
+                //        for (int s = 0; s < t.Slots; s++)
+                //        {
+                //            _context.Add(new TimeSlot
+                //            {
+                //                Date = dt,
+                //                StartTime = t.StartTime,
+                //                EndTime = new TimeSpan(t.StartTime.Days, t.StartTime.Hours, t.StartTime.Minutes + DurationMin, t.StartTime.Seconds),
+                //                Available = true,
+                //            });
+                //        }
 
-                    });
-                }
+                //    });
+                //}
+
+                #endregion
 
                 _context.SaveChanges();
                 return Ok();

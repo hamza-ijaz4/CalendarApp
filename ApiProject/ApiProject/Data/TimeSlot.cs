@@ -17,8 +17,6 @@ namespace ApiProject.Data
         public TimeSpan EndTime { get; set; }
         public bool Available { get; set; }
         public bool IsDeleted { get; set; }
-        public Guid UpgradeId { get; set; } // remove
-        [ForeignKey("UpgradeId")]
-        public Upgrade UpgradeFk { get; set; } // remove
+
     }
 }

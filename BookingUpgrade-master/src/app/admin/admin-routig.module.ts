@@ -20,7 +20,6 @@ import { InviterComponent } from './inviter/inviter.component';
           { path: 'overview', component: AppointmentsOverviewComponent},
           { path: 'invite', component: InviterComponent},
           { path: 'history', component: UpgradeLogComponent},
-
           { path: '', redirectTo: 'editor', pathMatch: 'full' }
         ]
       }

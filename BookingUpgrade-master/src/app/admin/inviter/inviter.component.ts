@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,  SimpleChanges  } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { CustomerService } from 'src/app/shared/services/customer-service.service';
 
 import { MessageService } from 'primeng/api';
@@ -31,7 +31,7 @@ export class InviterComponent implements OnInit {
 
     console.log("upgradeId: ", this.upgradeId)
     this.getUpgrades();
-    this.getCustomers2();
+    this.getCustomers();
   }
 
 
@@ -53,10 +53,6 @@ export class InviterComponent implements OnInit {
       return '<b style="background: #0532b2;color: white;padding: 5px;border-radius: 5px;">Invited</b>';
     if (status == 1)
       return '<b style="background: #3f9a39;color: white;padding: 5px;border-radius: 5px;">Booked</b>';
-    // if (status == 2)
-    //   return '<b style="background: #ac209b;color: white;padding: 5px;border-radius: 5px;">Completed</b>';
-    // if (status == 3)
-    //   return '<b style="background: orange;color: white;padding: 5px;border-radius: 5px;">Transfered</b>';
     return '';
   }
 
@@ -93,9 +89,9 @@ export class InviterComponent implements OnInit {
   }
 
 
-  getCustomers2() {
+  getCustomers() {
     console.log("getCustomer")
-    this.customerService.getCustomers2(this.upgradeId).subscribe((result: any) => {
+    this.customerService.getCustomers(0).subscribe((result: any) => {
       this.items = result;
       this.rowData = result
 
@@ -133,7 +129,7 @@ export class InviterComponent implements OnInit {
     this.customerService.saveAppointments(obj).subscribe(() => {
       this.messageService.add({ severity: 'success', summary: 'Invited successfully' });
 
-      this.getCustomers2();
+      this.getCustomers();
     });
   }
 

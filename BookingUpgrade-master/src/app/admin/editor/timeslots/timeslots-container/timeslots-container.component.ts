@@ -15,19 +15,23 @@ export class TimeslotsContainerComponent implements OnInit, OnChanges { //
   constructor(private timeslotService: TimeSlotService) { }
 
   ngOnInit(): void {
+    this.getTimeSlots();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.upgradeId.currentValue) {
       if (this.upgradeId && this.upgradeId != 'undefined') {
         console.log('upgradeId', this.upgradeId);
-        this.timeslotService.getTimeSlotDaysByUpgradeId(this.upgradeId)
-          .subscribe((result: any) => {
-            this.timeSlotDays = result
-          });
       }
 
     }
+  }
+
+  getTimeSlots() {
+    this.timeslotService.getTimeSlotDays()
+      .subscribe((result: any) => {
+        this.timeSlotDays = result
+      });
   }
 
 }

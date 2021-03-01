@@ -100,38 +100,6 @@ namespace ApiProject.Controllers
         }
 
 
-        //// PUT: api/Appointments/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for
-        //// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutAppointment(Guid id, Appointment appointment)
-        //{
-        //    if (id != appointment.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(appointment).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!AppointmentExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
         [HttpPut("Booking")]
         public async Task<ActionResult> SaveBooking([FromBody] BookingDto input) // by customer
         {

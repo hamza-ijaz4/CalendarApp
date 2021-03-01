@@ -19,21 +19,16 @@ export class CustomerService {
   //   return this.http.get(`${this.customerUrl}list`)
   // }
 
-  getCustomers(upgradeId: string) {
-    return this.http.get(`${this.customerUrl}list`)
+  getCustomers(status: number) {
+    return this.http.get(`${this.customerUrl}list?status=${status}`);
   }
-  
-  getCustomers2(upgradeId: string) {
-    return this.http.get(`${this.customerUrl}list2`)
-  }
-
 
   saveAppointments(data: any) {
     return this.http.post(`${this.bookingUrl}bookingInvites`, data, { headers: this.headers })
   }
 
-  getUpgradeIdByAppointmentId(appointmentId: string){
-    return this.http.get(this.bookingUrl+ appointmentId)
+  getUpgradeIdByAppointmentId(appointmentId: string) {
+    return this.http.get(this.bookingUrl + appointmentId)
   }
 
 }

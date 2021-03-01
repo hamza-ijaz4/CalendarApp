@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges  } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { TimeSlotService } from 'src/app/shared/services/time-slot.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { TimeSlotService } from 'src/app/shared/services/time-slot.service';
   templateUrl: './booking-container.component.html',
   styleUrls: ['./booking-container.component.css']
 })
-export class BookingContainerComponent implements  OnInit, OnChanges { //
+export class BookingContainerComponent implements OnInit, OnChanges { //
 
 
   timeSlotDays: any;
@@ -20,13 +20,11 @@ export class BookingContainerComponent implements  OnInit, OnChanges { //
   ngOnChanges(changes: SimpleChanges) {
     if (changes.upgradeId.currentValue) {
       if (this.upgradeId) {
-        this.timeslotService.getTimeSlotDaysByUpgradeId(this.upgradeId)
+        this.timeslotService.getTimeSlotDays()
           .subscribe((result: any) => {
             this.timeSlotDays = result
-            console.log("timeslots days", result)
           });
       }
-
     }
   }
 

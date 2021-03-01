@@ -22,23 +22,14 @@ export class AddUpgradeComponent implements OnInit {
   upgradeHoursPerDay!: number;
   duration!: string;
   upgradeHours: Time[] = [];
-  timeStart1!: Time;
-  timeStart2!: Time;
-  timeStart3!: Time;
-  timeStart4!: Time;
-  timeStart5!: Time;
-  slotsTime1!: number;
-  slotsTime2!: number;
-  slotsTime3!: number;
-  slotsTime4!: number;
-  slotsTime5!: number;
+
   appointments: Appointment[] = [];
   shortDescription = '';
   fileToUpload: any;
 
 
   constructor(private httpClient: HttpClient,
-              private eventbus: EventBusService,) { }
+    private eventbus: EventBusService,) { }
 
   ngOnInit(): void {
     this.eventbus.emit(new EmitEvent('hideUpgrade', null));
@@ -59,35 +50,9 @@ export class AddUpgradeComponent implements OnInit {
     if (this.fileToUpload) {
       formData.append('fileKey', this.fileToUpload, this.fileToUpload.name);
     }
-
-
-
-    let timeGroups = [];
-    if (this.upgradeHoursPerDay > 0) {
-      timeGroups.push({ "startTime": this.timeStart1, "slots": this.slotsTime1 });
-    }
-    if (this.upgradeHoursPerDay > 1) {
-      timeGroups.push({ "startTime": this.timeStart2, "slots": this.slotsTime2 });
-    }
-    if (this.upgradeHoursPerDay > 2) {
-      timeGroups.push({ "startTime": this.timeStart3, "slots": this.slotsTime3 });
-    }
-    if (this.upgradeHoursPerDay > 3) {
-      timeGroups.push({ "startTime": this.timeStart4, "slots": this.slotsTime4 });
-    }
-    if (this.upgradeHoursPerDay > 4) {
-      timeGroups.push({ "startTime": this.timeStart5, "slots": this.slotsTime5 });
-    }
-
-    let timeGroupsJson = JSON.stringify(timeGroups);
     formData.append('version', this.upgradeVersion);
     formData.append('description', this.shortDescription);
     formData.append('durationMin', this.duration);
-    formData.append('endDate', this.endDate.toString());
-    formData.append('startDate', this.startDate.toString());
-    formData.append('timeGroupsJson', timeGroupsJson);
-    //formData.append('appointmnetsJson', appointmentJson);
-
 
     let url = environment.apiEndpoint;
     url = url + "/api/upgrade";
@@ -97,15 +62,6 @@ export class AddUpgradeComponent implements OnInit {
     })
 
   }
-
-  // setEndTime(startTime: any) {
-  //   let str = startTime.toString();
-  //   let _str = str.split(':')[1];
-  //   let numb = Number(_str) + Number(this.duration);
-  //   return str.split(':')[0] + ':' + numb;
-
-  // }
-
 
   appendTime() {
     console.log("add time");

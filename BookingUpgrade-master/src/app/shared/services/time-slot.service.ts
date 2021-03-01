@@ -17,11 +17,7 @@ export class TimeSlotService {
   }
 
   getTimeSlotDays() {
-    return this.http.get(this.upgradesUrl)
-  }
-
-  getTimeSlotDaysByUpgradeId(UpgradeId: string) {
-    return this.http.get(`${this.upgradesUrl}${UpgradeId}/days`)
+    return this.http.get(`${this.upgradesUrl}days`)
   }
 
   deleteTimeSlot(data: any) {

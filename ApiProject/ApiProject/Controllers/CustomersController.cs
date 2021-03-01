@@ -9,7 +9,7 @@ using ApiProject.Data;
 using ApiProject.Models;
 using ApiProject.Dto;
 using Microsoft.AspNetCore.Cors;
-
+    
 namespace ApiProject.Controllers
 {
     [EnableCors("Default")]
@@ -26,12 +26,19 @@ namespace ApiProject.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<ActionResult<List<CustomerListDto>>> CusomersList()
+        public async Task<ActionResult<List<CustomerListDto>>> CusomersList([FromQuery]CustomerListFilterDto input)
         {
             try
             {
+
                 var customersQuery = _context.Customers.AsQueryable();
                 var appointmentQuery = _context.Appointments.AsQueryable();
+
+                if (input.Status == AppointmentStatus.Completed)
+                {
+                    appointmentQuery = appointmentQuery.Where(a => a.Status == AppointmentStatus.Completed || a.Status == AppointmentStatus.Cancelled);
+                }
+
 
                 var joinedQuery = from q in customersQuery
                                   join a in appointmentQuery
@@ -45,8 +52,8 @@ namespace ApiProject.Controllers
                                       Name = q.Name,
                                       GotAppointment = a != null ? true : false,
                                       Status = a.Status,
-                                      UpcommingUpgrade = a.UpgradeFk.Version
-                                      
+                                      CurrentVersion = a.UpgradeFk.Version,
+                                      UpcommingUpgrade = a.Status == AppointmentStatus.Booked || a.Status == AppointmentStatus.Invited ? a.UpgradeFk.Version : null,
                                   };
 
                 var list = await joinedQuery.ToListAsync();
@@ -59,40 +66,6 @@ namespace ApiProject.Controllers
 
         }
 
-        [HttpGet]
-        [Route("list2")]
-        public async Task<ActionResult<List<CustomerListDto>>> CusomersList2()
-        {
-            try
-            {
-                var customersQuery = _context.Customers.AsQueryable();
-                var appointmentQuery = _context.Appointments.AsQueryable();
-
-                var joinedQuery = from q in customersQuery
-                                  join a in appointmentQuery
-                                  on q.HerId equals a.CustomerFk.HerId
-                                  into qaJoined
-                                  from a in qaJoined.DefaultIfEmpty()
-                                  select new CustomerListDto
-                                  {
-                                      HerId = q.HerId,
-                                      Id = q.Id,
-                                      Name = q.Name,
-                                      Status = a.Status,
-                                      CurrentVersion = q.CurrentVersion,
-                                      UpcommingUpgrade = a.Status == AppointmentStatus.Booked || a.Status == AppointmentStatus.Invited ? a.UpgradeFk.Version : null,  
-
-                                  };
-
-                var list = await joinedQuery.ToListAsync();
-                return Ok(list);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-        }
 
         // GET: api/Customers/5
         [HttpGet("{id}")]
