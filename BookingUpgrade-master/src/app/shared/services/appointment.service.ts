@@ -18,7 +18,11 @@ export class AppointmentService {
 
 
   getBookedAppointments(){
-    //return this.http.get(this.appontmentUrl+"/booked")
+    return this.http.get(this.appontmentUrl+"/booked")
+
+  }
+
+  getAppointments(){
     return this.http.get(this.appontmentUrl)
   }
 
@@ -27,4 +31,13 @@ export class AppointmentService {
 
   }
 
+  cancelAppointment(appointmentId:string){
+    return this.http.patch(this.appontmentUrl+"/status",  {Id :appointmentId, status: 3}, { headers: this.headers })
+
+  }
+
+  getHistoricAppointments(){
+    //return this.http.get(this.appontmentUrl+"/booked")
+    return this.http.get(this.appontmentUrl+ "/historic")
+  }
 }

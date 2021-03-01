@@ -43,7 +43,7 @@ export class AppointmentsOverviewComponent implements OnInit {
       headerName: 'Cancel Appointment',
       cellRenderer: 'buttonRenderer',
       cellRendererParams: {
-        onClick: this.onBtnClick1.bind(this),
+        onClick: this.onBtnClick2.bind(this),
         label: 'Cancel'
       }
     },
@@ -83,8 +83,27 @@ export class AppointmentsOverviewComponent implements OnInit {
       })
 
     });
+  }
+
+  onBtnClick2(e: any) {
+    this.rowDataClicked1 = e.rowData;
+    console.log("from overview", e.rowData.appointmentId)
+    this.appointmentService.cancelAppointment(e.rowData.appointmentId).subscribe((result: any) => {
+      console.log(result);
+    //  this.rowData = result;
+
+      this.appointmentService.getBookedAppointments().subscribe((result: any) => {
+      this.bookedAppointmentList = result;
+      this.rowData = result;
+      })
+
+    });
+
+
 
   }
+
+
 
 }
 

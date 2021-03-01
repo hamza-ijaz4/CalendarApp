@@ -21,8 +21,14 @@ namespace ApiProject.Controllers
             _context = context;
         }
 
-        // GET: api/Appointments
         [HttpGet]
+        public async Task<ActionResult<IEnumerable<Appointment>>> GetBookedAppointments()
+        {
+            return await _context.Appointments.ToListAsync();
+        }
+
+        // GET: api/Appointments
+        [HttpGet("Booked")]
         public async Task<ActionResult<List<AppointmentListDto>>> GetAppointments()
         {
             var query = _context.Appointments.Where(a => a.Status == AppointmentStatus.Booked).Include(a => a.CustomerFk).Include(a => a.TimeSlotFk).Include(a => a.UpgradeFk);
@@ -36,6 +42,7 @@ namespace ApiProject.Controllers
                 BookedBy = a.BookedBy,
                 CustomerId = a.CustomerId,
                 CustomerName = a.CustomerFk.Name,
+                HerId = a.CustomerFk.HerId,
                 Status = a.Status,
                 UpgradeVersionId = a.UpgradeId,
                 UpgradeVersion = a.UpgradeFk.Version
@@ -46,10 +53,28 @@ namespace ApiProject.Controllers
 
         }
 
-        [HttpGet("Booked")]
-        public async Task<ActionResult<IEnumerable<Appointment>>> GetBookedAppointments()
+        [HttpGet("Historic")]
+        public async Task<ActionResult<List<AppointmentListDto>>> GetHistoricAppointments()
         {
-            return await _context.Appointments.Where(a => a.Status == AppointmentStatus.Booked).ToListAsync();
+            var query = _context.Appointments.Where(a => a.Status == AppointmentStatus.Cancelled || a.Status == AppointmentStatus.Completed);
+
+            var list = await (query.Select(a =>
+            new AppointmentListDto
+            {
+                //AppointmentTime = a.TimeSlotFk.StartTime,
+                //AppointmentDate = a.TimeSlotFk.Date.AddHours(a.TimeSlotFk.StartTime.Hours),
+                AppointmentId = a.Id,
+                BookedBy = a.BookedBy,
+                CustomerId = a.CustomerId,
+                CustomerName = a.CustomerFk.Name,
+                HerId = a.CustomerFk.HerId,
+                Status = a.Status,
+                UpgradeVersionId = a.UpgradeId,
+                UpgradeVersion = a.UpgradeFk.Version
+            }
+            )).ToListAsync();
+
+            return Ok(list);
         }
 
 

@@ -13,6 +13,7 @@ namespace ApiProject.Dto
         public TimeSpan AppointmentTime { get; set; }
         public string CustomerName { get; set; }
         public Guid CustomerId { get; set; }
+        public string HerId { get; set; }
         public string BookedBy { get; set; }
         public string UpgradeVersion { get; set; }
         public Guid UpgradeVersionId { get; set; }
