@@ -3,7 +3,20 @@
 @import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
 @import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
 
+body {
+  margin: 8px;
+  /* background: radial-gradient( rgb(125, 125, 128), rgb(56, 61, 71)); */
+  background: radial-gradient(rgb(70, 103, 133), rgb(56, 104, 143));
+  /* background-color: white; */
+  /* background: radial-gradient( rgb(180, 180, 180), rgb(74, 120, 163) ); */
+  /* background: radial-gradient( rgb(125, 125, 128), rgb(70, 103, 133) ); */
+  min-height: 98vh;
+}
 
+:host ::ng-deep .p-button {
+  margin: 0 0.5rem 0 0;
+  min-width: 10rem;
+}
 body{
         margin : 8px;
         /* background: radial-gradient( rgb(125, 125, 128), rgb(56, 61, 71)); */
@@ -15,4 +28,20 @@ body{
         /* background: radial-gradient( rgb(125, 125, 128), rgb(70, 103, 133) ); */
         min-height: 98vh;
 
+.confirmation-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host ::ng-deep .p-dialog .p-button {
+  min-width: 6rem;
+}
+
+.float-right {
+  float: right !important;
+}
+
+.mar-top-15 {
+  margin-top: 15px;
 }

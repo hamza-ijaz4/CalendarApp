@@ -7,7 +7,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // prime ng modules
 import { TabViewModule } from 'primeng/tabview';
-import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 import { AgGridModule } from 'ag-grid-angular';
 
@@ -25,6 +29,8 @@ import { AppointmentsOverviewComponent } from './appointments-overview/appointme
 import { BtnCellRenderer } from './appointments-overview/btn-cell-renderer.component';
 import { InviterComponent } from './inviter/inviter.component';
 import { UpgradeLogComponent } from './history-log/upgrade-log/upgrade-log.component';
+import { SaveTimeSlotsComponent } from './editor/timeslots/save-timeslots/save-timeslots.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   imports: [
@@ -36,6 +42,12 @@ import { UpgradeLogComponent } from './history-log/upgrade-log/upgrade-log.compo
     // primeng modules
     TabViewModule,
     CardModule,
+    DialogModule,
+    ButtonModule,
+    CalendarModule,
+    InputTextModule,
+    DropdownModule,
+    InputNumberModule,
 
     // ag-grid
     AgGridModule.withComponents([BtnCellRenderer]),
@@ -54,7 +66,8 @@ import { UpgradeLogComponent } from './history-log/upgrade-log/upgrade-log.compo
     AddUpgradeComponent,
     AppointmentsOverviewComponent,
     InviterComponent,
-    UpgradeLogComponent
+    UpgradeLogComponent,
+    SaveTimeSlotsComponent
   ],
   exports: [
 

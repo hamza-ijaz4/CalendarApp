@@ -15,7 +15,7 @@ import { BookingMainComponent } from './customer-page/booking-main/booking-main.
 import { BookingDaysComponent } from './customer-page/booking-days/booking-days.component';
 import { SharedModule } from './shared/shared.module';
 import { BookingContainerComponent } from './customer-page/booking-container/booking-container.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -26,8 +26,9 @@ import { BookingContainerComponent } from './customer-page/booking-container/boo
     BookingContainerComponent,
   ],
   imports: [
-    
+
     CommonModule,
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

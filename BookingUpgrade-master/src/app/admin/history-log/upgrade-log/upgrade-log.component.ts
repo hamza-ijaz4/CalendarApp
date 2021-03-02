@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { AppointmentService } from 'src/app/shared/services/appointment.service';
 import { CustomerService } from 'src/app/shared/services/customer-service.service';
 import { UpgradeService } from 'src/app/shared/services/upgrade.service';
 
@@ -14,7 +13,8 @@ export class UpgradeLogComponent implements OnInit {
 
   @Input() upgradeId!: string;
 
-
+  upgrades: any[] = [];
+  items: any[] = [];
   rowData: any;
   frameworkComponents: any;
   rowSelection: any;
@@ -23,18 +23,18 @@ export class UpgradeLogComponent implements OnInit {
   rowDataClicked1 = {};
 
   selected: boolean = false;
-  constructor(private appointmentService: AppointmentService, private customerService: CustomerService, private messageService: MessageService) {
+  constructor(private upgradeService: UpgradeService, private customerService: CustomerService, private messageService: MessageService) {
     this.rowSelection = 'multiple';
   }
 
 
   ngOnInit(): void {
-    this.getHistoricAppointments();
+    this.getCustomers();
   }
 
   columnDefs = [
 
-    { field: 'customerName', headerName: "Customer name", sortable: true, filter: true },
+    { field: 'name', headerName: "Customer name", sortable: true, filter: true },
     { field: 'herId', headerName: "Her Id", sortable: true, filter: true },
     // { field: 'AppointmentDate', headerName: "Her Id", sortable: true, filter: true },
     { field: 'passedDate', headerName: "Date passed", sortable: true, filter: true },
@@ -58,6 +58,13 @@ export class UpgradeLogComponent implements OnInit {
     return 'No'
   }
 
+
+  getUpgrades() {
+    this.upgradeService.getUpgrades().subscribe((result: any) => {
+      this.upgrades = result;
+    })
+  }
+
   onBtnClick1(e: any) {
     this.rowDataClicked1 = e.rowData;
     console.log(e)
@@ -76,18 +83,13 @@ export class UpgradeLogComponent implements OnInit {
   }
 
 
-  getHistoricAppointments() {
-
-    this.appointmentService.getHistoricAppointments().subscribe((result:any) =>{
-
-      console.log(result);
+  getCustomers() {
+    // 2: for completed appointments
+    this.customerService.getCustomers(2).subscribe((result: any) => {
+      this.items = result;
       this.rowData = result
     })
   }
-
-
-
-
 
   setClasses() {
     let classes = {
@@ -97,6 +99,26 @@ export class UpgradeLogComponent implements OnInit {
     return classes;
   }
 
+  save() {
+    if (!this.upgradeId)
+      return;
+
+    let selectedNodes = this.gridApi.getSelectedNodes();
+    if (selectedNodes.length == 0)
+      return;
+
+    let customerIds = selectedNodes.map((a: any) => a.data.id)
+
+    let obj = {
+      "customerIds": customerIds,
+      "upgradeId": this.upgradeId
+    }
+
+    this.customerService.saveAppointments(obj).subscribe(() => {
+      this.messageService.add({ severity: 'success', summary: 'Invited successfully' });
+      this.getCustomers();
+    });
+  }
 
   onSelectionChanged(event: any) {
     console.log('event', event);
