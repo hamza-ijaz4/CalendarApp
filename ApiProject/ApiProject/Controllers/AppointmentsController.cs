@@ -28,16 +28,17 @@ namespace ApiProject.Controllers
         }
 
         // GET: api/Appointments
-        [HttpGet("Booked")]
+        [HttpGet("active")]
         public async Task<ActionResult<List<AppointmentListDto>>> GetAppointments()
         {
-            var query = _context.Appointments.Where(a => a.Status == AppointmentStatus.Booked).Include(a => a.CustomerFk).Include(a => a.TimeSlotFk).Include(a => a.UpgradeFk);
+            var query = _context.Appointments.Where(a => a.Status == AppointmentStatus.Booked || a.Status == AppointmentStatus.Invited).Include(a => a.CustomerFk).Include(a => a.TimeSlotFk).Include(a => a.UpgradeFk);
 
             var list = await (query.Select(a =>
             new AppointmentListDto
             {
-                AppointmentTime = a.TimeSlotFk.StartTime,
-                AppointmentDate = a.TimeSlotFk.Date.AddHours(a.TimeSlotFk.StartTime.Hours),
+
+                AppointmentTime = a.Status == AppointmentStatus.Booked ? a.TimeSlotFk.StartTime : (TimeSpan?)null,
+                AppointmentDate = a.Status == AppointmentStatus.Booked ? a.TimeSlotFk.Date.AddHours(a.TimeSlotFk.StartTime.Hours) : (DateTime?)null,
                 AppointmentId = a.Id,
                 BookedBy = a.BookedBy,
                 CustomerId = a.CustomerId,
@@ -53,7 +54,7 @@ namespace ApiProject.Controllers
 
         }
 
-        [HttpGet("Historic")]
+        [HttpGet("historic")]
         public async Task<ActionResult<List<AppointmentListDto>>> GetHistoricAppointments()
         {
             var query = _context.Appointments.Where(a => a.Status == AppointmentStatus.Cancelled || a.Status == AppointmentStatus.Completed);
@@ -92,7 +93,7 @@ namespace ApiProject.Controllers
             return appointment;
         }
 
-        [HttpPatch("Status")]
+        [HttpPatch("status")]
         public async Task<ActionResult<Appointment>> UpdateAppointmentStatus(AppointmentStatusDto statusDto)
         {
             var appointment = await _context.Appointments.FindAsync(statusDto.Id);
@@ -125,7 +126,7 @@ namespace ApiProject.Controllers
         }
 
 
-        [HttpPut("Booking")]
+        [HttpPut("booking")]
         public async Task<ActionResult> SaveBooking([FromBody] BookingDto input) // by customer
         {
 

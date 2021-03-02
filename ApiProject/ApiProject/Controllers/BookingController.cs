@@ -23,7 +23,7 @@ namespace ApiProject.Controllers
 
 
         [HttpPost]
-        [Route("BookingInvites")]
+        [Route("bookingInvites")]
         public async Task<ActionResult> CreateBookingInvites(CreateAppointmentInviteDto input)
         {
             try 
@@ -53,7 +53,55 @@ namespace ApiProject.Controllers
         }
 
         [HttpPost]
-        [Route("BookTime")]
+        [Route("updateInvites")]
+        public async Task<ActionResult> UpdateBookingInvites(UpdateAppointmentInvites input)
+        {
+            try
+            {
+                if (input.AppointmentIds?.Count == 0)
+                    return BadRequest("Customers count should not be null");
+
+                var upgrade = await _context.Upgrades.FirstOrDefaultAsync(u => u.Id == input.UpgradeId);
+ 
+                var list = _context.Appointments
+                                  .Where(a => input.AppointmentIds.Any(id => id == a.Id))
+                                  .ToList();
+
+                list.ForEach(a =>
+                   a.UpgradeId = input.UpgradeId
+                );
+
+                _context.Appointments.UpdateRange(list);
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
+        //foreach (Guid ci in input.CustomerIds) {
+        //    var x = input.UpgradeId;
+        //var exitingAppointments = await appointmentQuery.Where(
+        //e => e.CustomerId == a &&
+        //e.Status != AppointmentStatus.Completed &&
+        //e.Status != AppointmentStatus.Cancelled).ToListAsync();
+        //if (exitingAppointments.Count > 1)
+        //{
+        //}
+        //if (exitingAppointments.Count == 0)
+        //{
+        //    list.Add(new Appointment() { CustomerId = a, UpgradeId = input.UpgradeId, Status = AppointmentStatus.Invited });
+        //}
+        //        }
+
+
+        [HttpPost]
+        [Route("bookTime")]
         public async Task<ActionResult> SetBookingTime(SetBookingTimeDto input)
         {
 

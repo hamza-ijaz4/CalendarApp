@@ -22,9 +22,13 @@ export class InviterComponent implements OnInit {
   rowDataClicked1 = {};
 
   selected: boolean = false;
-  constructor(private upgradeService: UpgradeService, private customerService: CustomerService, private messageService: MessageService) {
+  constructor(
+    private upgradeService: UpgradeService,
+    private customerService: CustomerService,
+    private messageService: MessageService)
+    {
     this.rowSelection = 'multiple';
-  }
+    }
 
 
   ngOnInit(): void {
@@ -42,6 +46,7 @@ export class InviterComponent implements OnInit {
     { field: 'currentVersion', headerName: "Current Version", sortable: true, filter: true },
     { field: 'status', cellRenderer: (params: any) => { return this.getAppointmentStatusString(params.value) }, headerName: "Appointment Status", sortable: true, filter: true },
     { field: 'upcommingUpgrade', headerName: "Planed Upgrade", sortable: true, filter: true },
+    { field: 'upgradeVersionId',headerName: "Planed UpgradeId", sortable: true, filter: true },
     { field: 'appointmentId', headerName: "AppointmentId", minWidth: 300, sortable: true, filter: true },
     //{ field: 'gotAppointment', cellRenderer: (params: any) => { return this.hasAppointment(params.value) }, headerName: 'Has Appointment', sortable: true, },
 
@@ -64,6 +69,10 @@ export class InviterComponent implements OnInit {
     return 'No'
   }
 
+  isRowSelectable = function (rowData:any) {
+
+     return !rowData.data.gotAppointment;
+  };
 
   getUpgrades() {
     this.upgradeService.getUpgrades().subscribe((result: any) => {
@@ -125,7 +134,7 @@ export class InviterComponent implements OnInit {
 
     this.customerService.saveAppointments(obj).subscribe(() => {
       this.messageService.add({ severity: 'success', summary: 'Invited successfully' });
-
+      console.log("invite sent")
       this.getCustomers();
     });
   }

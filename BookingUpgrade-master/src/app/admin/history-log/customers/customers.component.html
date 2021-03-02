@@ -21,7 +21,10 @@
 <button style="margin-top: 5px;" (click)="save()">Transfer</button>
 <div class="">
 <ag-grid-angular style="width: 100%; height: 800px;" class="ag-theme-alpine" [rowData]="rowData"
-  [columnDefs]="columnDefs" [rowSelection]="rowSelection" [rowMultiSelectWithClick]="true"
+  [columnDefs]="columnDefs"
+  [rowSelection]="rowSelection"
+  [rowMultiSelectWithClick]="true"
+  [isRowSelectable]="true"
   (gridReady)="onGridReady($event)" (selectionChanged)="onSelectionChanged($event)">
 </ag-grid-angular>
 </div>
