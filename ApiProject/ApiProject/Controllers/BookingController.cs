@@ -26,14 +26,15 @@ namespace ApiProject.Controllers
         [Route("BookingInvites")]
         public async Task<ActionResult> CreateBookingInvites(CreateAppointmentInviteDto input)
         {
-            try
+            try 
             {
                 if (input.CustomerIds?.Count == 0)
                     return BadRequest("Customers count should not be null");
 
                 var upgrade = await _context.Upgrades.FirstOrDefaultAsync(u => u.Id == input.UpgradeId);
+                //Check wether there is an existing active appointment
 
-                //Make sure duplcation of invites is not possible     
+                //Duplcation of invites should not be possible     
                 var list = new List<Appointment>();
                 input.CustomerIds?.ForEach(a =>
                 {

@@ -28,14 +28,14 @@ export class AppointmentsOverviewComponent implements OnInit {
     { field: 'appointmentTime', headerName: "Time", sortable: true, filter: true },
     { field: 'customerName', headerName: "Customer", sortable: true, filter: true },
     { field: 'bookedBy', headerName: "Booked By", sortable: true, filter: true },
-
+    
     { field: 'upgradeVersion', headerName: 'Upgrade Version', sortable: true, filter: true },
     { field: 'upgradeVersionId', sortable: true, filter: true },
     {
       headerName: 'Upgrade Complete ',
       cellRenderer: 'buttonRenderer',
       cellRendererParams: {
-        onClick: this.onBtnClick1.bind(this),
+        onClick: this.completeBtn.bind(this),
         label: 'Set Completed'
       }
     },
@@ -43,7 +43,7 @@ export class AppointmentsOverviewComponent implements OnInit {
       headerName: 'Cancel Appointment',
       cellRenderer: 'buttonRenderer',
       cellRendererParams: {
-        onClick: this.onBtnClick2.bind(this),
+        onClick: this.cancelBtn.bind(this),
         label: 'Cancel'
       }
     },
@@ -70,7 +70,7 @@ export class AppointmentsOverviewComponent implements OnInit {
 
   }
   //Todo, improve
-  onBtnClick1(e: any) {
+  completeBtn(e: any) {
     this.rowDataClicked1 = e.rowData;
     console.log("from overview", e.rowData.appointmentId)
     this.appointmentService.completeAppointment(e.rowData.appointmentId).subscribe((result: any) => {
@@ -85,7 +85,7 @@ export class AppointmentsOverviewComponent implements OnInit {
     });
   }
 
-  onBtnClick2(e: any) {
+  cancelBtn(e: any) {
     this.rowDataClicked1 = e.rowData;
     console.log("from overview", e.rowData.appointmentId)
     this.appointmentService.cancelAppointment(e.rowData.appointmentId).subscribe((result: any) => {

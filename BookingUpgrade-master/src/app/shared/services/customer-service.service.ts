@@ -19,8 +19,8 @@ export class CustomerService {
   //   return this.http.get(`${this.customerUrl}list`)
   // }
 
-  getCustomers(status: number) {
-    return this.http.get(`${this.customerUrl}list?status=${status}`);
+  getCustomers() {
+    return this.http.get(`${this.customerUrl}status`);
   }
 
   saveAppointments(data: any) {

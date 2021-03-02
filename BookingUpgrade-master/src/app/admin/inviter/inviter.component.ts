@@ -42,10 +42,12 @@ export class InviterComponent implements OnInit {
     { field: 'currentVersion', headerName: "Current Version", sortable: true, filter: true },
     { field: 'status', cellRenderer: (params: any) => { return this.getAppointmentStatusString(params.value) }, headerName: "Appointment Status", sortable: true, filter: true },
     { field: 'upcommingUpgrade', headerName: "Planed Upgrade", sortable: true, filter: true },
-
+    { field: 'appointmentId', headerName: "AppointmentId", minWidth: 300, sortable: true, filter: true },
     //{ field: 'gotAppointment', cellRenderer: (params: any) => { return this.hasAppointment(params.value) }, headerName: 'Has Appointment', sortable: true, },
 
   ];
+
+  defaultColDef = { resizable: true };
 
   getAppointmentStatusString(status?: number) {
 
@@ -70,11 +72,6 @@ export class InviterComponent implements OnInit {
 
   }
 
-  onBtnClick1(e: any) {
-    this.rowDataClicked1 = e.rowData;
-    console.log(e)
-  }
-
   ngOnChanges(changes: SimpleChanges) {
     console.log("change triggered");
     if (changes.upgradeId.currentValue) {
@@ -91,7 +88,7 @@ export class InviterComponent implements OnInit {
 
   getCustomers() {
     console.log("getCustomer")
-    this.customerService.getCustomers(0).subscribe((result: any) => {
+    this.customerService.getCustomers().subscribe((result: any) => {
       this.items = result;
       this.rowData = result
 
