@@ -1,6 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UpgradeService } from 'src/app/shared/services/upgrade.service';
+import { SaveTimeSlotsComponent } from './timeslots/save-timeslots/save-timeslots.component';
 
 @Component({
   selector: 'app-editor',
@@ -11,6 +12,8 @@ export class EditorComponent implements OnInit {
 
   upgrades: any[] = [];
   upgradeId!: string;
+
+  @ViewChild('createTimeSlot', { static: true }) createTimeSlot!: SaveTimeSlotsComponent;
 
   constructor(private upgradeService: UpgradeService,) {
   }
@@ -73,7 +76,9 @@ export class EditorComponent implements OnInit {
     return result.replace(/"/g, "");
   }
 
-
+  showDialog() {
+    this.createTimeSlot.show();
+  }
 
 
 }
