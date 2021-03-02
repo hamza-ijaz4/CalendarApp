@@ -1,0 +1,78 @@
+<p-dialog header="Create TimeSlot" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="true" [maximizable]="true">
+  <div class="p-fluid p-grid p-formgrid">
+    <div class="p-field p-lg-6 p-md-6">
+      <label for="icon">Start date</label>
+      <p-calendar [(ngModel)]="startDate" [showIcon]="true" inputId="icon"></p-calendar>
+    </div>
+    <div class="p-field p-lg-6 p-md-6">
+      <label for="icon">End date</label>
+      <p-calendar [(ngModel)]="endDate" [showIcon]="true" inputId="icon"></p-calendar>
+    </div>
+    <div class="p-field p-col-12">
+      <h5>Select hour</h5>
+      <p-dropdown placeholder="Select hour" name="hoursPerDay" [showClear]="true" [options]="hoursPerDay"
+        [(ngModel)]="selectedHour" optionLabel="hour"></p-dropdown>
+    </div>
+
+    <ng-container *ngIf="selectedHour?.hour > 0">
+      <div class="p-field p-col-lg-6 p-md-6">
+        <label for="timeonly">Start time</label>
+        <p-calendar (onSelect)="onTimeSelect($event, 1)" name="timeStart1" [timeOnly]="true" inputId="timeonly">
+        </p-calendar>
+      </div>
+      <div class="p-field p-col-lg-6 p-md-6">
+        <label for="timeonly">Slots</label>
+        <p-inputNumber [(ngModel)]="slotsTime1"></p-inputNumber>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="selectedHour?.hour > 1">
+      <div class="p-field p-col-lg-6 p-md-6">
+        <label for="timeonly">Start time</label>
+        <p-calendar (onSelect)="onTimeSelect($event, 2)" name="timeStart1" [timeOnly]="true" inputId="timeonly">
+        </p-calendar>
+      </div>
+      <div class="p-field p-col-lg-6 p-md-6">
+        <label for="timeonly">Slots</label>
+        <p-inputNumber [(ngModel)]="slotsTime2"></p-inputNumber>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="selectedHour?.hour > 2">
+      <div class="p-field p-col-lg-6 p-md-6">
+        <label for="timeonly">Start time</label>
+        <p-calendar (onSelect)="onTimeSelect($event, 3)" [(ngModel)]="timeStart2" name="timeStart1" [timeOnly]="true"
+          inputId="timeonly"></p-calendar>
+      </div>
+      <div class="p-field p-col-lg-6 p-md-6">
+        <label for="timeonly">Slots</label>
+        <p-inputNumber [(ngModel)]="slotsTime3"></p-inputNumber>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="selectedHour?.hour > 3">
+      <div class="p-field p-col-lg-6 p-md-6">
+        <label for="timeonly">Start time</label>
+        <p-calendar (onSelect)="onTimeSelect($event, 4)" [(ngModel)]="timeStart3" name="timeStart1" [timeOnly]="true"
+          inputId="timeonly"></p-calendar>
+      </div>
+      <div class="p-field p-col-lg-6 p-md-6">
+        <label for="timeonly">Slots</label>
+        <p-inputNumber [(ngModel)]="slotsTime4"></p-inputNumber>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="selectedHour?.hour > 4">
+      <div class="p-field p-col-lg-6 p-md-6">
+        <label for="timeonly">Start time</label>
+        <p-calendar (onSelect)="onTimeSelect($event, 5)" [(ngModel)]="timeStart4" name="timeStart1" [timeOnly]="true"
+          inputId="timeonly"></p-calendar>
+      </div>
+      <div class="p-field p-col-lg-6 p-md-6">
+        <label for="timeonly">Slots</label>
+        <p-inputNumber [(ngModel)]="slotsTime5"></p-inputNumber>
+      </div>
+    </ng-container>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="save()" label="Save" class="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="displayModal=false" label="Cancel"></p-button>
+  </ng-template>
+</p-dialog>

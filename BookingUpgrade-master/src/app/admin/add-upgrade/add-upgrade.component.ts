@@ -62,9 +62,5 @@ export class AddUpgradeComponent implements OnInit {
     })
 
   }
-
-  appendTime() {
-    console.log("add time");
-  }
 }
 

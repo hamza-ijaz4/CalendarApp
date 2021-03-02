@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\WebMed\\Other\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {}
+    "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {}
   },
   "projects": {
-    "C:\\WebMed\\Other\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {
+    "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\WebMed\\Other\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
+        "projectUniqueName": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
         "projectName": "ApiProject",
-        "projectPath": "C:\\WebMed\\Other\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
-        "packagesPath": "C:\\Users\\henning\\.nuget\\packages\\",
-        "outputPath": "C:\\WebMed\\Other\\CalendarApp\\ApiProject\\ApiProject\\obj\\",
+        "projectPath": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\ApiProject.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "E:\\Projects\\Upwork\\BookingUpgrade-master\\CalendarApp\\ApiProject\\ApiProject\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\henning\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,7 +26,6 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -41,7 +37,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
@@ -110,7 +105,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
