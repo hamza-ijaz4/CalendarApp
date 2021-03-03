@@ -17,6 +17,16 @@ body {
   margin: 0 0.5rem 0 0;
   min-width: 10rem;
 }
+body{
+        margin : 8px;
+        /* background: radial-gradient( rgb(125, 125, 128), rgb(56, 61, 71)); */
+        background: radial-gradient(rgb(122, 122, 122), rgb(32, 32, 32) );
+
+        /* background: radial-gradient(rgb(122, 122, 122), rgb(32, 32, 32) ); */
+        /* background-color: white; */
+        /* background: radial-gradient( rgb(180, 180, 180), rgb(74, 120, 163) ); */
+        /* background: radial-gradient( rgb(125, 125, 128), rgb(70, 103, 133) ); */
+        min-height: 98vh;
 
 .confirmation-content {
   display: flex;

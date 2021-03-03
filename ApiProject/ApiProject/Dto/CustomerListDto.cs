@@ -17,5 +17,6 @@ namespace ApiProject.Dto
         public string UpcommingUpgrade { get; set; }
         public string CurrentVersion { get; set; }
         public AppointmentStatus? Status { get; set; }
+        public string appointmentId { get; set; }
     }
 }

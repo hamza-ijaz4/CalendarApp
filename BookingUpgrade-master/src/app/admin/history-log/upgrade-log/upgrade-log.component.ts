@@ -36,7 +36,9 @@ export class UpgradeLogComponent implements OnInit {
 
     { field: 'name', headerName: "Customer name", sortable: true, filter: true },
     { field: 'herId', headerName: "Her Id", sortable: true, filter: true },
-    { field: 'bookedBy', headerName: "Booked By", sortable: true, filter: true },
+    // { field: 'AppointmentDate', headerName: "Her Id", sortable: true, filter: true },
+    { field: 'passedDate', headerName: "Date passed", sortable: true, filter: true },
+    { field: 'upgradeVersion', headerName: "Upgrade version", sortable: true, filter: true },
     { field: 'status', cellRenderer: (params: any) => { return this.getAppointmentStatusString(params.value) }, headerName: "Status", sortable: true, filter: true }
 
   ];
