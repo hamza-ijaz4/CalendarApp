@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace ApiProject.Controllers
 {
@@ -60,13 +61,34 @@ namespace ApiProject.Controllers
 
         [HttpPost]
         [Route("SaveTimeSlots")]
-        public async Task<ActionResult> SaveTimeSlots()
+        public async Task<ActionResult> SaveTimeSlots(SaveTimeSlotDto input)
         {
-            return Ok();
+            var timegroups = JsonConvert.DeserializeObject<List<TimeSlotGroupDto>>(input.TimesGroup);
+
+            for (var dt = input.StartDate; dt <= input.EndDate; dt = dt.AddDays(1))
+            {
+                timegroups.ForEach(t =>
+                {
+                    for (int s = 0; s < t.Slots; s++)
+                    {
+                        _context.Add(new TimeSlot
+                        {
+                            Date = dt,
+                            StartTime = t.StartTime,
+                            EndTime = t.EndTime,
+                            Available = true,
+                        });
+                    }
+
+                });
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok(input);
         }
 
-
-        [Route("{upgradeId}/timegroup")]
+        [Route("timegroup")]
         [HttpDelete]
         public async Task<ActionResult> DeleteTimeSlotGroups(DeleteTimeSlotGroupDto input)
         {
@@ -76,14 +98,14 @@ namespace ApiProject.Controllers
                                                           a.StartTime == input.StartTime &&
                                                           a.EndTime == input.EndTime &&
                                                           a.Available)
-                                              .ToListAsync();
+                                              .FirstOrDefaultAsync();
 
-            if (timeslotGroup.Count == 0)
+            if (timeslotGroup == null)
             {
                 return NotFound();
             }
 
-            _context.TimeSlots.RemoveRange(timeslotGroup);
+            _context.TimeSlots.Remove(timeslotGroup);
             await _context.SaveChangesAsync();
             return Ok();
         }

@@ -12,6 +12,7 @@ import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
+import {BadgeModule} from 'primeng/badge';
 
 import { AgGridModule } from 'ag-grid-angular';
 
@@ -48,6 +49,7 @@ import { DropdownModule } from 'primeng/dropdown';
     InputTextModule,
     DropdownModule,
     InputNumberModule,
+    BadgeModule,
 
     // ag-grid
     AgGridModule.withComponents([BtnCellRenderer]),

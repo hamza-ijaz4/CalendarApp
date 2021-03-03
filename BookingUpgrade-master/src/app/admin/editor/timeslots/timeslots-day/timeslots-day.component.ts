@@ -131,6 +131,7 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
     };
 
     this._timeSlotService.deleteTimeSlot(obj).subscribe((result: any) => {
+      timeSlot.slots--;
     })
   }
 

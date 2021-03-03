@@ -7,8 +7,7 @@ namespace ApiProject.Dto
 {
     public class SaveTimeSlotDto
     {
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
+        public string TimesGroup { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
     }

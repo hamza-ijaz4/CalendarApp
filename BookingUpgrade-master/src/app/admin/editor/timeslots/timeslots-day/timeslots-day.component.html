@@ -7,9 +7,10 @@
   <div class="appointments">
     <ng-template [ngIf]="showTimeSlots && day.timeSlotGroups">
       <div *ngFor="let item of day.timeSlotGroups; let i = index" class="appointment-box">
-        <label for="radio1">{{item.startTime}} - {{item.endTime}}</label>
-        <button class="deleteTimeSlot" (click)="deleteTimeSlot(day.date, item, i)"
-          type="button">x</button>
+        <p-badge [value]="item.slots"></p-badge>
+        <label style="padding-left:5px; padding-right: 10px;" for="radio1">{{item.startTime}} - {{item.endTime}}</label>
+        <button pButton type="button" style="float: right;" icon="pi pi-plus" class="p-button-sm" iconPos="left"></button>
+        <button pButton type="button" style="margin-right: 5px; float: right;" icon="pi pi-minus" (click)="deleteTimeSlot(day.date, item, i)" class="p-button-sm p-button-danger" iconPos="left"></button>
       </div>
     </ng-template>
   </div>
