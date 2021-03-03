@@ -3,47 +3,34 @@
     margin: 5px;
     height: auto;
     width: 230px;
-    background-color: #e2e2e2;
+    background-color: #f5faff;
     border-width: 2px;
     border-style: solid;
     border-color: #28282b;
     border-radius: 5px;
   }
-  
+
   .day:hover {
-    background-color: #c2c2c2;
+    background-color: #d8e9ee;
     cursor: pointer;
-  
+
     position: relative;
   }
-  
+
+
+
   .disableBox {
     /* pointer-events: none; */
     cursor: not-allowed !important;
   }
-  
-  .deleteTimeSlot {
-    float: right;
-    border-radius: 5px;
-    margin-top: 7px;
-  }
-  
-  #deleteButton {
-    position: relative;
-    float: right;
-    top: -5px;
-    right: 2px;
-  }
-  #deleteButton:hover {
-    background-color: #8d8d8d;
-    cursor: pointer;
-  }
-  
+
+
+
   .slot {
     flex-grow: 1;
     width: 90%;
     height: 35px;
-    background-color: gray;
+    background-color: rgb(54, 150, 9);
     border-style: solid;
     border-color: black;
     border-width: 2px;
@@ -51,14 +38,14 @@
     transition-duration: 0.4s;
     border-radius: 10px;
   }
-  
+
   .slot:hover {
-    background-color: #5c5c5c;
+    background-color: #1e7423;
     cursor: pointer;
-  
+
     position: relative;
   }
-  
+
   h3 {
     padding: 8px;
     margin: 6px;
@@ -66,11 +53,11 @@
     font-weight: bold;
     text-align: center;
   }
-  
+
   .box {
     cursor: pointer;
   }
-  
+
   .appointments {
     padding-left: 12px;
     padding-right: 10px;
@@ -78,14 +65,13 @@
     font-size: 18px;
     padding-top: 20px;
   }
-  
+
   .appointment-box {
     border-top: 1px solid black;
   }
-  
+
   .select-appointment {
     float: right;
     margin-right: 10px;
     margin-top: 10px;
   }
-  

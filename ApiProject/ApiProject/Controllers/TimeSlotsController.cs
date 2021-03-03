@@ -19,19 +19,18 @@ namespace ApiProject.Controllers
     public class TimeSlotsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public TimeSlotsController(ApplicationDbContext context, IWebHostEnvironment hostingEnvironment)
+
+        public TimeSlotsController(ApplicationDbContext context)
         {
             _context = context;
-            _hostingEnvironment = hostingEnvironment;
         }
 
 
         // GET: api/Timeslots
         [HttpGet]
         [Route("days")]
-        public async Task<ActionResult<List<TimeSlotGroupListDto>>> UpgradeTimeSlots()
+        public async Task<ActionResult<List<TimeSlotGroupListDto>>> GetTimeSlotDays()
         {
             try
             {
@@ -61,37 +60,43 @@ namespace ApiProject.Controllers
         }
 
         [HttpPost]
-        [Route("SaveTimeSlots")]
-        public async Task<ActionResult> SaveTimeSlots(SaveTimeSlotDto input)
+        [Route("multiple")] // fix
+        public async Task<ActionResult> createMultipleTimeSlots(SaveTimeSlotDto input)
         {
-            var timegroups = JsonConvert.DeserializeObject<List<TimeSlotGroupDto>>(input.TimesGroup);
+            try { 
+                var timegroups = JsonConvert.DeserializeObject<List<TimeSlotGroupDto>>(input.TimesGroup);
 
-            for (var dt = input.StartDate; dt <= input.EndDate; dt = dt.AddDays(1))
-            {
-                timegroups.ForEach(t =>
+                for (var dt = input.StartDate; dt <= input.EndDate; dt = dt.AddDays(1))
                 {
-                    for (int s = 0; s < t.Slots; s++)
+                    timegroups.ForEach(t =>
                     {
-                        _context.Add(new TimeSlot
+                        for (int s = 0; s < t.Slots; s++)
                         {
-                            Date = dt,
-                            StartTime = t.StartTime,
-                            EndTime = t.EndTime,
-                            Available = true,
-                        });
-                    }
+                            _context.Add(new TimeSlot
+                            {
+                                Date = dt,
+                                StartTime = t.StartTime,
+                                EndTime = t.EndTime,
+                                Available = true,
+                            });
+                        }
 
-                });
+                    });
+                }
+
+                await _context.SaveChangesAsync();
+
+                return Ok(input);
             }
-
-            await _context.SaveChangesAsync();
-
-            return Ok(input);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [Route("timegroup")]
+        [Route("timeslot")]
         [HttpDelete]
-        public async Task<ActionResult> DeleteTimeSlotGroups(DeleteTimeSlotGroupDto input)
+        public async Task<ActionResult> DeleteTimeSlot(DeleteTimeSlotGroupDto input)
         {
 
             var timeslotGroup = await _context.TimeSlots
@@ -112,7 +117,7 @@ namespace ApiProject.Controllers
         }
 
         [HttpDelete]
-        [Route("{upgradeId}/day")]
+        [Route("day")]
         public async Task<ActionResult> DeleteDayTimeSlot([FromBody] DateTime input)
         {
             var date = input.Date.AddDays(1).Date;

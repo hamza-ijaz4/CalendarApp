@@ -6,7 +6,6 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class TimeSlotService {
 
-  upgradesUrl: string = environment.apiEndpoint + "/api/TimeSlots/";
   timeSlotsUrl: string = environment.apiEndpoint + "/api/TimeSlots/";
 
   headers: HttpHeaders;
@@ -17,13 +16,17 @@ export class TimeSlotService {
     this.headers.append('Access-Control-Allow-Credentials', 'true') //necessary? Json?
   }
 
+
   getTimeSlotDays() {
     return this.http.get(`${this.timeSlotsUrl}days`)
   }
 
+
+  //Used by timeslot generator
   saveTimeSlots(data: any) {
-    return this.http.post(`${this.timeSlotsUrl}SaveTimeSlots`, data, { headers: this.headers });
+    return this.http.post(`${this.timeSlotsUrl}multiple`, data, { headers: this.headers });
   }
+
 
 
   deleteTimeSlot(data: any) {
@@ -37,8 +40,10 @@ export class TimeSlotService {
         "endTime": data.endTime,
       },
     };
-    return this.http.delete(`${this.timeSlotsUrl}timegroup`, options)
+    return this.http.delete(`${this.timeSlotsUrl}timeslot`, options)
   }
+
+
 
   deleteDayTimeSlots(data: any) {
     const options = {
@@ -47,7 +52,7 @@ export class TimeSlotService {
       }),
       body: new Date(data.date)
     };
-    return this.http.delete(`${this.timeSlotsUrl}${data.upgradeId}/day`, options)
+    return this.http.delete(`${this.timeSlotsUrl}day`, options)
   }
 
 

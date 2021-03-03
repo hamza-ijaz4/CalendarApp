@@ -113,11 +113,10 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
 
   DeleteDayTimeSlots(date: any) {
     let obj = {
-      "upgradeId": this.upgradeId,
       "date": date
     };
     this._timeSlotService.deleteDayTimeSlots(obj).subscribe(result => {
-
+console.log("delete this:", obj)
     });
   }
 

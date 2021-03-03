@@ -1,9 +1,9 @@
 .day {
   /* flex: 1 0 51%;  */
-  margin: 5px;
+  margin: 30px 0px 0px 30px;
   height: auto;
-  /* width: 230px; */
-  background-color: #e2e2e2;
+  width: 300px;
+  background-color: #f5faff;
   border-width: 2px;
   border-style: solid;
   border-color: #28282b;
@@ -11,7 +11,7 @@
 }
 
 .day:hover {
-  background-color: #c2c2c2;
+  background-color: #d8e9ee;
   cursor: pointer;
 
   position: relative;
@@ -80,6 +80,7 @@ h3 {
 
 .appointment-box {
   border-top: 1px solid black;
+  padding: 5px;
 }
 
 .select-appointment {

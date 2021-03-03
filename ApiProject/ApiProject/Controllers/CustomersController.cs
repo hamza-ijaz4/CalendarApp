@@ -176,48 +176,5 @@ namespace ApiProject.Controllers
         }
 
 
-
-        //[HttpGet]
-        //[Route("list")]
-        //public async Task<ActionResult<List<CustomerListDto>>> CusomersList([FromQuery] CustomerListFilterDto input)
-        //{
-        //    try
-        //    {
-
-        //        var customersQuery = _context.Customers.AsQueryable();
-        //        var appointmentQuery = _context.Appointments.AsQueryable();
-
-        //        if (input.Status == AppointmentStatus.Completed)
-        //        {
-        //            appointmentQuery = appointmentQuery.Where(a => a.Status == AppointmentStatus.Completed || a.Status == AppointmentStatus.Cancelled);
-        //        }
-
-
-        //        var joinedQuery = from q in customersQuery
-        //                          join a in appointmentQuery
-        //                          on q.HerId equals a.CustomerFk.HerId
-        //                          into qaJoined
-        //                          from a in qaJoined.DefaultIfEmpty()
-        //                          select new CustomerListDto
-        //                          {
-        //                              HerId = q.HerId,
-        //                              Id = q.Id,
-        //                              Name = q.Name,
-        //                              GotAppointment = a != null ? true : false,
-        //                              Status = a.Status,
-        //                              CurrentVersion = a.UpgradeFk.Version,
-        //                              UpcommingUpgrade = a.Status == AppointmentStatus.Booked || a.Status == AppointmentStatus.Invited ? a.UpgradeFk.Version : null,
-        //                          };
-
-        //        var list = await joinedQuery.ToListAsync();
-        //        return Ok(list);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-
-        //}
-
     }
 }

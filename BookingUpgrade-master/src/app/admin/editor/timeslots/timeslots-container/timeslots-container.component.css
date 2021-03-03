@@ -1,11 +1,12 @@
 .calender {
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
-  /* background-color: #7e8b8b; */
+  /* justify-content: center; */
+  /* background-color: #232f41; */
 }
 .container {
   padding: 15px;
+  margin: 20px;
 }
 
 .infoText {
