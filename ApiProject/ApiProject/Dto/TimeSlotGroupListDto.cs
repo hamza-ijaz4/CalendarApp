@@ -10,6 +10,7 @@ namespace ApiProject.Dto
     {
         public DateTime Date { get; set; }
         public int Duration { get; set; }
+        
         public List<TimeSlotGroupDto> TimeSlotGroups { get; set; }
     }
 

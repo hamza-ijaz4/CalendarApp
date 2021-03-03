@@ -136,29 +136,8 @@ namespace ApiProject.Controllers
                 _context.Upgrades.Add(upgrade);
                 await _context.SaveChangesAsync();
 
-                #region old code
-
-                //for (var dt = StartDate; dt <= EndDate; dt = dt.AddDays(1))
-                //{
-                //    timegroups.ForEach(t =>
-                //    {
-                //        for (int s = 0; s < t.Slots; s++)
-                //        {
-                //            _context.Add(new TimeSlot
-                //            {
-                //                Date = dt,
-                //                StartTime = t.StartTime,
-                //                EndTime = new TimeSpan(t.StartTime.Days, t.StartTime.Hours, t.StartTime.Minutes + DurationMin, t.StartTime.Seconds),
-                //                Available = true,
-                //            });
-                //        }
-
-                //    });
-                //}
-
-                #endregion
-
-                _context.SaveChanges();
+              
+                
                 return Ok();
             }
             catch (Exception ex)

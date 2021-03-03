@@ -25,6 +25,13 @@ export class SaveTimeSlotsComponent implements OnInit {
   timeStart3!: any;
   timeStart4!: any;
   timeStart5!: any;
+
+  timeEnd1!: any;
+  timeEnd2!: any;
+  timeEnd3!: any;
+  timeEnd4!: any;
+  timeEnd5!: any;
+
   slotsTime1!: number;
   slotsTime2!: number;
   slotsTime3!: number;
@@ -32,7 +39,7 @@ export class SaveTimeSlotsComponent implements OnInit {
   slotsTime5!: number;
   hoursPerDay: any[] = [];
 
-  constructor(
+  constructor(private _timeSlotService: TimeSlotService
   ) { }
 
   ngOnInit(): void {
@@ -69,9 +76,9 @@ export class SaveTimeSlotsComponent implements OnInit {
     let hour = new Date($event).getHours();
     let min = new Date($event).getMinutes();
     if (min < 10) {
-      timeValue = `${hour}:0${min}`;
+      timeValue = `${this.checkhour(hour)}:0${min}:00`;
     } else {
-      timeValue = `${hour}:${min}`;
+      timeValue = `${this.checkhour(hour)}:${min}:00`;
     }
 
     if (timeSlot == 1) {
@@ -97,22 +104,62 @@ export class SaveTimeSlotsComponent implements OnInit {
 
   }
 
+  onEndTimeSelect($event: any, timeSlot: number) {
+    let timeValue = ''
+    let hour = new Date($event).getHours();
+    let min = new Date($event).getMinutes();
+    if (min < 10) {
+      timeValue = `${this.checkhour(hour)}:0${min}:00`;
+    } else {
+      timeValue = `${this.checkhour(hour)}:${min}:00`;
+    }
+
+    if (timeSlot == 1) {
+      this.timeEnd1 = timeValue;
+      return;
+    }
+    else if (timeSlot == 2) {
+      this.timeEnd2 = timeValue;
+      return;
+    }
+    else if (timeSlot == 3) {
+      this.timeEnd3 = timeValue;
+      return;
+    }
+    else if (timeSlot == 4) {
+      this.timeEnd4 = timeValue;
+      return;
+    }
+    else if (timeSlot == 5) {
+      this.timeEnd5 = timeValue;
+      return;
+    }
+
+  }
+
+  checkhour(hour: number) {
+    if (hour < 10) {
+      return '0' + hour;
+    }
+    return hour;
+  }
+
   save() {
     let timeGroups = [];
     if (this.selectedHour?.hour > 0) {
-      timeGroups.push({ "startTime": this.timeStart1, "slots": this.slotsTime1 });
+      timeGroups.push({ "startTime": this.timeStart1, "endTime": this.timeEnd1, "slots": this.slotsTime1 });
     }
     if (this.selectedHour?.hour > 1) {
-      timeGroups.push({ "startTime": this.timeStart2, "slots": this.slotsTime2 });
+      timeGroups.push({ "startTime": this.timeStart2, "endTime": this.timeEnd2, "slots": this.slotsTime2 });
     }
     if (this.selectedHour?.hour > 2) {
-      timeGroups.push({ "startTime": this.timeStart3, "slots": this.slotsTime3 });
+      timeGroups.push({ "startTime": this.timeStart3, "endTime": this.timeEnd3, "slots": this.slotsTime3 });
     }
     if (this.selectedHour?.hour > 3) {
-      timeGroups.push({ "startTime": this.timeStart4, "slots": this.slotsTime4 });
+      timeGroups.push({ "startTime": this.timeStart4, "endTime": this.timeEnd4, "slots": this.slotsTime4 });
     }
     if (this.selectedHour?.hour > 4) {
-      timeGroups.push({ "startTime": this.timeStart5, "slots": this.slotsTime5 });
+      timeGroups.push({ "startTime": this.timeStart5, "endTime": this.timeEnd5, "slots": this.slotsTime5 });
     }
 
     let timeGroupsJson = JSON.stringify(timeGroups);
@@ -122,7 +169,10 @@ export class SaveTimeSlotsComponent implements OnInit {
       "timesGroup": timeGroupsJson
     };
     console.log(obj);
-    this.displayModal = false;
+    this._timeSlotService.saveTimeSlots(obj).subscribe((result: any) => {
+      this.displayModal = false;
+    })
+
   }
 
 

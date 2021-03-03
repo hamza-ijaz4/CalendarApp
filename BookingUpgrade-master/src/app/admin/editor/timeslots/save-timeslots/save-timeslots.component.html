@@ -10,62 +10,87 @@
       <p-calendar [(ngModel)]="endDate" [showIcon]="true" inputId="icon"></p-calendar>
     </div>
     <div class="p-field p-col-12">
-      <h5>Select hour</h5>
+      <label>Select hour</label>
       <p-dropdown placeholder="Select hour" name="hoursPerDay" [showClear]="true" [options]="hoursPerDay"
         [(ngModel)]="selectedHour" optionLabel="hour"></p-dropdown>
     </div>
 
     <ng-container *ngIf="selectedHour?.hour > 0">
-      <div class="p-field p-col-lg-6 p-md-6">
+      <div class="p-field p-col-lg-4 p-md-4">
         <label for="timeonly">Start time</label>
         <p-calendar (onSelect)="onTimeSelect($event, 1)" name="timeStart1" [timeOnly]="true" inputId="timeonly">
         </p-calendar>
       </div>
-      <div class="p-field p-col-lg-6 p-md-6">
+      <div class="p-field p-col-lg-4 p-md-4">
+        <label for="timeonly">End time</label>
+        <p-calendar (onSelect)="onEndTimeSelect($event, 1)" name="timeStart2" [timeOnly]="true" inputId="timeonly">
+        </p-calendar>
+      </div>
+      <div class="p-field p-col-lg-4 p-md-4">
         <label for="timeonly">Slots</label>
         <p-inputNumber [(ngModel)]="slotsTime1"></p-inputNumber>
       </div>
     </ng-container>
     <ng-container *ngIf="selectedHour?.hour > 1">
-      <div class="p-field p-col-lg-6 p-md-6">
+      <div class="p-field p-col-lg-4 p-md-4">
         <label for="timeonly">Start time</label>
         <p-calendar (onSelect)="onTimeSelect($event, 2)" name="timeStart1" [timeOnly]="true" inputId="timeonly">
         </p-calendar>
       </div>
-      <div class="p-field p-col-lg-6 p-md-6">
+      <div class="p-field p-col-lg-4 p-md-4">
+        <label for="timeonly">End time</label>
+        <p-calendar (onSelect)="onEndTimeSelect($event, 2)" name="timeStart2" [timeOnly]="true" inputId="timeonly">
+        </p-calendar>
+      </div>
+      <div class="p-field p-col-lg-4 p-md-4">
         <label for="timeonly">Slots</label>
         <p-inputNumber [(ngModel)]="slotsTime2"></p-inputNumber>
       </div>
     </ng-container>
     <ng-container *ngIf="selectedHour?.hour > 2">
-      <div class="p-field p-col-lg-6 p-md-6">
+      <div class="p-field p-col-lg-4 p-md-4">
         <label for="timeonly">Start time</label>
         <p-calendar (onSelect)="onTimeSelect($event, 3)" [(ngModel)]="timeStart2" name="timeStart1" [timeOnly]="true"
           inputId="timeonly"></p-calendar>
       </div>
-      <div class="p-field p-col-lg-6 p-md-6">
+      <div class="p-field p-col-lg-4 p-md-4">
+        <label for="timeonly">End time</label>
+        <p-calendar (onSelect)="onEndTimeSelect($event, 3)" name="timeStart2" [timeOnly]="true" inputId="timeonly">
+        </p-calendar>
+      </div>
+      <div class="p-field p-col-lg-4 p-md-4">
         <label for="timeonly">Slots</label>
         <p-inputNumber [(ngModel)]="slotsTime3"></p-inputNumber>
       </div>
     </ng-container>
     <ng-container *ngIf="selectedHour?.hour > 3">
-      <div class="p-field p-col-lg-6 p-md-6">
+      <div class="p-field p-col-lg-4 p-md-4">
         <label for="timeonly">Start time</label>
         <p-calendar (onSelect)="onTimeSelect($event, 4)" [(ngModel)]="timeStart3" name="timeStart1" [timeOnly]="true"
           inputId="timeonly"></p-calendar>
       </div>
-      <div class="p-field p-col-lg-6 p-md-6">
+      <div class="p-field p-col-lg-4 p-md-4">
+        <label for="timeonly">End time</label>
+        <p-calendar (onSelect)="onEndTimeSelect($event, 4)" name="timeStart2" [timeOnly]="true" inputId="timeonly">
+        </p-calendar>
+      </div>
+      <div class="p-field p-col-lg-4 p-md-4">
         <label for="timeonly">Slots</label>
         <p-inputNumber [(ngModel)]="slotsTime4"></p-inputNumber>
       </div>
     </ng-container>
     <ng-container *ngIf="selectedHour?.hour > 4">
-      <div class="p-field p-col-lg-6 p-md-6">
+      <div class="p-field p-col-lg-4 p-md-4">
         <label for="timeonly">Start time</label>
         <p-calendar (onSelect)="onTimeSelect($event, 5)" [(ngModel)]="timeStart4" name="timeStart1" [timeOnly]="true"
           inputId="timeonly"></p-calendar>
       </div>
-      <div class="p-field p-col-lg-6 p-md-6">
+      <div class="p-field p-col-lg-4 p-md-4">
+        <label for="timeonly">End time</label>
+        <p-calendar (onSelect)="onEndTimeSelect($event, 5)" name="timeStart2" [timeOnly]="true" inputId="timeonly">
+        </p-calendar>
+      </div>
+      <div class="p-field p-col-lg-4 p-md-4">
         <label for="timeonly">Slots</label>
         <p-inputNumber [(ngModel)]="slotsTime5"></p-inputNumber>
       </div>

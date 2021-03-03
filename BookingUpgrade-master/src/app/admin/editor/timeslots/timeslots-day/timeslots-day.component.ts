@@ -57,7 +57,7 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
     return ' AM';
   }
 
-  getDayName(date:any){
+  getDayName(date: any) {
     console.log("date: ", date.date);
     let day: string;
     switch (getDay(parseISO(date.date))) {
@@ -68,7 +68,7 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
         day = "Mandag";
         break;
       case 2:
-         day = "Tirsdag";
+        day = "Tirsdag";
         break;
       case 3:
         day = "Onsdag";
@@ -82,7 +82,7 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
       case 6:
         day = "Lørdag";
     }
-    console.log( day);
+    console.log(day);
     return day;
   }
 
@@ -131,6 +131,7 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
     };
 
     this._timeSlotService.deleteTimeSlot(obj).subscribe((result: any) => {
+      timeSlot.slots--;
     })
   }
 
