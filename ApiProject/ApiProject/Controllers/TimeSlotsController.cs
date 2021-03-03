@@ -43,12 +43,13 @@ namespace ApiProject.Controllers
                 var list = new List<TimeSlotGroupListDto>();
                 foreach (var item in timeSlots)
                 {
-                    var z = item.GroupBy(a => new { StartTime = a.StartTime, EndTime = a.EndTime });
+                    var z = item.GroupBy(a => new { StartTime = a.StartTime, EndTime = a.EndTime }).ToList();
 
+                    var count = z.Count();
                     list.Add(new TimeSlotGroupListDto()
                     {
                         Date = item.Key,
-                        TimeSlotGroups = z.Select(x => new TimeSlotGroupDto { StartTime = x.Key.StartTime, EndTime = x.Key.EndTime }).ToList()
+                        TimeSlotGroups = z.Select(x => new TimeSlotGroupDto { StartTime = x.Key.StartTime, EndTime = x.Key.EndTime, Slots = x.Count() }).ToList()
                     });
                 }
                 return list;
