@@ -1,6 +1,6 @@
 <div [ngClass]="setClasses()" [class.disableBox]="!day.timeSlotGroups">
   <div (click)="showTimeSlots = !showTimeSlots" class="box">
-    <button class="box" (click)="DeleteDayTimeSlots(day.date)" id="deleteButton">X</button>
+    <button class="box" (click)="deleteDayTimeSlots(day.date)" id="deleteButton">X</button>
     <h3>{{dayName}}</h3>
     <h3 class="date">{{day.date | date: 'dd/MM/yyyy'}}</h3>
   </div>
@@ -9,7 +9,7 @@
       <div *ngFor="let item of day.timeSlotGroups; let i = index" class="appointment-box">
         <p-badge [value]="item.slots"></p-badge>
         <label style="padding-left:5px; padding-right: 10px;" for="radio1">{{item.startTime}} - {{item.endTime}}</label>
-        <button pButton type="button" style="float: right;" icon="pi pi-plus" class="p-button-sm" iconPos="left"></button>
+        <button pButton type="button" style="float: right;" icon="pi pi-plus" (click)="addTimeSlot(day.date, item, i)" class="p-button-sm" iconPos="left" ></button>
         <button pButton type="button" style="margin-right: 5px; float: right;" icon="pi pi-minus" (click)="deleteTimeSlot(day.date, item, i)" class="p-button-sm p-button-danger" iconPos="left"></button>
       </div>
     </ng-template>

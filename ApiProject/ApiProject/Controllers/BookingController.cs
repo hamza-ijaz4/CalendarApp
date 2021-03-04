@@ -82,27 +82,9 @@ namespace ApiProject.Controllers
             }
         }
 
-
-
-        //foreach (Guid ci in input.CustomerIds) {
-        //    var x = input.UpgradeId;
-        //var exitingAppointments = await appointmentQuery.Where(
-        //e => e.CustomerId == a &&
-        //e.Status != AppointmentStatus.Completed &&
-        //e.Status != AppointmentStatus.Cancelled).ToListAsync();
-        //if (exitingAppointments.Count > 1)
-        //{
-        //}
-        //if (exitingAppointments.Count == 0)
-        //{
-        //    list.Add(new Appointment() { CustomerId = a, UpgradeId = input.UpgradeId, Status = AppointmentStatus.Invited });
-        //}
-        //        }
-
-
         [HttpPost]
         [Route("bookTime")]
-        public async Task<ActionResult> SetBookingTime(SetBookingTimeDto input)
+        public async Task<ActionResult> SetAppointmentTime(SetBookingTimeDto input)
         {
 
             var timeSlots = await _context.TimeSlots.FirstOrDefaultAsync(a => a.Date == input.Day &&

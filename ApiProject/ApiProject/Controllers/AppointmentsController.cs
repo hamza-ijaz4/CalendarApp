@@ -21,11 +21,11 @@ namespace ApiProject.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Appointment>>> GetBookedAppointments()
-        {
-            return await _context.Appointments.ToListAsync();
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Appointment>>> GetBookedAppointments()
+        //{
+        //    return await _context.Appointments.ToListAsync();
+        //}
 
         // GET: api/Appointments
         [HttpGet("active")]

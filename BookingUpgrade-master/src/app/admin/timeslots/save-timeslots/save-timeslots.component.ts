@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { TimeSlotService } from 'src/app/shared/services/time-slot.service';
+import { addDays } from 'date-fns'
 
 export interface BookingDto {
   day: any,
@@ -164,12 +165,12 @@ export class SaveTimeSlotsComponent implements OnInit {
 
     let timeGroupsJson = JSON.stringify(timeGroups);
     let obj = {
-      "startDate": this.startDate,
-      "endDate": this.endDate,
+      "startDate": addDays(new Date(this.startDate), 1),
+      "endDate": addDays(new Date(this.endDate), 1),
       "timesGroup": timeGroupsJson
     };
     console.log(obj);
-    this._timeSlotService.saveTimeSlots(obj).subscribe((result: any) => {
+    this._timeSlotService.createMultipleTimeSlots(obj).subscribe((result: any) => {
       this.displayModal = false;
     })
 

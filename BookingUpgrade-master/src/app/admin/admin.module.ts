@@ -19,18 +19,18 @@ import { AgGridModule } from 'ag-grid-angular';
 //components
 import { AdminComponent } from './admin.component';
 import { CustomersComponent } from './history-log/customers/customers.component';
-import { EditorComponent } from './editor/editor.component';
+import { EditorComponent } from './timeslots/editor.component';
 import { AdminRoutingModule } from './admin-routig.module';
 import { AddUpgradeComponent } from './add-upgrade/add-upgrade.component';
-import { TimeslotsContainerComponent } from './editor/timeslots/timeslots-container/timeslots-container.component';
-import { TimeslotsDayComponent } from './editor/timeslots/timeslots-day/timeslots-day.component';
+import { TimeslotsContainerComponent } from './timeslots/timeslots-container/timeslots-container.component';
+import { TimeslotsDayComponent } from './timeslots/timeslots-day/timeslots-day.component';
 import { SharedModule } from '../shared/shared.module';
 import { CardModule } from 'primeng/card';
 import { AppointmentsOverviewComponent } from './appointments-overview/appointments-overview.component';
 import { BtnCellRenderer } from './appointments-overview/btn-cell-renderer.component';
 import { InviterComponent } from './inviter/inviter.component';
 import { UpgradeLogComponent } from './history-log/upgrade-log/upgrade-log.component';
-import { SaveTimeSlotsComponent } from './editor/timeslots/save-timeslots/save-timeslots.component';
+import { SaveTimeSlotsComponent } from './timeslots/save-timeslots/save-timeslots.component';
 import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
@@ -64,12 +64,12 @@ import { DropdownModule } from 'primeng/dropdown';
     CustomersComponent,
     TimeslotsContainerComponent,
     TimeslotsDayComponent,
+    SaveTimeSlotsComponent,
     EditorComponent,
     AddUpgradeComponent,
     AppointmentsOverviewComponent,
     InviterComponent,
-    UpgradeLogComponent,
-    SaveTimeSlotsComponent
+    UpgradeLogComponent
   ],
   exports: [
 

@@ -48,7 +48,7 @@ namespace ApiProject.Controllers
                     list.Add(new TimeSlotGroupListDto()
                     {
                         Date = item.Key,
-                        TimeSlotGroups = z.Select(x => new TimeSlotGroupDto { StartTime = x.Key.StartTime, EndTime = x.Key.EndTime, Slots = x.Count() }).ToList()
+                        TimeSlotGroups = z.Select(x => new TimeSlotGroupDto { StartTime = x.Key.StartTime, EndTime = x.Key.EndTime, Slots = x.Count() }).OrderBy(t=> t.StartTime).ToList()
                     });
                 }
                 return list;
@@ -94,13 +94,40 @@ namespace ApiProject.Controllers
             }
         }
 
-        [Route("timeslot")]
+
+        [HttpPost]
+        [Route("single")] 
+        public async Task<ActionResult> createSingleTimeSlots(DeleteTimeSlotGroupDto input) // fix model
+        {
+            try
+            {         
+                _context.Add(new TimeSlot
+                {
+                    Date = input.Date,
+                    StartTime = input.StartTime,
+                    EndTime = input.EndTime,
+                    Available = true,
+                });
+
+                await _context.SaveChangesAsync();
+
+                return Ok(input);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
+        [Route("single")]
         [HttpDelete]
         public async Task<ActionResult> DeleteTimeSlot(DeleteTimeSlotGroupDto input)
         {
 
             var timeslotGroup = await _context.TimeSlots
-                                              .Where(a => a.Date == input.Day &&
+                                              .Where(a => a.Date == input.Date &&
                                                           a.StartTime == input.StartTime &&
                                                           a.EndTime == input.EndTime &&
                                                           a.Available)
@@ -120,7 +147,7 @@ namespace ApiProject.Controllers
         [Route("day")]
         public async Task<ActionResult> DeleteDayTimeSlot([FromBody] DateTime input)
         {
-            var date = input.Date.AddDays(1).Date;
+            var date = input.Date;
             var timeSlotDay = await _context.TimeSlots.Where(a => a.Date.Date == date).ToListAsync();
             if (timeSlotDay.Count() == 0)
             {
@@ -134,14 +161,14 @@ namespace ApiProject.Controllers
 
         // GET: api/Timeslots
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TimeSlot>>> GetAppointments()
+        public async Task<ActionResult<IEnumerable<TimeSlot>>> GetTimeslots()
         {
             return await _context.TimeSlots.ToListAsync();
         }
 
         // GET: api/Timeslot/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TimeSlot>> GetAppointment(Guid id)
+        public async Task<ActionResult<TimeSlot>> GetTimeslot(Guid id)
         {
             var appointment = await _context.TimeSlots.FindAsync(id);
 
@@ -157,7 +184,7 @@ namespace ApiProject.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAppointment(Guid id, TimeSlot appointment)
+        public async Task<IActionResult> PutTimeSlot(Guid id, TimeSlot appointment)
         {
             if (id != appointment.Id)
             {
@@ -172,7 +199,7 @@ namespace ApiProject.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AppointmentExists(id))
+                if (!TimeSlotExists(id))
                 {
                     return NotFound();
                 }
@@ -185,11 +212,11 @@ namespace ApiProject.Controllers
             return NoContent();
         }
 
-        // POST: api/Appointments
+        // POST: api/Timeslots
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Appointment>> PostAppointment(TimeSlot appointment)
+        public async Task<ActionResult<Appointment>> PostTimeSlot(TimeSlot appointment)
         {
             _context.TimeSlots.Add(appointment);
             await _context.SaveChangesAsync();
@@ -197,9 +224,9 @@ namespace ApiProject.Controllers
             return CreatedAtAction("GetAppointment", new { id = appointment.Id }, appointment);
         }
 
-        // DELETE: api/Appointments/5
+        // DELETE: api/Timeslot/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TimeSlot>> DeleteAppointment(Guid id)
+        public async Task<ActionResult<TimeSlot>> DeleteTimeSlot(Guid id)
         {
             var appointment = await _context.TimeSlots.FindAsync(id);
             if (appointment == null)
@@ -213,7 +240,7 @@ namespace ApiProject.Controllers
             return appointment;
         }
 
-        private bool AppointmentExists(Guid id)
+        private bool TimeSlotExists(Guid id)
         {
             return _context.TimeSlots.Any(e => e.Id == id);
         }

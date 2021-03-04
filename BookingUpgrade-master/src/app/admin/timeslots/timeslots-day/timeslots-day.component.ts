@@ -26,12 +26,12 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
   showTimeSlots = true;
   selectedTimeSlotId = undefined;
   selectedTimeSlotTime: any;
+  visable: boolean = true;
 
   constructor(private httpClient: HttpClient,
     private _timeSlotService: TimeSlotService,
   ) { }
 
-  //   window.location.href.indexOf('admin') > 0 ? this.isAdmin = true : this.isAdmin = false;
   ngOnInit(): void {
 
   }
@@ -39,7 +39,8 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
   setClasses() {
     let classes = {
       day: true,
-      selected: this.selected
+      selected: this.selected,
+      removed: !this.visable,
     }
     return classes;
   }
@@ -111,19 +112,18 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
     })
   }
 
-  DeleteDayTimeSlots(date: any) {
+  deleteDayTimeSlots(date: any) {
     let obj = {
       "date": date
     };
     this._timeSlotService.deleteDayTimeSlots(obj).subscribe(result => {
-console.log("delete this:", obj)
+    this.visable = false;
     });
   }
 
   deleteTimeSlot(date: any, timeSlot: any, index: number) {
 
     let obj = {
-      "upgradeId": this.upgradeId,
       "date": date,
       "startTime": timeSlot.startTime,
       "endTime": timeSlot.endTime
@@ -131,6 +131,19 @@ console.log("delete this:", obj)
 
     this._timeSlotService.deleteTimeSlot(obj).subscribe((result: any) => {
       timeSlot.slots--;
+    })
+  }
+
+ addTimeSlot(date: any, timeSlot: any, index: number) {
+
+    let obj = {
+      "date": date,
+      "startTime": timeSlot.startTime,
+      "endTime": timeSlot.endTime
+    };
+
+    this._timeSlotService.addTimeSlot(obj).subscribe((result: any) => {
+      timeSlot.slots++;
     })
   }
 

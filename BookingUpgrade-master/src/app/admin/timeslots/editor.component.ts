@@ -1,7 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UpgradeService } from 'src/app/shared/services/upgrade.service';
-import { SaveTimeSlotsComponent } from './timeslots/save-timeslots/save-timeslots.component';
+import { SaveTimeSlotsComponent } from './save-timeslots/save-timeslots.component';
 
 @Component({
   selector: 'app-editor',

@@ -1,3 +1,4 @@
+import { UpgradeService } from 'src/app/shared/services/upgrade.service';
 import { environment } from '../../../environments/environment';
 import { Time } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -17,20 +18,17 @@ export class AddUpgradeComponent implements OnInit {
   // @ViewChild(SetTimeComponent) child:SetTimeComponent;
 
   upgradeVersion!: string;
-  startDate!: any;
-  endDate!: Date;
-  upgradeHoursPerDay!: number;
   duration!: string;
   upgradeHours: Time[] = [];
 
-  appointments: Appointment[] = [];
   shortDescription = '';
   fileToUpload: any;
 
 
-  constructor(private httpClient: HttpClient,
+  constructor(private httpClient: HttpClient, private upgradeService: UpgradeService,
     private eventbus: EventBusService,) { }
 
+    //to be removed??
   ngOnInit(): void {
     this.eventbus.emit(new EmitEvent('hideUpgrade', null));
   }
@@ -54,12 +52,18 @@ export class AddUpgradeComponent implements OnInit {
     formData.append('description', this.shortDescription);
     formData.append('durationMin', this.duration);
 
-    let url = environment.apiEndpoint;
-    url = url + "/api/upgrade";
+    // let url = environment.apiEndpoint;
+    // url = url + "/api/upgrade";
 
-    this.httpClient.post(url, formData, { headers: _headers }).subscribe(() => {
+    // this.httpClient.post(url, formData, { headers: _headers }).subscribe(() => {
+    //   window.location.href = 'http://localhost:4200/'
+    // })
+
+
+    this.upgradeService.addUpgrade(formData).subscribe(() => {
       window.location.href = 'http://localhost:4200/'
     })
+
 
   }
 

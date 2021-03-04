@@ -23,27 +23,32 @@ export class TimeSlotService {
 
 
   //Used by timeslot generator
-  saveTimeSlots(data: any) {
+  createMultipleTimeSlots(data: any) {
     return this.http.post(`${this.timeSlotsUrl}multiple`, data, { headers: this.headers });
   }
 
 
-
+  //Used by minus button
   deleteTimeSlot(data: any) {
+
+    console.log("data from delete:", data)
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
       body: {
-        "day": data.date,
+        "date": data.date,
         "startTime": data.startTime,
         "endTime": data.endTime,
       },
     };
-    return this.http.delete(`${this.timeSlotsUrl}timeslot`, options)
+    return this.http.delete(`${this.timeSlotsUrl}single`, options)
   }
 
-
+  //Used by minus button
+  addTimeSlot(data: any) {
+    return this.http.post(`${this.timeSlotsUrl}single`, data, { headers: this.headers });
+  }
 
   deleteDayTimeSlots(data: any) {
     const options = {
@@ -52,6 +57,7 @@ export class TimeSlotService {
       }),
       body: new Date(data.date)
     };
+    console.log(options);
     return this.http.delete(`${this.timeSlotsUrl}day`, options)
   }
 

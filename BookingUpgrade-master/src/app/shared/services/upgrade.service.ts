@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class UpgradeService {
 
-  baseUrl = environment.apiEndpoint;
+  baseUrl = environment.apiEndpoint + "/api/upgrade";
   headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
@@ -15,11 +15,11 @@ export class UpgradeService {
   }
 
   getUpgrades() {
-    return this.http.get(this.baseUrl + '/api/upgrade')
+    return this.http.get(this.baseUrl)
   }
 
   downloadUpgradeFile(upgradeId: string) {
-    let url = this.baseUrl + '/api/upgrade/GetUpgradeFile?upgradeId=' + upgradeId;
+    let url = this.baseUrl + '/?upgradeId=' + upgradeId+'/file';
     return this.http
       .request(
         new HttpRequest("GET", url, null, {
@@ -28,13 +28,9 @@ export class UpgradeService {
         })
       )
   }
-  
 
+  addUpgrade(formData: any){
+    return this.http.post(this.baseUrl, formData, { headers: this.headers })
+  }
 
 }
-
-// getUpgrades(){
-//   return this.http.get(this.upgradesUrl,{ headers: new HttpHeaders({  // get<Upgrades[]>(this.upgradesUrl);
-//     'Content-Type': 'application/json'
-//   } )})
-// }

@@ -1,4 +1,4 @@
-import { EditorComponent } from './editor/editor.component';
+import { EditorComponent } from './timeslots/editor.component';
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { AdminComponent } from "./admin.component";

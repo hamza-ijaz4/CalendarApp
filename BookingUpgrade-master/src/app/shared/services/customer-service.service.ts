@@ -24,7 +24,6 @@ export class CustomerService {
   }
 
   saveAppointments(data: any) {
-    console.log("svve made with data", data)
     return this.http.post(`${this.bookingUrl}bookingInvites`, data, { headers: this.headers })
   }
 
@@ -32,6 +31,6 @@ export class CustomerService {
     return this.http.get(this.bookingUrl + appointmentId)
   }
 
-  
+
 
 }

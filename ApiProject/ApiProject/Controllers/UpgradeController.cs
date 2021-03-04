@@ -93,9 +93,8 @@ namespace ApiProject.Controllers
         }
 
 
-        [HttpPost]
-       // [Route("api/upgrade")]
-        public async Task<ActionResult> CreateUpgradeAndTimeSlots()
+        [HttpPost] 
+        public async Task<ActionResult> CreateUpgrade()
         {
             try
             {

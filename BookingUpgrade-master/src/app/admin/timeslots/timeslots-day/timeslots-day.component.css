@@ -59,6 +59,10 @@
   position: relative;
 }
 
+.removed{
+  display: none;
+}
+
 h3 {
   margin: 6px;
   font-weight: 300;
