@@ -1,3 +1,5 @@
+import { AppointmentService } from 'src/app/shared/services/appointment.service';
+import { appointments } from './../../models/CreateAppointmentDto';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { CustomerService } from 'src/app/shared/services/customer-service.service';
 
@@ -25,7 +27,8 @@ export class InviterComponent implements OnInit {
   constructor(
     private upgradeService: UpgradeService,
     private customerService: CustomerService,
-    private messageService: MessageService)
+    private messageService: MessageService,
+    private appointmentService: AppointmentService)
     {
     this.rowSelection = 'multiple';
     }
@@ -33,7 +36,6 @@ export class InviterComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log("upgradeId: ", this.upgradeId)
     this.getUpgrades();
     this.getCustomers();
   }
@@ -63,12 +65,6 @@ export class InviterComponent implements OnInit {
     return '';
   }
 
-  hasAppointment(value: any) {
-    if (value)
-      return 'Yes'
-    return 'No'
-  }
-
   isRowSelectable = function (rowData:any) {
 
      return !rowData.data.gotAppointment;
@@ -82,7 +78,6 @@ export class InviterComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("change triggered");
     if (changes.upgradeId.currentValue) {
       if (this.upgradeId) {
 
@@ -94,17 +89,6 @@ export class InviterComponent implements OnInit {
     this.gridApi = params.api;
   }
 
-
-  getCustomers() {
-    console.log("getCustomer")
-    this.customerService.getCustomers().subscribe((result: any) => {
-      this.items = result;
-      this.rowData = result
-
-      console.log(this.rowData)
-    })
-  }
-
   setClasses() {
     let classes = {
       day: true,
@@ -113,13 +97,18 @@ export class InviterComponent implements OnInit {
     return classes;
   }
 
+  getCustomers() {
+    this.customerService.getCustomers().subscribe((result: any) => {
+      this.items = result;
+      this.rowData = result
 
+      console.log(this.rowData)
+    })
+  }
 
-  save() {
+  createInvites() {
     if (!this.upgradeId)
       return;
-
-
 
     let selectedNodes = this.gridApi.getSelectedNodes();
     if (selectedNodes.length == 0)
@@ -132,7 +121,7 @@ export class InviterComponent implements OnInit {
       "upgradeId": this.upgradeId
     }
 
-    this.customerService.saveAppointments(obj).subscribe(() => {
+    this.appointmentService.createAppointmentsInvites(obj).subscribe(() => {
       this.messageService.add({ severity: 'success', summary: 'Invited successfully' });
       console.log("invite sent")
       this.getCustomers();

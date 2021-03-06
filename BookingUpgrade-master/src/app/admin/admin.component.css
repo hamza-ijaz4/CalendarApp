@@ -20,3 +20,6 @@
   color: whitesmoke;
 }
 
+body{
+  background: radial-gradient(rgb(122, 122, 122), rgb(32, 32, 32) ) !important;
+}

@@ -108,13 +108,6 @@ namespace ApiProject.Controllers
                 var Description = HttpContext.Request.Form["description"];
                 var DurationMin = Convert.ToInt32(HttpContext.Request.Form["durationMin"]);
 
-                #region old code
-                //var EndDate = Convert.ToDateTime(HttpContext.Request.Form["endDate"]);
-                //var StartDate = Convert.ToDateTime(HttpContext.Request.Form["startDate"]);
-                //var timeGroupsJson = HttpContext.Request.Form["timeGroupsJson"];
-                //var timegroups = JsonConvert.DeserializeObject<List<TimeSlotGroupDto>>(timeGroupsJson);
-
-                #endregion
                 
                 var upgrade = new Upgrade()
                 {
@@ -134,28 +127,6 @@ namespace ApiProject.Controllers
 
                 _context.Upgrades.Add(upgrade);
                 await _context.SaveChangesAsync();
-
-                #region old code
-
-                //for (var dt = StartDate; dt <= EndDate; dt = dt.AddDays(1))
-                //{
-                //    timegroups.ForEach(t =>
-                //    {
-                //        for (int s = 0; s < t.Slots; s++)
-                //        {
-                //            _context.Add(new TimeSlot
-                //            {
-                //                Date = dt,
-                //                StartTime = t.StartTime,
-                //                EndTime = new TimeSpan(t.StartTime.Days, t.StartTime.Hours, t.StartTime.Minutes + DurationMin, t.StartTime.Seconds),
-                //                Available = true,
-                //            });
-                //        }
-
-                //    });
-                //}
-
-                #endregion
 
                 _context.SaveChanges();
                 return Ok();
@@ -208,6 +179,19 @@ namespace ApiProject.Controllers
 
 
 
+        [HttpGet("{appointmentId}/appointment")]
+        public async Task<ActionResult<Guid>> GetUpgradeByAppointmentId(Guid appointmentId)
+        {
+            var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Id == appointmentId);
+
+
+            if (appointment == null || appointment.Status != AppointmentStatus.Invited) //Return an allready booked appointment message
+            {
+                return NotFound();
+            }
+
+            return appointment.UpgradeId;
+        }
 
 
     }

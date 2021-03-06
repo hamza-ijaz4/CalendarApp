@@ -21,15 +21,15 @@ namespace ApiProject.Controllers
             _context = context;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Appointment>>> GetBookedAppointments()
-        //{
-        //    return await _context.Appointments.ToListAsync();
-        //}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Appointment>>> GetBookedAppointments()
+        {
+            return await _context.Appointments.ToListAsync();
+        }
 
-        // GET: api/Appointments
-        [HttpGet("active")]
-        public async Task<ActionResult<List<AppointmentListDto>>> GetAppointments()
+
+        [HttpGet("active")] //IN USE
+        public async Task<ActionResult<List<AppointmentListDto>>> GetActiveAppointments()
         {
             var query = _context.Appointments.Where(a => a.Status == AppointmentStatus.Booked || a.Status == AppointmentStatus.Invited).Include(a => a.CustomerFk).Include(a => a.TimeSlotFk).Include(a => a.UpgradeFk);
 
@@ -54,7 +54,7 @@ namespace ApiProject.Controllers
 
         }
 
-        [HttpGet("historic")]
+        [HttpGet("historic")] //IN USE
         public async Task<ActionResult<List<AppointmentListDto>>> GetHistoricAppointments()
         {
             var query = _context.Appointments.Where(a => a.Status == AppointmentStatus.Cancelled || a.Status == AppointmentStatus.Completed);
@@ -93,7 +93,7 @@ namespace ApiProject.Controllers
             return appointment;
         }
 
-        [HttpPatch("status")]
+        [HttpPatch("status")] //IN USE
         public async Task<ActionResult<Appointment>> UpdateAppointmentStatus(AppointmentStatusDto statusDto)
         {
             var appointment = await _context.Appointments.FindAsync(statusDto.Id);
@@ -112,7 +112,7 @@ namespace ApiProject.Controllers
 
 
 
-        [HttpGet("{herId}")]
+        [HttpGet("{herId}")] //IN USE??
         public async Task<ActionResult<Appointment>> GetAppointmentByHerId(string HerId)
         {
             var appointment = await _context.Appointments.FindAsync(HerId);
@@ -125,52 +125,64 @@ namespace ApiProject.Controllers
             return appointment;
         }
 
-
-        [HttpPut("booking")]
-        public async Task<ActionResult> SaveBooking([FromBody] BookingDto input) // by customer
+        [HttpPost]
+        public async Task<ActionResult> CreateAppointmentInvites(CreateAppointmentInviteDto input)
         {
+            try
+            {
+                if (input.CustomerIds?.Count == 0)
+                    return BadRequest("Customers count should not be null");
 
-            var TimeSlots = await _context.TimeSlots.FirstOrDefaultAsync(a => a.Date == input.Day && a.StartTime.Hours == input.Time && a.Available);
-            if (TimeSlots == null)
-                return BadRequest("Required time slot found");
+                var upgrade = await _context.Upgrades.FirstOrDefaultAsync(u => u.Id == input.UpgradeId);
+                //Check wether there is an existing active appointment
 
-            var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.CustomerId == input.CustomerId);
+                //Duplcation of invites should not be possible     
+                var list = new List<Appointment>();
+                input.CustomerIds?.ForEach(a =>
+                {
+                    list.Add(new Appointment() { CustomerId = a, UpgradeId = input.UpgradeId, Status = AppointmentStatus.Invited });
+                });
 
-            appointment.Status = AppointmentStatus.Booked;
-            appointment.TimeSlotId = TimeSlots.Id;
+                _context.Appointments.AddRange(list);
+                await _context.SaveChangesAsync();
 
-            _context.Appointments.Add(appointment);
-            await _context.SaveChangesAsync();
-
-            TimeSlots.Available = false;
-            _context.TimeSlots.Update(TimeSlots);
-            await _context.SaveChangesAsync();
-
-            return Ok();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 
-        // POST: api/Appointments
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Appointment>> CreateAppointment(AppointmentDto input) // by Admin
+        [Route("updateUpgrade")]
+        public async Task<ActionResult> UpdateUpgradeVersion(UpdateAppointmentInvites input)
         {
-            //var ExistingAppointment = await _context.Appointments.FirstOrDefaultAsync(a => a.HerId == input.HerId);
-            var ExistingAppointment = await _context.Appointments.FirstOrDefaultAsync(a => a.CustomerId == input.CustomerId);
-            if (ExistingAppointment != null)
-                return BadRequest("Appointment already exists");
-
-            var appointment = new Appointment()
+            try
             {
-                //HerId = input.HerId,
-                UpgradeId = input.UpgradeId,
-                Status = AppointmentStatus.Invited
-            };
-            _context.Appointments.Add(appointment);
-            await _context.SaveChangesAsync();
+                if (input.AppointmentIds?.Count == 0)
+                    return BadRequest("Customers count should not be null");
 
-            return CreatedAtAction("GetAppointment", new { id = appointment.Id }, appointment);
+                var upgrade = await _context.Upgrades.FirstOrDefaultAsync(u => u.Id == input.UpgradeId);
+
+                var list = _context.Appointments
+                                  .Where(a => input.AppointmentIds.Any(id => id == a.Id))
+                                  .ToList();
+
+                list.ForEach(a =>
+                   a.UpgradeId = input.UpgradeId
+                );
+
+                _context.Appointments.UpdateRange(list);
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 
@@ -194,5 +206,39 @@ namespace ApiProject.Controllers
         {
             return _context.Appointments.Any(e => e.Id == id);
         }
+
+
+        [HttpPost]
+        [Route("time")]
+        public async Task<ActionResult> SetAppointmentTime(BookTimeDto input)
+        {
+
+            var timeSlots = await _context.TimeSlots.FirstOrDefaultAsync(a => a.Date == input.Day &&
+                                                                         a.StartTime == input.StartTime &&
+                                                                         a.Available);
+
+            if (timeSlots == null)
+                return BadRequest("No timeslot found");
+
+            var appointment = await _context.Appointments.FirstOrDefaultAsync(a => a.Id == input.AppointmentId);
+            if (appointment == null)
+                return NotFound("No appointment found");
+
+
+            timeSlots.Available = false;
+            _context.TimeSlots.Update(timeSlots);
+            await _context.SaveChangesAsync();
+
+
+            appointment.Status = AppointmentStatus.Booked;
+            appointment.TimeSlotId = timeSlots.Id;
+            _context.Appointments.Update(appointment);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+
     }
 }

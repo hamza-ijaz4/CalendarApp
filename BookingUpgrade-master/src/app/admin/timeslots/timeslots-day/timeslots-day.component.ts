@@ -28,9 +28,7 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
   selectedTimeSlotTime: any;
   visable: boolean = true;
 
-  constructor(private httpClient: HttpClient,
-    private _timeSlotService: TimeSlotService,
-  ) { }
+  constructor(  private _timeSlotService: TimeSlotService ) { }
 
   ngOnInit(): void {
 
@@ -92,25 +90,6 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
     this.selectedTimeSlotTime = data;
   }
 
-  saveBooking(day: any) {
-
-    if (!this.selectedTimeSlotTime)
-      return;
-
-    let _headers = new HttpHeaders();
-    _headers.append('Content-Type', 'application/json')
-
-    let url = environment.apiEndpoint;
-    url = url + "/api/booking";
-    const booking: BookingDto = {
-      day: day,
-      time: this.selectedTimeSlotTime.hours,
-      herId: "23f832ce-72e7-4c30-8aac-04271489cfb7"
-    };
-    this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
-      window.location.href = 'http://localhost:4200/';
-    })
-  }
 
   deleteDayTimeSlots(date: any) {
     let obj = {

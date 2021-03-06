@@ -30,25 +30,25 @@
     flex-grow: 1;
     width: 90%;
     height: 35px;
-    background-color: rgb(54, 150, 9);
+    background-color: rgb(187, 187, 187);
     border-style: solid;
     border-color: black;
     border-width: 2px;
     margin: 10px;
     transition-duration: 0.4s;
-    border-radius: 10px;
+    border-radius: 4px;
   }
 
   .slot:hover {
-    background-color: #1e7423;
+    background-color: rgb(119, 119, 119);
     cursor: pointer;
 
     position: relative;
   }
 
   h3 {
-    padding: 8px;
-    margin: 6px;
+    padding-top: 8px;
+    margin: 4px;
     font-weight: 300;
     font-weight: bold;
     text-align: center;

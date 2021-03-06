@@ -90,13 +90,13 @@ export class AppointmentsOverviewComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getBookedAppointments();
+    this.getActiveAppointments();
     this.getUpgrades();
 
   }
 
-  getBookedAppointments(){
-    this.appointmentService.getBookedAppointments().subscribe((result: any) => {
+  getActiveAppointments(){
+    this.appointmentService.getActiveAppointments().subscribe((result: any) => {
       this.bookedAppointmentList = result;
       this.rowData = result;
    })
@@ -113,7 +113,7 @@ export class AppointmentsOverviewComponent implements OnInit {
       console.log(result);
     //  this.rowData = result;
 
-    this.getBookedAppointments()
+    this.getActiveAppointments()
 
     });
   }
@@ -126,7 +126,7 @@ export class AppointmentsOverviewComponent implements OnInit {
       console.log(result);
     //  this.rowData = result;
 
-    this.getBookedAppointments();
+    this.getActiveAppointments();
 
     });
 
@@ -166,10 +166,10 @@ export class AppointmentsOverviewComponent implements OnInit {
 
     console.log("obj2", obj2)
 
-    this.appointmentService.updateAppointment(obj).subscribe(() => {
+    this.appointmentService.updateAppointmentUpgrade(obj).subscribe(() => {
       //this.messageService.add({ severity: 'success', summary: 'Invited successfully' });
 
-      this.getBookedAppointments();
+      this.getActiveAppointments();
     });
   }
 

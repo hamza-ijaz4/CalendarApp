@@ -18,7 +18,7 @@ import { AgGridModule } from 'ag-grid-angular';
 
 //components
 import { AdminComponent } from './admin.component';
-import { CustomersComponent } from './history-log/customers/customers.component';
+
 import { EditorComponent } from './timeslots/editor.component';
 import { AdminRoutingModule } from './admin-routig.module';
 import { AddUpgradeComponent } from './add-upgrade/add-upgrade.component';
@@ -61,7 +61,7 @@ import { DropdownModule } from 'primeng/dropdown';
   declarations: [
     AdminComponent,
     BtnCellRenderer,
-    CustomersComponent,
+
     TimeslotsContainerComponent,
     TimeslotsDayComponent,
     SaveTimeSlotsComponent,

@@ -2,6 +2,10 @@
     height: 80px;
 }
 
+h1{
+  height: 60px;
+
+}
 
 #upgradeSelector{
     position: relative;
@@ -14,10 +18,10 @@
 #header-title{
     text-align: center;
     margin: 6px;
-    padding: 5px;
-    color: whitesmoke;
-
-    border-bottom: solid whitesmoke;
+    padding: 10px;
+    color: #ff2e2e;
+    font-family: Helvetica, sans-serif;
+    border-bottom: solid  #ff2e2e;;
 
 
 }

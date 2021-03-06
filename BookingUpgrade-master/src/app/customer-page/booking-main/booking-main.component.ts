@@ -13,14 +13,14 @@ import { UpgradeService } from 'src/app/shared/services/upgrade.service';
 export class BookingMainComponent implements OnInit {
   appointmentId: string = "";
   upgradeId: string = "";
-  constructor(private upgradeService: UpgradeService, private bookingService: CustomerService, private route: ActivatedRoute) { }
+  constructor(private upgradeService: UpgradeService, private customerService: CustomerService, private route: ActivatedRoute) { }
 
 
   ngOnInit(): void {
     let appointmentQuery = this.route.snapshot.paramMap.get('appointmentId'); //move one level down? And pass as input to days
     console.log("appointmentQuery", appointmentQuery)
     this.appointmentId += appointmentQuery;
-    this.bookingService.getUpgradeIdByAppointmentId(this.appointmentId).subscribe((result: any) => {
+    this.upgradeService.getUpgradeIdByAppointmentId(this.appointmentId).subscribe((result: any) => {
       this.upgradeId = result;
 
     })

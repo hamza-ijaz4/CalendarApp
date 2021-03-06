@@ -1,15 +1,15 @@
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EmitEvent, EventBusService } from 'src/app/shared/services/event-bus-service';
-import { TimeSlotService } from 'src/app/shared/services/time-slot.service';
-import { environment } from '../../../environments/environment';
+import { AppointmentService } from 'src/app/shared/services/appointment.service';
+import { EventBusService } from 'src/app/shared/services/event-bus-service';
+import { getDay, parseISO } from 'date-fns'
 
 export interface BookingDto {
   day: any,
   StartTime: any,
   AppointmentId: string,
-  // upgradeId: string
 }
 
 @Component({
@@ -23,6 +23,7 @@ export class BookingDaysComponent implements OnInit, OnChanges { //
   @Input() upgradeId: string | undefined;
   items: any[] = [];
   hours: any;
+  dayName!: string;
   selected: boolean = false;
   showTimeSlots = true;
   selectedTimeSlotId = undefined;
@@ -30,9 +31,7 @@ export class BookingDaysComponent implements OnInit, OnChanges { //
   appointmentId: string = "";
 
 
-  constructor(private httpClient: HttpClient,
-    private _timeSlotService: TimeSlotService,
-    private eventbus: EventBusService, private route: ActivatedRoute) { }
+  constructor(private appointmentService: AppointmentService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     // window.location.href.indexOf('admin') > 0 ? this.isAdmin = true : this.isAdmin = false;
@@ -52,7 +51,7 @@ export class BookingDaysComponent implements OnInit, OnChanges { //
   ngOnChanges(changes: SimpleChanges) {
     if (changes.day.currentValue)
       this.day = changes.day.currentValue;
-    console.log("on change call from days", this.day);
+      this.dayName = this.getDayName(this.day);
 
   }
 
@@ -62,31 +61,67 @@ export class BookingDaysComponent implements OnInit, OnChanges { //
     return ' AM';
   }
 
+
+
+  getDayName(date:any){
+    console.log("date: ", date.date);
+    let day: string;
+    switch (getDay(parseISO(date.date))) {
+      case 0:
+        day = "Søndag";
+        break;
+      case 1:
+        day = "Mandag";
+        break;
+      case 2:
+         day = "Tirsdag";
+        break;
+      case 3:
+        day = "Onsdag";
+        break;
+      case 4:
+        day = "Torsdag";
+        break;
+      case 5:
+        day = "Fredag";
+        break;
+      case 6:
+        day = "Lørdag";
+    }
+    console.log( day);
+    return day;
+  }
+
+
   selectedTime(data: any) {
     this.selectedTimeSlotTime = data;
     console.log(data)
   }
+
+
+
 
   bookTime(day: any) {
 
     if (!this.selectedTimeSlotTime)
       return;
 
-    let _headers = new HttpHeaders();
-    _headers.append('Content-Type', 'application/json')
+    // let _headers = new HttpHeaders();
+    // _headers.append('Content-Type', 'application/json')
 
-    let url = environment.apiEndpoint;
-    url = url + "/api/booking/bookTime";
+    // let url = environment.apiEndpoint;
+    // url = url + "/api/booking/bookTime";
     const booking: BookingDto = {
       day: day,
       StartTime: this.selectedTimeSlotTime,
       AppointmentId: this.appointmentId
 
     };
-    console.log("Selected Timeslot", this.selectedTimeSlotTime, "day", day, "appointmentId ", this.appointmentId)
-    this.httpClient.post(url, booking, { headers: _headers }).subscribe(result => {
+
+    this.appointmentService.setAppointmentTime(booking).subscribe(result => {
       window.location.href = 'http://localhost:4200/';
     })
+
   }
 
 

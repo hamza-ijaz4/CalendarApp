@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AppointmentService {
-  bookingUrl: string = environment.apiEndpoint + "/api/booking";
+
   appontmentUrl: string = environment.apiEndpoint + "/api/Appointments";
 
   headers: HttpHeaders;
@@ -17,7 +17,11 @@ export class AppointmentService {
   }
 
 
-  getBookedAppointments(){
+  createAppointmentsInvites(data: any) {
+    return this.http.post(this.appontmentUrl, data, { headers: this.headers })
+  }
+
+  getActiveAppointments(){
     return this.http.get(this.appontmentUrl+"/active")
 
   }
@@ -42,8 +46,15 @@ export class AppointmentService {
     return this.http.get(this.appontmentUrl+ "/historic")
   }
 
-  updateAppointment(data: any) {
+  updateAppointmentUpgrade(data: any) {
     console.log("data", data)
-    return this.http.post(`${this.bookingUrl}/updateinvites`, data, { headers: this.headers })
+    return this.http.post(`${this.appontmentUrl}/updateUpgrade`, data, { headers: this.headers })
   }
+
+  setAppointmentTime(data: any){
+
+    return this.http.post(`${this.appontmentUrl}/time`, data, { headers: this.headers })
+  }
+
+
 }
