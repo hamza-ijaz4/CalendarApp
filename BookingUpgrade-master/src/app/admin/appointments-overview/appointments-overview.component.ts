@@ -1,23 +1,38 @@
-import { appointments } from '../../models/CreateAppointmentDto';
-import { HttpClient } from '@angular/common/http';
+import { appointments } from './../../models/CreateAppointmentDto';
+import { HelpersService } from './../../shared/services/helpers.service';
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Grid } from 'ag-grid-community';
 import { AppointmentService } from 'src/app/shared/services/appointment.service';
 import { BtnCellRenderer } from './btn-cell-renderer.component';
 import { UpgradeService } from 'src/app/shared/services/upgrade.service';
+
+
+
+interface activeAppointment {
+  appointmentDate: Date;
+  appointmentId: string;
+  appointmentTime: string;
+  bookedBy: null | string;
+  customerId: string;
+  customerName: string;
+  herId: number;
+  status: number;
+  upgradeVersion: number;
+  upgradeVersionId: string;
+  day: string;
+  };
 
 @Component({
   selector: 'app-appointments-overview',
   templateUrl: './appointments-overview.component.html',
   styleUrls: ['./appointments-overview.component.css']
 })
+
 export class AppointmentsOverviewComponent implements OnInit {
-  bookedAppointmentList: any;
+  appointmentList!: activeAppointment[];
   appointmentUrl: string = environment.apiEndpoint + "/api/Appointment/booked"
   private gridApi: any;
   private gridColumnApi: any;
-  public rowData: any;
   rowSelection: any;
 
   upgradeId!: string;
@@ -28,9 +43,9 @@ export class AppointmentsOverviewComponent implements OnInit {
 
 
     constructor(
-      private httpClient: HttpClient,
       private appointmentService: AppointmentService,
-      private upgradeService: UpgradeService
+      private upgradeService: UpgradeService,
+      private helpersService: HelpersService,
    )
       {
         this.frameworkComponents = {
@@ -41,6 +56,7 @@ export class AppointmentsOverviewComponent implements OnInit {
 
   columnDefs = [
     { field: 'appointmentDate', headerName: "Date", sortable: true, filter: true, width: 150 },
+    { field: 'day', headerName: "Day", filter: true , width: 100},
     { field: 'appointmentTime', headerName: "Time", sortable: true, filter: true , width: 150},
     { field: 'status', cellRenderer: (params: any) => { return this.getAppointmentStatusString(params.value) }, headerName: "Appointment Status", sortable: true, filter: true },
 
@@ -97,8 +113,14 @@ export class AppointmentsOverviewComponent implements OnInit {
 
   getActiveAppointments(){
     this.appointmentService.getActiveAppointments().subscribe((result: any) => {
-      this.bookedAppointmentList = result;
-      this.rowData = result;
+      this.appointmentList = result;
+      for (let index = 0; index < this.appointmentList.length; index++) {
+        const element = this.appointmentList[index];
+        this.appointmentList[index].day = this.helpersService.getDayName(element.appointmentDate) || '';
+
+      }
+      console.log(this.appointmentList)
+      console.log(this.appointmentList[1].upgradeVersion)
    })
   }
 

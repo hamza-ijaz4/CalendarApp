@@ -6,7 +6,8 @@ import { environment } from 'src/environments/environment';
 export class CustomerService {
 
   upgradeUrl = environment.apiEndpoint + "/api/upgrade/"
-  customerUrl: string = environment.apiEndpoint + "/api/customers/";
+  //customerUrl: string = environment.apiEndpoint + "/api/customers/";
+  customerUrl: string = environment.apiEndpoint + "/api/client/";
   headers: HttpHeaders
 
   constructor(private http: HttpClient) {

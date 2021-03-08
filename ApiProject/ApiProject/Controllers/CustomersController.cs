@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Cors;
 namespace ApiProject.Controllers
 {
     [EnableCors("Default")]
-    [Route("api/[controller]")]
+  //  [Route("api/[controller]")]
+    [Route("api/client")]
     [ApiController]
     public class CustomersController : ControllerBase
     {

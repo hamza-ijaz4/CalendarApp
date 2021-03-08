@@ -108,6 +108,13 @@ namespace ApiProject.Controllers
                 var Description = HttpContext.Request.Form["description"];
                 var DurationMin = Convert.ToInt32(HttpContext.Request.Form["durationMin"]);
 
+                #region old code
+                //var EndDate = Convert.ToDateTime(HttpContext.Request.Form["endDate"]);
+                //var StartDate = Convert.ToDateTime(HttpContext.Request.Form["startDate"]);
+                //var timeGroupsJson = HttpContext.Request.Form["timeGroupsJson"];
+                //var timegroups = JsonConvert.DeserializeObject<List<TimeSlotGroupDto>>(timeGroupsJson);
+
+                #endregion
                 
                 var upgrade = new Upgrade()
                 {

@@ -31,6 +31,8 @@ export class TimeslotsContainerComponent implements OnInit, OnChanges { //
     this.timeslotService.getTimeSlotDays()
       .subscribe((result: any) => {
         this.timeSlotDays = result
+
+        console.log("HERE IS RESULT", result)
       });
   }
 

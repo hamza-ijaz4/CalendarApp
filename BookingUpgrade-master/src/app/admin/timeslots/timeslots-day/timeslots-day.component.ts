@@ -46,8 +46,8 @@ export class TimeslotsDayComponent implements OnInit, OnChanges { //
   ngOnChanges(changes: SimpleChanges) {
     if (changes.day && changes.day.currentValue)
       this.day = changes.day.currentValue;
-    console.log("on change call from days", this.day);
-    this.dayName = this.getDayName(this.day);
+      console.log("on change call from days", this.day);
+      this.dayName = this.getDayName(this.day);
   }
 
   get12HourTime(data: any) {
